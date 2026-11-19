@@ -290,16 +290,28 @@
 }
 
 .brand-logo {
-  width: 44px; /* 加大 logo (was 40px) */
+  width: 44px;
   height: 44px;
-  border-radius: 16px;
-  background: var(--gradient-primary);
-  color: white;
+  border: 0;
+  padding: 0;
+  border-radius: 13px;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-sm);
-  cursor: default;
+  cursor: pointer;
+}
+
+.brand-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.brand-logo:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
 }
 
 .nav-items {
@@ -492,7 +504,7 @@
   --side-nav-classic-brand-margin-inline-scaled: calc(6px * var(--side-nav-classic-adaptive-scale));
   --side-nav-classic-logo-size-scaled: calc(40px * var(--side-nav-classic-adaptive-scale));
   --side-nav-classic-logo-radius-scaled: calc(12px * var(--side-nav-classic-adaptive-scale));
-  --side-nav-classic-brand-title-font-size-scaled: calc(14px * var(--side-nav-classic-adaptive-scale));
+  --side-nav-classic-brand-title-font-size-scaled: calc(16px * var(--side-nav-classic-adaptive-scale));
   --side-nav-classic-nav-items-gap-scaled: calc(4px * var(--side-nav-classic-adaptive-scale));
   --side-nav-classic-nav-items-padding-inline-scaled: calc(6px * var(--side-nav-classic-adaptive-scale));
   --side-nav-classic-nav-items-padding-top-scaled: calc(4px * var(--side-nav-classic-adaptive-scale));
@@ -582,7 +594,8 @@
   font-size: var(--side-nav-classic-brand-title-font-size-scaled);
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: 0.01em;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
   min-width: 0;
   white-space: nowrap;
   overflow: hidden;

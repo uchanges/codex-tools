@@ -1,3 +1,5 @@
+import brandMark from '../assets/brand/codex-tools.svg';
+import { APP_NAME } from '../branding';
 import { useEffect, useState } from 'react';
 import { UnlockFireworksOverlay } from '../components/UnlockFireworksOverlay';
 import { SettingsAccountTransferSection } from '../components/SettingsAccountTransferSection';
@@ -7,7 +9,7 @@ import { AntigravityMenuBarQuotaSelect } from '../components/AntigravityMenuBarQ
 import { CodexProxyDirectHosts } from '../components/codex/CodexProxyDirectHosts';
 import { SingleSelectDropdown } from '../components/SingleSelectDropdown';
 import './settings/Settings.css';
-import { Github, User, Rocket, Save, AlertCircle, RefreshCw, Heart, MessageSquare, FileText, Download, X } from 'lucide-react';
+import { Github, User, Save, AlertCircle, RefreshCw, MessageSquare, FileText, Download, X } from 'lucide-react';
 import type { MenuBarQuotaPlatform, useSettingsPageController } from "./SettingsPage";
 import { SettingsGeneralPanel } from "./SettingsGeneralPanel";
 
@@ -425,10 +427,10 @@ export function SettingsPageView(props: SettingsPageViewProps) {
                 onClick={handleAboutAvatarTap}
                 onMouseDown={(event) => event.preventDefault()}
               >
-                <Rocket size={40} />
+                <img src={brandMark} alt="" draggable={false} />
               </div>
               <div className="app-info">
-                <h2>{t('settings.about.appName')}</h2>
+                <h2>{APP_NAME}</h2>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                   <div className="version-tag">{appVersion}</div>
                   <button 
@@ -486,19 +488,14 @@ export function SettingsPageView(props: SettingsPageViewProps) {
               </button>
               
               
-              <button className="credit-item" onClick={() => openLink('https://github.com/jlcodes99/cockpit-tools')}>
+              <button className="credit-item" onClick={() => openLink('https://github.com/uchanges/codex-tools')}>
                 <div className="credit-icon" style={{ color: 'var(--text-primary)' }}><Github size={24} /></div>
                 <h3>{t('settings.about.github')}</h3>
                 <p>cockpit-tools</p>
               </button>
 
-              <button className="credit-item" onClick={() => openLink('https://github.com/jlcodes99/cockpit-tools/blob/main/docs/DONATE.md')}>
-                <div className="credit-icon" style={{ color: '#ef4444' }}><Heart size={24} /></div>
-                <h3>{t('settings.about.sponsor')}</h3>
-                <p>{t('settings.about.sponsorDesc', 'Donate')}</p>
-              </button>
 
-              <button className="credit-item" onClick={() => openLink('https://github.com/jlcodes99/cockpit-tools/issues')}>
+              <button className="credit-item" onClick={() => openLink('https://github.com/uchanges/codex-tools/issues')}>
                 <div className="credit-icon" style={{ color: '#3b82f6' }}><MessageSquare size={24} /></div>
                 <h3>{t('settings.about.feedback', '意见反馈')}</h3>
                 <p>{t('settings.about.feedbackDesc', 'Issues')}</p>

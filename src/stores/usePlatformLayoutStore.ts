@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { invoke } from '@tauri-apps/api/core';
-import { ALL_PLATFORM_IDS, isMenuVisiblePlatform, MENU_VISIBLE_PLATFORM_IDS, PlatformId } from '../types/platform';
+import { ALL_PLATFORM_IDS, isMenuVisiblePlatform, isSupportedPlatform, MENU_VISIBLE_PLATFORM_IDS, PlatformId } from '../types/platform';
 import { persistPlatformLayout, readPlatformLayout } from '../utils/uiPreferences';
 
 const LEGACY_TRAY_CORE_IDS: PlatformId[] = ['antigravity', 'codex', 'github-copilot', 'windsurf'];
@@ -164,7 +164,8 @@ export function makeGroupEntryId(groupId: string): PlatformLayoutEntryId {
  * 后台自动活动统一用这个入口判断是否跳过某平台，避免各处重复读取 store。
  */
 export function isPlatformDisabled(platformId: string): boolean {
-  return (usePlatformLayoutStore.getState().disabledPlatformIds as readonly string[]).includes(platformId);
+  return !isSupportedPlatform(platformId)
+    || usePlatformLayoutStore.getState().disabledPlatformIds.includes(platformId);
 }
 
 export function parsePlatformEntryId(entryId: string): PlatformId | null {
@@ -1003,7 +1004,9 @@ function normalizeSidebarEntryIds(
       ...orderedEntryIds,
       ...groups.flatMap((group) => group.platformIds.filter(isMenuVisiblePlatform).map(makePlatformEntryId)),
     ];
-    return normalizeEntryVisibilityList(rawSidebarEntryIds, availableEntryIds, groups);
+    const supportedEntries = normalizeEntryVisibilityList(rawSidebarEntryIds, availableEntryIds, groups);
+    return rawSidebarEntryIds.length > 0 && supportedEntries.length === 0
+      ? orderedEntryIds : supportedEntries;
   }
 
   const fallback = deriveEntryVisibilityFromLegacyPlatforms(

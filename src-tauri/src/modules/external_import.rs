@@ -57,19 +57,6 @@ fn resolve_provider_and_page(value: &str) -> Option<(&'static str, &'static str)
     match normalized.as_str() {
         "antigravity" | "overview" | "accounts" => Some(("antigravity", "overview")),
         "codex" => Some(("codex", "codex")),
-        "github_copilot" | "githubcopilot" | "ghcp" => Some(("github-copilot", "github-copilot")),
-        "windsurf" => Some(("windsurf", "windsurf")),
-        "kiro" => Some(("kiro", "kiro")),
-        "cursor" => Some(("cursor", "cursor")),
-        "grok" => Some(("grok", "grok")),
-        "codebuddy" => Some(("codebuddy", "codebuddy")),
-        "codebuddy_cn" | "codebuddycn" => Some(("codebuddy_cn", "codebuddy-cn")),
-        "qoder" => Some(("qoder", "qoder")),
-        "zcode" => Some(("zcode", "zcode")),
-        "trae" => Some(("trae", "trae")),
-        "workbuddy" => Some(("workbuddy", "workbuddy")),
-        "minimaxcode" => Some(("minimaxcode", "minimaxcode")),
-        "zed" => Some(("zed", "zed")),
         _ => None,
     }
 }
@@ -425,26 +412,11 @@ mod tests {
     }
 
     #[test]
-    fn parse_alias_and_boolean() {
-        let raw =
-            "cockpit-tools://provider-import?platform=codebuddy-cn&payload=%7B%7D&auto_import=true";
-        let payload = parse_external_import_url(raw).expect("payload");
-        assert_eq!(payload.provider_id, "codebuddy_cn");
-        assert_eq!(payload.page, "codebuddy-cn");
-        assert_eq!(payload.token, "{}");
-        assert_eq!(payload.import_url, None);
-        assert_eq!(payload.api_base_url, None);
-        assert_eq!(payload.min_app_version, None);
-        assert!(payload.auto_import);
-    }
-
-    #[test]
-    fn parse_grok_import_link() {
-        let raw = "cockpit-tools://import?provider=grok&token=%7B%7D";
-        let payload = parse_external_import_url(raw).expect("payload");
-        assert_eq!(payload.provider_id, "grok");
-        assert_eq!(payload.page, "grok");
-        assert_eq!(payload.token, "{}");
+    fn rejects_links_for_removed_platforms() {
+        for provider in ["grok", "github_copilot", "claude", "zed"] {
+            let raw = format!("cockpit-tools://import?provider={provider}&token=%7B%7D");
+            assert!(parse_external_import_url(&raw).is_none());
+        }
     }
 
     #[test]

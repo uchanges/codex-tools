@@ -24,29 +24,12 @@ export type PlatformId =
   | 'workbuddy_ai'
   | 'minimaxcode';
 
+// Active platforms; the wider ID type is retained for legacy data compatibility.
 export const ALL_PLATFORM_IDS: PlatformId[] = [
-  'claude_manager',
   'codex',
   'codex_api_service',
   'antigravity',
   'antigravity_ide',
-  'zed',
-  'github-copilot',
-  'windsurf',
-  'kiro',
-  'cursor',
-  'grok',
-  'codebuddy',
-  'codebuddy_cn',
-  'qoder',
-  'zcode',
-  'trae',
-  'trae_solo',
-  'trae_cn',
-  'trae_solo_cn',
-  'workbuddy',
-  'workbuddy_ai',
-  'minimaxcode',
 ];
 
 /** Platforms that do not own account lists (service / feature pages). */
@@ -62,8 +45,12 @@ export const MENU_VISIBLE_PLATFORM_IDS: PlatformId[] = ALL_PLATFORM_IDS.filter(
   (platformId) => !MENU_HIDDEN_PLATFORM_IDS.includes(platformId),
 );
 
+export function isSupportedPlatform(platformId: string): platformId is PlatformId {
+  return (ALL_PLATFORM_IDS as readonly string[]).includes(platformId);
+}
+
 export function isMenuVisiblePlatform(platformId: PlatformId): boolean {
-  return !MENU_HIDDEN_PLATFORM_IDS.includes(platformId);
+  return isSupportedPlatform(platformId) && !MENU_HIDDEN_PLATFORM_IDS.includes(platformId);
 }
 
 export const PLATFORM_PAGE_MAP: Record<PlatformId, Page> = {

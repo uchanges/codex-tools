@@ -838,7 +838,7 @@ export function PlatformLayoutModal({
     );
 
   const openCreateGroupEditor = () => {
-    const firstPlatform = MENU_VISIBLE_PLATFORM_IDS[0] ?? 'codebuddy';
+    const firstPlatform = MENU_VISIBLE_PLATFORM_IDS[0] ?? 'codex';
 
     setEditingGroupId(null);
     setGroupDraftName('');

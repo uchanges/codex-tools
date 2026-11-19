@@ -1169,14 +1169,14 @@ export function WakeupVerificationPage({ onNavigate }: WakeupVerificationPagePro
   }, [activeDetail]);
 
   return (
-    <main className="main-content wakeup-page wakeup-verification-page">
+    <main className="main-content wakeup-page wakeup-verification-page platform-workspace-page" data-workspace="antigravity">
       <OverviewTabsHeader
         active="verification"
         onNavigate={onNavigate}
         subtitle={t('wakeup.subtitle')}
       />
 
-      <div className="toolbar">
+      <div className="toolbar verification-page-toolbar">
         <div className="toolbar-left">
           {!historyLoading && !historyMigrating && !historyReadError && (
             <span className="wakeup-hint">{t('wakeup.historyCount', { count: historyBatches.length })}</span>

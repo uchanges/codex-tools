@@ -289,7 +289,7 @@ export function AntigravityTokenUsagePage({
     const confirmed = await confirmDialog(
       t(
         'antigravityTokenUsage.rebuildConfirm.message',
-        'Clear Cockpit Tools local scan cache and re-read all Antigravity session files in read-only mode. Continue?',
+        'Clear codex tools local scan cache and re-read all Antigravity session files in read-only mode. Continue?',
       ),
       {
         title: t(
@@ -482,7 +482,7 @@ export function AntigravityTokenUsagePage({
   };
 
   return (
-    <main className="main-content accounts-page">
+    <main className="main-content accounts-page platform-workspace-page" data-workspace="antigravity">
       <OverviewTabsHeader
         active="antigravity-usage"
         onNavigate={onNavigate}

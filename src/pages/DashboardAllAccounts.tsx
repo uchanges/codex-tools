@@ -37,11 +37,9 @@ export function DashboardAllAccounts({ accounts, loading }: {
   return (
     <section aria-label={t('dashboard.viewAllAccounts')}>
       {loading && accounts.length === 0 && (
-        <div className="empty-state dashboard-all-accounts-state" role="status">
-          <div className="icon">
-            <Loader2 size={24} className="spin" />
-          </div>
-          <p>{t('common.loading')}</p>
+        <div className="workspace-collection-state" role="status">
+          <span className="workspace-state-mark"><Loader2 size={18} className="spin" aria-hidden="true" /></span>
+          <strong>{t('dashboard.workspace.loadingAccounts', 'Loading accounts')}</strong>
         </div>
       )}
       {loading && accounts.length > 0 && (
@@ -51,11 +49,12 @@ export function DashboardAllAccounts({ accounts, loading }: {
         </div>
       )}
       {!loading && accounts.length === 0 && (
-        <div className="empty-state dashboard-all-accounts-state">
-          <div className="icon">
-            <Inbox size={24} />
+        <div className="workspace-collection-state">
+          <span className="workspace-state-mark"><Inbox size={18} aria-hidden="true" /></span>
+          <div>
+            <strong>{t('dashboard.workspace.noAccounts', 'No accounts yet')}</strong>
+            <p>{t('dashboard.workspace.noAccountsHint', 'Add or import an account to see its quota here.')}</p>
           </div>
-          <p>{t('dashboard.noAccount')}</p>
         </div>
       )}
       <div className="dashboard-all-accounts-grid" aria-busy={loading}>

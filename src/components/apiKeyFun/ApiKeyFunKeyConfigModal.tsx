@@ -169,7 +169,7 @@ export function ApiKeyFunKeyConfigModal({
           {family && availableClients.length === 0 ? (
             <div className="apikey-fun-config-empty">
               {t('apiKeyFun.config.unsupportedGroup', {
-                defaultValue: 'Cockpit Tools 暂无适用于 APIKEY.FUN {{family}} 接口的客户端配置模板。可以在支持该接口的客户端里手动配置。',
+                defaultValue: 'codex tools 暂无适用于 APIKEY.FUN {{family}} 接口的客户端配置模板。可以在支持该接口的客户端里手动配置。',
                 family: family.label,
               })}
             </div>

@@ -25,6 +25,7 @@ jobs:
     outputs:
       version: ${{ steps.app_version.outputs.VERSION }}
       publish: ${{ steps.publish_mode.outputs.PUBLISH }}
+      macos: ${{ steps.signing.outputs.MACOS }}
     env:
       GH_REPO: ${{ github.repository }}
     steps:
@@ -74,6 +75,36 @@ jobs:
           if [ "${GITHUB_REF_NAME}" != "${EXPECTED_TAG}" ]; then
             echo "Tag (${GITHUB_REF_NAME}) does not match package.json version (${EXPECTED_TAG})."
             exit 1
+          fi
+
+      - name: Verify updater signing and detect optional macOS signing
+        id: signing
+        shell: bash
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$TAURI_SIGNING_PRIVATE_KEY" ]]; then
+            echo "::error::Signed releases require TAURI_SIGNING_PRIVATE_KEY. Use Package main for unsigned preview installers."
+            exit 1
+          fi
+          missing=()
+          for secret in APPLE_CERTIFICATE APPLE_CERTIFICATE_PASSWORD APPLE_SIGNING_IDENTITY APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID; do
+            if [[ -z "${!secret}" ]]; then
+              missing+=("$secret")
+            fi
+          done
+          if (( ${#missing[@]} )); then
+            echo "MACOS=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Skipping signed macOS release bundles. Missing Actions secrets: ${missing[*]}. macOS preview DMGs are still available from Package main."
+          else
+            echo "MACOS=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: 📝 Build bilingual release notes from changelog
@@ -147,7 +178,7 @@ jobs:
         run: |
           set -euo pipefail
           TAG="v${{ steps.app_version.outputs.VERSION }}"
-          TITLE="Cockpit Tools v${{ steps.app_version.outputs.VERSION }}"
+          TITLE="codex tools v${{ steps.app_version.outputs.VERSION }}"
           if gh release view "${TAG}" > /dev/null 2>&1; then
             IS_DRAFT="$(gh release view "${TAG}" --json isDraft --jq '.isDraft')"
             if [ "${IS_DRAFT}" != "true" ]; then
@@ -369,6 +400,7 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
   build-macos-aarch64:
+    if: needs.prepare-release.outputs.macos == 'true'
     name: "🏗️ Build: macOS Apple Silicon"
     # Parallel with Windows / macOS Intel after prepare (no hard platform deps).
     needs:
@@ -551,6 +583,7 @@ jobs:
         run: node scripts/release/macos-signing.cjs cleanup
 
   build-macos-x86_64:
+    if: needs.prepare-release.outputs.macos == 'true'
     name: "🏗️ Build: macOS Intel"
     # Parallel with Windows / macOS Apple Silicon after prepare.
     needs:
@@ -733,6 +766,7 @@ jobs:
         run: node scripts/release/macos-signing.cjs cleanup
 
   build-macos-universal:
+    if: needs.prepare-release.outputs.macos == 'true'
     name: "🏗️ Build: macOS Universal"
     # Reuse exact binaries from this run. Universal only merges and bundles.
     needs:
@@ -1110,7 +1144,19 @@ jobs:
 
   finalize-legacy-latest:
     name: 🏁 Finalize Updater Manifest and Checksums
-    if: needs.prepare-release.outputs.publish == 'true'
+    if: >-
+      ${{
+        !cancelled() &&
+        needs.prepare-release.result == 'success' &&
+        needs.prepare-release.outputs.publish == 'true' &&
+        needs.build-windows.result == 'success' &&
+        needs.build-linux.result == 'success' &&
+        needs.build-linux-cli.result == 'success' &&
+        (needs.prepare-release.outputs.macos != 'true' ||
+          (needs.build-macos-aarch64.result == 'success' &&
+           needs.build-macos-x86_64.result == 'success' &&
+           needs.build-macos-universal.result == 'success'))
+      }}
     # Wait for every platform build so latest.json is complete.
     needs:
       - prepare-release
@@ -1126,6 +1172,7 @@ jobs:
     env:
       GH_REPO: ${{ github.repository }}
       VERSION: ${{ needs.prepare-release.outputs.version }}
+      BUILD_MACOS: ${{ needs.prepare-release.outputs.macos }}
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -1167,7 +1214,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          node scripts/release/build_merged_latest_json.cjs \
+          macos_flags=()
+          if [[ "$BUILD_MACOS" != "true" ]]; then macos_flags+=(--without-macos); fi
+          node scripts/release/build_merged_latest_json.cjs "${macos_flags[@]}" \
             --version "${VERSION}" \
             --repo "${GITHUB_REPOSITORY}" \
             --assets-dir "release-assets" \
@@ -1179,9 +1228,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          jq -e '
-            .platforms["darwin-aarch64"] and
-            .platforms["darwin-x86_64"] and
+          jq -e --argjson macos "$BUILD_MACOS" '
+            (($macos | not) or (.platforms["darwin-aarch64"] and .platforms["darwin-x86_64"])) and
             .platforms["windows-x86_64"] and
             .platforms["windows-x86_64-nsis"] and
             .platforms["windows-aarch64-nsis"] and
@@ -1232,6 +1280,7 @@ jobs:
     env:
       GH_REPO: ${{ github.repository }}
       VERSION: ${{ needs.prepare-release.outputs.version }}
+      BUILD_MACOS: ${{ needs.prepare-release.outputs.macos }}
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -1264,15 +1313,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          targets="windows-x86_64-msi,windows-x86_64-nsis,windows-aarch64-nsis,linux-x86_64-appimage,linux-x86_64-deb,linux-x86_64-rpm,linux-aarch64-appimage,linux-aarch64-deb,linux-aarch64-rpm"
+          if [[ "$BUILD_MACOS" == "true" ]]; then targets="darwin-aarch64-app,darwin-x86_64-app,${targets}"; fi
           node scripts/release/verify_published_updater_manifests.cjs \
             --version "${VERSION}" \
             --repo "${GITHUB_REPOSITORY}" \
-            --targets "darwin-aarch64-app,darwin-x86_64-app,windows-x86_64-msi,windows-x86_64-nsis,windows-aarch64-nsis,linux-x86_64-appimage,linux-x86_64-deb,linux-x86_64-rpm,linux-aarch64-appimage,linux-aarch64-deb,linux-aarch64-rpm" \
+            --targets "$targets" \
             --legacy
 
   update-homebrew-cask:
     name: 🍺 Update Homebrew Cask
-    if: needs.prepare-release.outputs.publish == 'true'
+    if: needs.prepare-release.outputs.publish == 'true' && needs.prepare-release.outputs.macos == 'true' && vars.UPDATE_HOMEBREW_CASK == 'true'
     needs:
       - prepare-release
       - publish-release
@@ -1376,7 +1427,19 @@ jobs:
 
   validate-release-artifacts:
     name: "🧪 Validate packaged release"
-    if: needs.prepare-release.outputs.publish != 'true'
+    if: >-
+      ${{
+        !cancelled() &&
+        needs.prepare-release.result == 'success' &&
+        needs.prepare-release.outputs.publish != 'true' &&
+        needs.build-windows.result == 'success' &&
+        needs.build-linux.result == 'success' &&
+        needs.build-linux-cli.result == 'success' &&
+        (needs.prepare-release.outputs.macos != 'true' ||
+          (needs.build-macos-aarch64.result == 'success' &&
+           needs.build-macos-x86_64.result == 'success' &&
+           needs.build-macos-universal.result == 'success'))
+      }}
     needs:
       - prepare-release
       - build-windows
@@ -1390,6 +1453,7 @@ jobs:
       contents: read
     env:
       VERSION: ${{ needs.prepare-release.outputs.version }}
+      BUILD_MACOS: ${{ needs.prepare-release.outputs.macos }}
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -1417,7 +1481,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          node scripts/release/build_merged_latest_json.cjs \
+          macos_flags=()
+          if [[ "$BUILD_MACOS" != "true" ]]; then macos_flags+=(--without-macos); fi
+          node scripts/release/build_merged_latest_json.cjs "${macos_flags[@]}" \
             --version "${VERSION}" \
             --repo "${GITHUB_REPOSITORY}" \
             --assets-dir "validation-workspace/release-assets" \
@@ -1425,9 +1491,8 @@ jobs:
             --published-at "$(cat validation-workspace/published-at.txt)" \
             --output "latest.json"
 
-          jq -e '
-            .platforms["darwin-aarch64"] and
-            .platforms["darwin-x86_64"] and
+          jq -e --argjson macos "$BUILD_MACOS" '
+            (($macos | not) or (.platforms["darwin-aarch64"] and .platforms["darwin-x86_64"])) and
             .platforms["windows-x86_64"] and
             .platforms["windows-x86_64-nsis"] and
             .platforms["windows-aarch64-nsis"] and
@@ -1439,7 +1504,9 @@ jobs:
             .platforms["linux-aarch64-rpm"]
           ' latest.json > /dev/null
 
-          test -n "$(find validation-workspace/release-assets -name '*_universal.dmg' -print -quit)"
+          if [[ "$BUILD_MACOS" == "true" ]]; then
+            test -n "$(find validation-workspace/release-assets -name '*_universal.dmg' -print -quit)"
+          fi
           for arch in x86_64 aarch64; do
             test -f "validation-workspace/release-assets/cockpit-cli_${VERSION}_linux_${arch}.tar.gz"
           done

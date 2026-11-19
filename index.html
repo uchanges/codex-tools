@@ -2,9 +2,9 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/brand/codex-tools.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cockpit Tools</title>
+    <title>codex tools</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -67,9 +67,18 @@
       }
 
       .app-boot-mark {
-        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 24px;
         font-weight: 700;
-        letter-spacing: 0.02em;
+        letter-spacing: -0.025em;
+      }
+
+      .app-boot-mark img {
+        width: 42px;
+        height: 42px;
+        display: block;
       }
 
       .app-boot-progress {
@@ -84,7 +93,7 @@
         height: 100%;
         width: 28%;
         border-radius: inherit;
-        background: #38bdf8;
+        background: #6574f7;
       }
 
       .app-boot-progress[data-mode="indeterminate"] .app-boot-bar {
@@ -135,7 +144,7 @@
         if (!splash || !failure || !failure.hidden) return;
         var retry = failure.querySelector('button');
         if (/^zh\b/i.test(navigator.language)) {
-          failure.querySelector('p').textContent = 'Cockpit Tools 启动失败。';
+          failure.querySelector('p').textContent = 'codex tools 启动失败。';
           retry.textContent = '重新加载';
         }
         splash.querySelector('.app-boot-progress').hidden = true;
@@ -158,12 +167,15 @@
 
   <body>
     <div id="app-boot-splash" aria-hidden="true">
-      <div class="app-boot-mark">Cockpit Tools</div>
+      <div class="app-boot-mark">
+        <img src="/src/assets/brand/codex-tools.svg" alt="" width="42" height="42" />
+        <span>codex tools</span>
+      </div>
       <div class="app-boot-progress" data-mode="indeterminate">
         <div class="app-boot-bar" id="app-boot-bar"></div>
       </div>
       <div id="app-boot-failure" hidden>
-        <p role="alert">Cockpit Tools failed to start.</p>
+        <p role="alert">codex tools failed to start.</p>
         <button type="button">Reload</button>
       </div>
     </div>

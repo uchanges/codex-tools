@@ -8,6 +8,7 @@ import type { CodexAccount, CodexQuota } from '../types/codex';
 let server: ViteDevServer;
 let DashboardPage: typeof import('./DashboardPage').DashboardPage;
 let allAccountsView: typeof import('./DashboardAllAccounts');
+let DashboardPlatformPanel: typeof import('./DashboardPlatformPanel').DashboardPlatformPanel;
 let prefetchDashboardAccounts: typeof import('./dashboardAccountPrefetch').prefetchDashboardAccounts;
 let store: typeof import('../stores/useCodexAccountStore').useCodexAccountStore;
 const originalWindow = Object.getOwnPropertyDescriptor(globalThis, 'window');
@@ -32,6 +33,7 @@ before(async () => {
     optimizeDeps: { noDiscovery: true, include: [] }, appType: 'custom',
   });
   ({ DashboardPage } = await server.ssrLoadModule('/src/pages/DashboardPage.tsx'));
+  ({ DashboardPlatformPanel } = await server.ssrLoadModule('/src/pages/DashboardPlatformPanel.tsx'));
   allAccountsView = await server.ssrLoadModule('/src/pages/DashboardAllAccounts.tsx') as typeof allAccountsView;
   ({ prefetchDashboardAccounts } = await server.ssrLoadModule('/src/pages/dashboardAccountPrefetch.ts'));
   const { applyDurableUiSnapshot } = await server.ssrLoadModule('/src/utils/durableUiSettings.ts');
@@ -57,12 +59,15 @@ function account(id: string, quota?: CodexQuota): CodexAccount {
 function dual(value: number): CodexQuota {
   return { hourly_percentage: value, weekly_percentage: value, hourly_window_present: true, weekly_window_present: true };
 }
-function recommendation(candidates: CodexAccount[]): string {
+function renderDashboard(candidates: CodexAccount[]): string {
   const current = account('current', dual(100));
   // Zustand's SSR snapshot is getInitialState, not the client getState snapshot.
   Object.assign(store.getInitialState(), { accounts: [current, ...candidates], currentAccount: current });
-  const html = renderToStaticMarkup(createElement(DashboardPage, { onNavigate() {}, onOpenPlatformLayout() {}, onEasterEggTriggerClick() {} }));
-  const recommended = html.split('class="split-half recommend-half"')[1];
+  return renderToStaticMarkup(createElement(DashboardPage, { onNavigate() {}, onOpenPlatformLayout() {}, onEasterEggTriggerClick() {} }));
+}
+
+function recommendation(candidates: CodexAccount[]): string {
+  const recommended = renderDashboard(candidates).split('data-slot="recommended"')[1]?.split('</section>')[0];
   assert.ok(recommended, 'the actual dashboard renders its Codex recommendation');
   assert.doesNotMatch(recommended, /current@example.com/);
   return recommended;
@@ -93,8 +98,34 @@ test('zero quota remains eligible, while missing quota and unsupported API accou
   assert.doesNotMatch(html, /missing@example.com|unsupported@example.com/);
 });
 
-test('dashboard still has no recommendation without an eligible alternative', () => {
-  assert.match(recommendation([account('missing')]), /暂无更好推荐/);
+test('dashboard omits the recommendation slot without an eligible alternative', () => {
+  const html = renderDashboard([account('missing')]);
+  assert.match(html, /data-slot="current"/);
+  assert.doesNotMatch(html, /data-slot="recommended"/);
+});
+
+test('empty platform panels offer account management without empty recommendation columns', () => {
+  const html = renderToStaticMarkup(createElement(DashboardPlatformPanel, {
+    platform: 'codex', title: 'Codex', icon: null, accountCount: 0,
+    loading: false, refreshing: false, canRefresh: false,
+    currentAccount: null, recommendedAccount: null,
+    onRefresh() {}, onHide() {}, onManage() {},
+  }));
+  assert.match(html, /workspace-panel-state/);
+  assert.match(html, /workspace-manage-button/);
+  assert.doesNotMatch(html, /data-slot=|role="status"/);
+});
+
+test('platform loading uses a compact status rather than a premature empty state', () => {
+  const html = renderToStaticMarkup(createElement(DashboardPlatformPanel, {
+    platform: 'antigravity', title: 'Antigravity', icon: null, accountCount: 0,
+    loading: true, refreshing: false, canRefresh: true,
+    currentAccount: null, recommendedAccount: null,
+    onRefresh() {}, onHide() {}, onManage() {},
+  }));
+  assert.match(html, /aria-busy="true"/);
+  assert.match(html, /role="status"/);
+  assert.doesNotMatch(html, /data-slot=/);
 });
 
 test('dashboard all accounts renders different platforms with colliding account IDs and paginates cards', () => {

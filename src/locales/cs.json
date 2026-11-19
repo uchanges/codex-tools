@@ -222,7 +222,7 @@
     "historyRestoring": "Obnovuje se historie…",
     "apiBudget": {
       "keyScope": "Tento klíč",
-      "upgradeRequired": "Aktualizujte Cockpit Tools na počítači brány pro zobrazení statistik a historie požadavků.",
+      "upgradeRequired": "Aktualizujte codex tools na počítači brány pro zobrazení statistik a historie požadavků.",
       "gatewayName": "Brána Cockpit",
       "accountingNote": "Zapsané platby se přepočtem cen nemění; odhady se mohou lišit. Rozpočty se obnovují podle UTC.",
       "preparing": "Historické statistiky se připravují na pozadí. Zkuste to později.",
@@ -283,7 +283,7 @@
       "waiting": "Čekání na záznamy využití chatu",
       "refreshFailed": "Kvótu se nepodařilo obnovit. Předchozí výsledky jsou zachovány. Zkuste to znovu.",
       "refreshPartial": "Některé kvóty se nepodařilo obnovit. Dostupné výsledky jsou zachovány.",
-      "hostUnavailable": "Cockpit Tools není připojen. Obnovování je pozastaveno.",
+      "hostUnavailable": "codex tools není připojen. Obnovování je pozastaveno.",
       "refreshing": "Obnovování…",
       "recent": "Nedávné záznamy",
       "recentAccount": "Naposledy použitý účet",
@@ -711,7 +711,7 @@
       "desc": "Tato oblast je pevně umístěná vpravo nahoře na všech stránkách pro kampaně nebo brandové reklamy.",
       "action": "Zobrazit podrobnosti"
     },
-    "appName": "Cockpit Tools​",
+    "appName": "codex tools",
     "collapse": "Sbalit",
     "confirmDelete": "Potvrdit smazání",
     "confirmDeleteTag": "Potvrdit smazání štítku",
@@ -814,12 +814,12 @@
   },
   "sponsors": {
     "pageTitle": "Sponzoři",
-    "pageDesc": "Děkujeme těmto sponzorům za podporu Cockpit Tools.",
+    "pageDesc": "Děkujeme těmto sponzorům za podporu codex tools.",
     "loading": "Načítání sponzorů...",
     "emptyTitle": "Zatím žádní sponzoři",
     "emptyDesc": "Vzdálený modul sponzorů je aktuálně vypnutý.",
     "listAriaLabel": "Seznam sponzorů",
-    "defaultDescription": "Děkujeme za podporu Cockpit Tools.",
+    "defaultDescription": "Děkujeme za podporu codex tools.",
     "openSponsor": "Otevřít"
   },
   "platformLayout": {
@@ -1067,12 +1067,12 @@
         "summary": "Modely bez předpony používají aktuální předplatné; modely s předponou jako cpa/gpt-5.6-sol jsou předávány do API třetích stran. Obojí závisí na místní službě směrování.",
         "rowSummary": "Modely bez předpony používají aktuální předplatné; modely s předponou jako cpa/gpt-5.6-sol jsou předávány do API třetích stran. Obojí závisí na místní službě směrování.",
         "confirmEnableTitle": "Povolit směrování API třetích stran?",
-        "confirmEnableMessage": "Požadavky na modely Codex budou směrovány přes místní službu Cockpit Tools. Pokud služba neběží, modely předplatného i modely třetích stran mohou být nedostupné.\n\nPovolit směrování?",
+        "confirmEnableMessage": "Požadavky na modely Codex budou směrovány přes místní službu codex tools. Pokud služba neběží, modely předplatného i modely třetích stran mohou být nedostupné.\n\nPovolit směrování?",
         "confirmEnableAction": "Povolit",
         "confirmDisableTitle": "Zakázat směrování API třetích stran?",
         "confirmDisableMessage": "Jakmile tato změna vstoupí v platnost, místní brána se zastaví, obnoví se přímý přístup k oficiálnímu předplatnému a modely třetích stran nebudou k dispozici.\n\nZakázat směrování?",
         "confirmDisableAction": "Zakázat",
-        "modalTip": "Modely předplatného i modely třetích stran procházejí místní službou směrování. Ponechte Cockpit Tools spuštěné na pozadí. Služba se automaticky obnoví a po opakovaných selháních se vrátí k oficiální konfiguraci.",
+        "modalTip": "Modely předplatného i modely třetích stran procházejí místní službou směrování. Ponechte codex tools spuštěné na pozadí. Služba se automaticky obnoví a po opakovaných selháních se vrátí k oficiální konfiguraci.",
         "modelRequired": "Každá povolená trasa API musí obsahovat alespoň jeden model.",
         "runningSaveTitle": "Kdy má směrování vstoupit v platnost?",
         "runningSaveMessage": "Tato instance Codexu je spuštěna. Nahrazení místní služby nyní přeruší probíhající konverzaci.\n\nZvolte „Uložit a restartovat Codex“ pro okamžité použití, nebo „Uložit na později“ pro zachování aktuální relace.",
@@ -1240,7 +1240,7 @@
       "platform": "Platforma"
     },
     "title": "Nastavení aplikace",
-    "subtitle": "Přizpůsobte si prostředí Cockpit Tools.",
+    "subtitle": "Přizpůsobte si prostředí codex tools.",
     "tabs": {
       "general": "Obecné",
       "network": "Síť",
@@ -1312,8 +1312,8 @@
       "floatingCardShowNowAction": "Zobrazit plovoucí kartu",
       "dataDir": "Datový adresář",
       "dataDirDesc": "Umístění pro uložení účtů a konfiguračních souborů.",
-      "dataDirPending": "Po restartu načte Cockpit Tools data z {{path}}.",
-      "dataDirPendingDefault": "Po restartu použije Cockpit Tools výchozí adresář.",
+      "dataDirPending": "Po restartu načte codex tools data z {{path}}.",
+      "dataDirPendingDefault": "Po restartu použije codex tools výchozí adresář.",
       "dataDirEnvironment": "Při aktuálním spuštění se používá adresář určený proměnnou COCKPIT_TOOLS_DATA_DIR.",
       "topRightAdVisible": "Zobrazit horní promo",
       "topRightAdVisibleDesc": "Skryje horní promo pozici v aplikaci. Stránka sponzorů zůstane beze změny.",
@@ -1334,7 +1334,7 @@
       "codexSyncWsl": "Synchronizovat Codex do WSL",
       "codexSyncWslDesc": "Po přepnutí výchozího účtu Codex se auth.json a config.toml zapíší také do adresáře Codex ve WSL.",
       "codexAppUiInjection": "Kvóta API služby",
-      "codexAppUiInjectionDesc": "Dolní lišta vstupu v Codex připojeném ke službě API zobrazuje kvótu vybraného modelu (5hodinové a týdenní kvóty GPT, zůstatek DeepSeek nebo kvótu Grok), rychlost výstupu a úspěšnost mezipaměti aktuálního chatu. Dialog obsahuje kvóty, ukazatele chatu a statistiky služby API. Záznamy požadavků lze přepínat mezi aktuálním chatem a celou službou, načítat další nebo obnovovat. Pokud nelze ověřit vazbu na chat nebo platné měření času, příslušné ukazatele zobrazí —. Cockpit Tools musí běžet na pozadí; aktualizace kvót vyžaduje připojení k síti.",
+      "codexAppUiInjectionDesc": "Dolní lišta vstupu v Codex připojeném ke službě API zobrazuje kvótu vybraného modelu (5hodinové a týdenní kvóty GPT, zůstatek DeepSeek nebo kvótu Grok), rychlost výstupu a úspěšnost mezipaměti aktuálního chatu. Dialog obsahuje kvóty, ukazatele chatu a statistiky služby API. Záznamy požadavků lze přepínat mezi aktuálním chatem a celou službou, načítat další nebo obnovovat. Pokud nelze ověřit vazbu na chat nebo platné měření času, příslušné ukazatele zobrazí —. codex tools musí běžet na pozadí; aktualizace kvót vyžaduje připojení k síti.",
       "codexAppUiInjectionPoolLabel": "Účty",
       "codexAppUiInjectionWeeklyLabel": "Týden",
       "codexAppUiInjectionFiveHourLabel": "5 h",
@@ -1452,7 +1452,7 @@
       "sideNavLayoutClassic": "Klasické rozložení",
       "antigravityDualSwitchNoRestart": "Duální přepnutí bez restartu",
       "antigravityDualSwitchNoRestartDesc": "Při přepnutí účtu se v jednom kroku zapíší lokální data účtu a provede plynulé přepnutí rozšíření bez restartu Antigravity IDE.",
-      "appAutoLaunch": "Spustit Cockpit Tools po přihlášení",
+      "appAutoLaunch": "Spustit codex tools po přihlášení",
       "appAutoLaunchDesc": "Spustit po přihlášení. Při chybě PowerShell při startu Windows vypněte.",
       "startupWakeupDisabled": "Vypnuto",
       "startupWakeupImmediate": "Probudit okamžitě",
@@ -1601,7 +1601,7 @@
         "quotaCompatDesc": "Instance služby API zobrazují klientovi dostupnou kvótu pro místní kontroly. Skutečné využití u poskytovatele ani limity obrázků se nemění. Tento přepínač platí jen pro ostatní kombinace OAuth a externího API.",
         "configFailed": "Nepodařilo se načíst nebo uložit nastavení: {{error}}",
         "nativePredictions": "Nativní návrhy dalšího kroku (Tab)",
-        "nativePredictionsDesc": "Ve výchozím nastavení je zapnuto. Návrhy používají poskytovatele API a model z aktuální konverzace a zvyšují spotřebu API. Po změně nastavení restartujte dotčené instance Codexu a nechte Cockpit Tools spuštěné."
+        "nativePredictionsDesc": "Ve výchozím nastavení je zapnuto. Návrhy používají poskytovatele API a model z aktuální konverzace a zvyšují spotřebu API. Po změně nastavení restartujte dotčené instance Codexu a nechte codex tools spuštěné."
       },
       "timeDisplayMode": "Zobrazený čas",
       "timeDisplayModeDesc": "Čas na kartách a v seznamu účtů. Výchozí je čas přepnutí účtu",
@@ -1651,7 +1651,7 @@
       "proxyUrlRequired": "Když je globální proxy zapnutá, URL proxy nesmí být prázdná."
     },
     "about": {
-      "appName": "Cockpit Tools​",
+      "appName": "codex tools",
       "slogan": "Profesionální řešení pro správu účtů",
       "author": "Autor",
       "wechat": "WeChat​",
@@ -3156,11 +3156,11 @@
     },
     "exportFormat": {
       "label": "Formát exportu",
-      "cockpitTools": "Cockpit Tools​",
+      "cockpitTools": "codex tools",
       "authJson": "Oficiální auth.json",
       "sub2api": "sub2api formát",
       "cpa": "cpa formát",
-      "agentIdentityCpaUnsupported": "Účty Agent Identity nelze exportovat ve formátu cpa. Použijte Cockpit Tools nebo sub2api.",
+      "agentIdentityCpaUnsupported": "Účty Agent Identity nelze exportovat ve formátu cpa. Použijte codex tools nebo sub2api.",
       "agentIdentityPrivateKeyNotice": "Export obsahuje soukromý klíč Agent Identity, který umožňuje obnovit účet na jiném zařízení. Chraňte jej jako heslo.",
       "buildFailed": "Export nelze vytvořit: vybrané účty obsahují nepodporovaný typ nebo neúplné přihlašovací údaje.",
       "downloadAll": "Stáhnout vše",
@@ -3244,8 +3244,8 @@
       "testAuthFailed": "Služba je dosažitelná, ale ověření selhalo: {{detail}}. Zkontrolujte klíč API služby nebo stav přihlášení účtu.",
       "testServiceUnavailable": "Služba je dosažitelná, ale momentálně není dostupná: {{detail}}. Zkontrolujte, zda je služba zapnutá, kolekce účtů není prázdná a účty jsou použitelné.",
       "gatewayErrors": {
-        "authUnavailable": "Momentálně není k dispozici žádný účet pro směrování. Účet může být v čekací lhůtě, bez ověření nebo omezený kvótou. Zkontrolujte jeho stav v API službě Cockpit Tools.",
-        "authNotFound": "V kolekci účtů není nastaven žádný použitelný účet. Přidejte nebo aktivujte účet v API službě Cockpit Tools.",
+        "authUnavailable": "Momentálně není k dispozici žádný účet pro směrování. Účet může být v čekací lhůtě, bez ověření nebo omezený kvótou. Zkontrolujte jeho stav v API službě codex tools.",
+        "authNotFound": "V kolekci účtů není nastaven žádný použitelný účet. Přidejte nebo aktivujte účet v API službě codex tools.",
         "accountConcurrencyExceeded": "Byl dosažen limit souběžných požadavků účtu. Zkuste to později.",
         "providerRetryAfter": "Poskytovatel požaduje přestávku. Zkuste to znovu za {{seconds}} sekund.",
         "audioInvalidRequest": "Neplatný zvukový požadavek: {{detail}}",
@@ -8382,7 +8382,7 @@
       "backToCurrent": "Zpět",
       "switchToThisAccount": "Přepnout",
       "openDetails": "Otevřít detail",
-      "openCockpitTools": "Otevřít Cockpit Tools"
+      "openCockpitTools": "Otevřít codex tools"
     },
     "empty": {
       "title": "Žádné účty",
@@ -8551,7 +8551,7 @@
   },
   "relay": {
     "pageTitle": "Exkluzivní relay",
-    "pageDesc": "Partnerská API služba pro uživatele Cockpit Tools použitelná s účty Codex API Key.",
+    "pageDesc": "Partnerská API služba pro uživatele codex tools použitelná s účty Codex API Key.",
     "loading": "Načítání relay...",
     "emptyTitle": "Relay vypnutý",
     "emptyDesc": "Vzdálená konfigurace exkluzivní relay nepovolila.",
@@ -8730,7 +8730,7 @@
       "title": "Použít klíč API",
       "family": "Skupina",
       "platform": "Aktuální systém",
-      "unsupportedGroup": "Cockpit Tools zatím nemá šablonu nastavení klienta pro rozhraní APIKEY.FUN {{family}}. Klienta, který toto rozhraní podporuje, můžete nastavit ručně."
+      "unsupportedGroup": "codex tools zatím nemá šablonu nastavení klienta pro rozhraní APIKEY.FUN {{family}}. Klienta, který toto rozhraní podporuje, můžete nastavit ručně."
     },
     "campaign": {
       "badge": "11.11",
@@ -9132,8 +9132,8 @@
     "desc": "Správa klíčů OpenCode Go/Zen a filtr podle tier."
   },
   "chatgptPlan": {
-    "callbackReceived": "Odpověď autorizace byla přijata. Vraťte se do Cockpit Tools a zkontrolujte výsledek.",
-    "callbackFailed": "Odpověď je neplatná nebo autorizace nebyla dokončena. Vraťte se do Cockpit Tools a zkuste to znovu.",
+    "callbackReceived": "Odpověď autorizace byla přijata. Vraťte se do codex tools a zkontrolujte výsledek.",
+    "callbackFailed": "Odpověď je neplatná nebo autorizace nebyla dokončena. Vraťte se do codex tools a zkuste to znovu.",
     "title": "Tarif ChatGPT",
     "description": "Samostatně povolte použití tarifu ChatGPT pro požadavky služby API.",
     "localStatsHint": "Počty požadavků a tokenů zahrnují pouze volání přes tuto službu API. Využití tarifu ověřte v ChatGPT.",
@@ -9142,7 +9142,7 @@
     "manage": "Spravovat",
     "manageTitle": "Správa přístupu k tarifu",
     "connectTitle": "Oficiální autorizace OpenAI",
-    "consent": "Povolte Cockpit Tools používat váš tarif ChatGPT pro požadavky modelům. Využití a limity spravujete v nastavení ChatGPT.",
+    "consent": "Povolte codex tools používat váš tarif ChatGPT pro požadavky modelům. Využití a limity spravujete v nastavení ChatGPT.",
     "credentialsHint": "Přihlašovací údaje tarifu se ukládají zvlášť na tomto zařízení a obnovuje je služba API. Stávající přihlášení Codex a přepínání účtů zůstávají beze změny.",
     "waiting": "Čekání na autorizaci v prohlížeči…",
     "reopen": "Znovu otevřít",
@@ -9515,7 +9515,7 @@
     },
     "rebuildConfirm": {
       "title": "Úplné nové prohledání",
-      "message": "Vymazat místní mezipaměť skenování Cockpit Tools a znovu načíst všechny soubory relací Antigravity v režimu pouze pro čtení. Pokračovat?"
+      "message": "Vymazat místní mezipaměť skenování codex tools a znovu načíst všechny soubory relací Antigravity v režimu pouze pro čtení. Pokračovat?"
     },
     "status": {
       "scanning": "Prohledávání databází relací Antigravity…",

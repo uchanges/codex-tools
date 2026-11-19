@@ -231,7 +231,8 @@ export function CodexAccountsView(props: CodexAccountsViewProps) {
 
   return (
     <div
-      className={`codex-accounts-page codex-accounts-page--${overviewLayoutMode}`}
+      className={`codex-accounts-page codex-accounts-page--${overviewLayoutMode} platform-workspace-page`}
+      data-workspace="codex"
     >
       <CodexOverviewTabsHeader
         pageRegistry={pageRegistry}

@@ -1,3 +1,4 @@
+import { PlatformWorkspaceState } from '../components/platform/PlatformWorkspaceState';
 import { requestCodexOfficialAuthorizationManagement } from "../utils/codexAccountServiceNavigation";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { CodexResetHistory } from '../components/codex/CodexResetHistory';
@@ -7,7 +8,7 @@ import { useEscCloseTopmost } from "../hooks/useEscClose";
 import { useCodexTagGroupLayout } from "../hooks/useCodexTagGroupLayout";
 import { useModalFocusTrap } from "../hooks/useModalFocusTrap";
 import "./CodexAccountDialogs.css";
-import { Plus, RefreshCw, Upload, Trash2, X, Globe, Power, Copy, Check, Play, Pause, RotateCw, CircleAlert, Info, Rows3, LayoutGrid, List, Search, ArrowDownWideNarrow, ArrowUp, ArrowDown, GripVertical, Clock, Tag, Eye, EyeOff, BookOpen, FileText, ExternalLink, FolderOpen, FolderPlus, LogOut, Terminal, ChevronDown } from "lucide-react";
+import { Plus, RefreshCw, Upload, Trash2, X, Power, Copy, Check, Play, Pause, RotateCw, CircleAlert, Info, Rows3, LayoutGrid, List, Search, ArrowDownWideNarrow, ArrowUp, ArrowDown, GripVertical, Clock, Tag, Eye, EyeOff, BookOpen, FileText, ExternalLink, FolderOpen, FolderPlus, LogOut, Terminal, ChevronDown } from "lucide-react";
 import * as codexLocalAccessService from "../services/codexLocalAccessService";
 import { TagEditModal } from "../components/TagEditModal";
 import { ExportJsonModal } from "../components/ExportJsonModal";
@@ -413,12 +414,13 @@ export function CodexAccountsOverviewPanel(props: CodexAccountsViewProps) {
             </div>
           )}
 
-          <div className="toolbar">
+          <div className="toolbar platform-workspace-account-toolbar">
             <div className="toolbar-left">
               <div className="search-box">
                 <Search size={16} className="search-icon" />
                 <input
                   type="text"
+                  aria-label={t("common.shared.search", "Search accounts")}
                   placeholder={t("common.shared.search", "搜索账号...")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -575,13 +577,17 @@ export function CodexAccountsOverviewPanel(props: CodexAccountsViewProps) {
               )}
             </div>
             <div className="toolbar-right">
-              <button
-                className="btn btn-primary icon-only"
-                onClick={() => openCodexAddModal("tempLogin")}
-                title={t("common.shared.addAccount", "添加账号")}
-              >
-                <Plus size={14} />
-              </button>
+              {(overviewAccounts.length > 0 || hasGroupEntryCards) && (
+                <button
+                  type="button"
+                  className="btn btn-primary platform-workspace-add"
+                  onClick={() => openCodexAddModal("tempLogin")}
+                  title={t("common.shared.addAccount", "添加账号")}
+                >
+                  <Plus size={15} aria-hidden="true" />
+                  <span>{t("common.shared.addAccount", "Add account")}</span>
+                </button>
+              )}
               <button
                 className="btn btn-secondary icon-only"
                 onClick={() => { void planOverview.reload(); handleRefreshAll(); }}
@@ -776,68 +782,40 @@ export function CodexAccountsOverviewPanel(props: CodexAccountsViewProps) {
           )}
 
           {loading && overviewAccounts.length === 0 ? (
-            <div className="loading-container">
-              <RefreshCw size={24} className="loading-spinner" />
-              <p>{t("common.loading", "加载中...")}</p>
-            </div>
+            <PlatformWorkspaceState kind="loading" title={t("common.loading", "Loading…")} />
           ) : overviewAccounts.length === 0 && !hasGroupEntryCards ? (
-            <div className="empty-state">
-              <Globe size={48} />
-              <h3>{t("common.shared.empty.title", "暂无账号")}</h3>
-              <p>
-                {t(
-                  "codex.empty.description",
-                  '点击"添加账号"开始管理您的 Codex 账号',
-                )}
-              </p>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "12px",
-                  justifyContent: "center",
-                  marginTop: "16px",
-                }}
-              >
-                <button
-                  className="btn btn-primary"
-                  onClick={() => openCodexAddModal("tempLogin")}
-                >
-                  <Plus size={16} />
-                  {t("common.shared.addAccount", "添加账号")}
-                </button>
-                {recycleBinButton}
-                <button
-                  className="btn btn-secondary"
-                  onClick={() =>
-                    window.dispatchEvent(
-                      new CustomEvent("app-request-navigate", {
-                        detail: "manual",
-                      }),
-                    )
-                  }
-                >
-                  <BookOpen size={16} />
-                  {t("manual.navTitle", "功能使用手册")}
-                </button>
-              </div>
-            </div>
-          ) : filteredAccounts.length === 0 && !hasGroupEntryCards ? (
-            <div className="empty-state">
-              <h3>{t("common.shared.noMatch.title", "没有匹配的账号")}</h3>
+            <PlatformWorkspaceState
+              kind="empty"
+              title={t("common.shared.empty.title", "No accounts yet")}
+              description={t("codex.empty.description", "Add an account to start managing your Codex access.")}
+            >
+              <button type="button" className="btn btn-primary platform-workspace-add" onClick={() => openCodexAddModal("tempLogin")}>
+                <Plus size={16} aria-hidden="true" />
+                {t("common.shared.addAccount", "Add account")}
+              </button>
               {recycleBinButton}
-              <p>
-                {t("common.shared.noMatch.desc", "请尝试调整搜索或筛选条件")}
-              </p>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => window.dispatchEvent(new CustomEvent("app-request-navigate", { detail: "manual" }))}
+              >
+                <BookOpen size={16} aria-hidden="true" />
+                {t("manual.navTitle", "Open the guide")}
+              </button>
+            </PlatformWorkspaceState>
+          ) : filteredAccounts.length === 0 && !hasGroupEntryCards ? (
+            <PlatformWorkspaceState
+              kind="no-match"
+              title={t("common.shared.noMatch.title", "No matching accounts")}
+              description={t("common.shared.noMatch.desc", "Try changing your search or filters.")}
+            >
+              {recycleBinButton}
               {hasActiveOverviewFilters && (
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={clearAllOverviewFilters}
-                >
-                  {t("codex.filters.clearAll", "清除筛选")}
+                <button type="button" className="btn btn-secondary" onClick={clearAllOverviewFilters}>
+                  {t("codex.filters.clearAll", "Clear filters")}
                 </button>
               )}
-            </div>
+            </PlatformWorkspaceState>
           ) : (
             <>
               {batchDeleteJob && (
@@ -1614,7 +1592,7 @@ export function CodexAccountsOverviewPanel(props: CodexAccountsViewProps) {
                         reportExportModalError(
                           t(
                             "codex.exportFormat.agentIdentityCpaUnsupported",
-                            "Agent Identity 账号不支持 cpa 格式，请使用 Cockpit Tools 或 sub2api 格式导出。",
+                            "Agent Identity 账号不支持 cpa 格式，请使用 codex tools 或 sub2api 格式导出。",
                           ),
                         );
                         return;

@@ -1,3 +1,4 @@
+import { PlatformWorkspaceState } from '../components/platform/PlatformWorkspaceState';
 import { LOCAL_HISTORY_TIMEOUT } from '../hooks/useLocalHistory';
 import { createPortal } from 'react-dom';
 import { Plus, RefreshCw, Upload, Trash2, Rocket, X, Globe, KeyRound, Database, Plug, Copy, Check, LayoutGrid, List, Search, CircleAlert, Info, RotateCw, History, ArrowDownWideNarrow, ArrowUp, ArrowDown, Wrench, Rows3, GripVertical, Eye, EyeOff, BookOpen, FileUp, ExternalLink, FolderOpen, FolderPlus, FileText, ChevronDown } from 'lucide-react';
@@ -230,7 +231,7 @@ export function AccountsOverviewView(props: AccountsOverviewViewProps) {
 
   return (
     <>
-      <main className="main-content accounts-page">
+      <main className="main-content accounts-page platform-workspace-page" data-workspace="antigravity">
         <OverviewTabsHeader
           active="overview"
           onNavigate={onNavigate}
@@ -243,12 +244,13 @@ export function AccountsOverviewView(props: AccountsOverviewViewProps) {
         />
 
         {/* 工具栏 */}
-        <div className="toolbar">
+        <div className="toolbar platform-workspace-account-toolbar">
           <div className="toolbar-left">
             <div className="search-box">
               <Search size={16} className="search-icon" />
               <input
                 type="text"
+                aria-label={t('accounts.search')}
                 placeholder={t('accounts.search')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -369,14 +371,18 @@ export function AccountsOverviewView(props: AccountsOverviewViewProps) {
           </div>
 
           <div className="toolbar-right">
-            <button
-              className="btn btn-primary icon-only"
-              onClick={() => openAddModal('oauth')}
-              title={t('accounts.addAccount')}
-              aria-label={t('accounts.addAccount')}
-            >
-              <Plus size={14} />
-            </button>
+            {(accounts.length > 0) && (
+              <button
+                type="button"
+                className="btn btn-primary platform-workspace-add"
+                onClick={() => openAddModal('oauth')}
+                title={t('accounts.addAccount')}
+                aria-label={t('accounts.addAccount')}
+              >
+                <Plus size={15} aria-hidden="true" />
+                <span>{t('accounts.addAccount')}</span>
+              </button>
+            )}
             <button
               className="btn btn-secondary icon-only"
               onClick={handleRefreshAll}
@@ -508,41 +514,20 @@ export function AccountsOverviewView(props: AccountsOverviewViewProps) {
 
         {/* 内容区域 */}
         {loading && accounts.length === 0 ? (
-          <div className="empty-state">
-            <div
-              className="loading-spinner"
-              style={{ width: 40, height: 40 }}
-            />
-          </div>
+          <PlatformWorkspaceState kind="loading" title={t('common.loading')} />
         ) : accounts.length === 0 ? (
-          <div className="empty-state">
-            <div className="icon">
-              <Rocket size={40} />
-            </div>
-            <h3>{t('accounts.empty.title')}</h3>
-            <p>{t('accounts.empty.desc')}</p>
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '16px' }}>
-              <button
-                className="btn btn-primary"
-                onClick={() => openAddModal('oauth')}
-              >
-                <Plus size={18} />
-                {t('accounts.empty.btn')}
-              </button>
-              <button
-                className="btn btn-secondary"
-                onClick={() => onNavigate?.('manual')}
-              >
-                <BookOpen size={18} />
-                {t('manual.navTitle', '查阅接入手册')}
-              </button>
-            </div>
-          </div>
+          <PlatformWorkspaceState kind="empty" title={t('accounts.empty.title')} description={t('accounts.empty.desc')}>
+            <button type="button" className="btn btn-primary platform-workspace-add" onClick={() => openAddModal('oauth')}>
+              <Plus size={16} aria-hidden="true" />
+              {t('accounts.empty.btn')}
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={() => onNavigate?.('manual')}>
+              <BookOpen size={16} aria-hidden="true" />
+              {t('manual.navTitle', 'Open the guide')}
+            </button>
+          </PlatformWorkspaceState>
         ) : filteredAccounts.length === 0 && !hasVisibleAccountGroups ? (
-          <div className="empty-state">
-            <h3>{t('accounts.noMatch.title')}</h3>
-            <p>{t('accounts.noMatch.desc')}</p>
-          </div>
+          <PlatformWorkspaceState kind="no-match" title={t('accounts.noMatch.title')} description={t('accounts.noMatch.desc')} />
         ) : viewMode === 'grid' ? (
           renderGridView()
         ) : viewMode === 'list' ? (

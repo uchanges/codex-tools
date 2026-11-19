@@ -479,7 +479,7 @@ fn callback_html(locale: &str, received: bool) -> String {
     };
     let text = crate::modules::i18n::translate(locale, key, &[]);
     format!(
-        "<!doctype html><html lang=\"{}\"><meta charset=utf-8><meta name=viewport content=\"width=device-width, initial-scale=1\"><title>Cockpit Tools</title><body><h1>Cockpit Tools</h1><p>{}</p></body></html>",
+        "<!doctype html><html lang=\"{}\"><meta charset=utf-8><meta name=viewport content=\"width=device-width, initial-scale=1\"><title>codex tools</title><body><h1>codex tools</h1><p>{}</p></body></html>",
         escape_html(locale),
         escape_html(&text),
     )
@@ -499,7 +499,7 @@ async fn respond(stream: &mut TcpStream, received: bool) {
         Ok(callback_html(locale, received))
     })
     .await
-    .unwrap_or_else(|_| "Cockpit Tools".to_string());
+    .unwrap_or_else(|_| "codex tools".to_string());
     let response = format!("HTTP/1.1 {}\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: {}\r\nCache-Control: no-store\r\nReferrer-Policy: no-referrer\r\nContent-Security-Policy: default-src 'none'\r\nConnection: close\r\n\r\n{}", if received { "200 OK" } else { "400 Bad Request" }, body.len(), body);
     let _ = tokio::time::timeout(
         Duration::from_secs(2),
@@ -919,11 +919,11 @@ mod tests {
     #[test]
     fn callback_page_explains_receipt_and_failure_in_the_selected_language() {
         let received = callback_html("zh-CN", true);
-        assert!(received.contains("授权回调已接收，请返回 Cockpit Tools 查看结果。"));
+        assert!(received.contains("授权回调已接收，请返回 codex tools 查看结果。"));
         assert!(!received.contains("✓"));
         let failed = callback_html("zh-CN", false);
-        assert!(failed.contains("回调无效或授权未完成，请返回 Cockpit Tools 重试。"));
-        assert!(callback_html("en-US", true).contains("Return to Cockpit Tools"));
+        assert!(failed.contains("回调无效或授权未完成，请返回 codex tools 重试。"));
+        assert!(callback_html("en-US", true).contains("Return to codex tools"));
     }
 
     #[test]

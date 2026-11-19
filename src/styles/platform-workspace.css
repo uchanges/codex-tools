@@ -1,0 +1,304 @@
+/* Shared workspace accents and navigation for the two retained platform suites. */
+.platform-workspace-page {
+  --platform-accent: #5851c4;
+  --platform-action: #5254c5;
+  --platform-action-hover: #6264d5;
+  --platform-surface: color-mix(in srgb, var(--bg-secondary) 70%, var(--bg-primary));
+  --platform-inset: color-mix(in srgb, var(--bg-primary) 60%, var(--platform-surface));
+  --platform-rule: var(--border);
+  --platform-tint: color-mix(in srgb, var(--platform-accent) 12%, transparent);
+  min-width: 0;
+}
+
+.platform-workspace-page[data-workspace="antigravity"] {
+  --platform-accent: #126c5a;
+  --platform-action: #14735f;
+  --platform-action-hover: #198370;
+}
+
+[data-theme="dark"] .platform-workspace-page[data-workspace="codex"] { --platform-accent: #a6a9ff; }
+[data-theme="dark"] .platform-workspace-page[data-workspace="antigravity"] { --platform-accent: #73d8bf; }
+
+.platform-workspace-page > .platform-workspace-header {
+  flex-shrink: 0;
+  min-width: 0;
+  display: grid;
+  gap: 15px;
+  margin-block-end: 2px;
+}
+
+.platform-workspace-intro {
+  min-width: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+}
+
+.platform-workspace-title-block { min-width: 0; }
+.platform-workspace-identity { display: inline-flex; max-width: 100%; margin-block-end: 7px; }
+
+.platform-workspace-identity .platform-group-switcher { min-width: 0; max-width: 100%; }
+
+.platform-workspace-identity .platform-group-switcher-trigger {
+  min-width: 0;
+  max-width: 100%;
+  height: 30px;
+  gap: 7px;
+  padding: 0 9px;
+  border: 1px solid color-mix(in srgb, var(--platform-accent) 25%, transparent);
+  border-radius: 8px;
+  background: var(--platform-tint);
+  color: var(--platform-accent);
+  box-shadow: none;
+}
+
+.platform-workspace-identity .platform-group-switcher-trigger:hover,
+.platform-workspace-identity .platform-group-switcher-trigger.is-open {
+  border-color: color-mix(in srgb, var(--platform-accent) 50%, transparent);
+  background: color-mix(in srgb, var(--platform-accent) 18%, transparent);
+}
+
+.platform-workspace-identity :is(.platform-group-switcher-trigger-icon, .platform-group-switcher-trigger-caret, .platform-group-switcher-trigger-label) {
+  color: inherit;
+}
+
+.platform-workspace-title { display: flex; align-items: center; gap: 7px; }
+
+.platform-workspace-title h1 {
+  min-width: 0;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(25px, 2.7vw, 34px);
+  font-weight: 760;
+  letter-spacing: -.04em;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.platform-workspace-title-block > p {
+  margin: 6px 0 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.platform-workspace-help {
+  flex: 0 0 auto;
+  width: 29px;
+  height: 29px;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.platform-workspace-help:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+.platform-workspace-nav {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  padding: 5px;
+  border: 1px solid var(--platform-rule);
+  border-radius: 13px;
+  background: var(--platform-surface);
+}
+
+.platform-workspace-tabs {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 2px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--platform-rule) transparent;
+}
+
+.platform-workspace-tab,
+.platform-workspace-nav .page-more-trigger {
+  flex: 0 0 auto;
+  min-height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 4px 11px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.platform-workspace-nav .page-more-trigger { height: 35px; }
+.platform-workspace-nav .page-more-trigger:disabled { opacity: .5; cursor: default; }
+.platform-workspace-nav .page-tabs-trailing { flex: 0 0 auto; padding-inline: 1px; }
+.platform-workspace-nav .page-more-menu { inset-inline-end: 0; right: auto; background: var(--platform-surface); }
+
+.platform-workspace-tab :is(svg, .tab-icon) { flex: 0 0 auto; width: 15px; height: 15px; }
+.platform-workspace-tab .tab-icon { display: inline-flex; align-items: center; justify-content: center; }
+
+.platform-workspace-tab:hover,
+.platform-workspace-nav .page-more-trigger:hover:not(:disabled) {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.platform-workspace-tab[aria-current="page"],
+.platform-workspace-nav .page-more-trigger:is(.is-active, .is-open) {
+  border-color: color-mix(in srgb, var(--platform-accent) 27%, transparent);
+  background: var(--platform-tint);
+  color: var(--platform-accent);
+}
+
+.platform-workspace-header button:focus-visible,
+.platform-workspace-page .platform-workspace-add:focus-visible {
+  outline: 2px solid var(--platform-accent);
+  outline-offset: -2px;
+}
+
+.platform-workspace-page :is(
+  .platform-workspace-account-toolbar,
+  .wakeup-toolbar,
+  .instances-toolbar,
+  .verification-page-toolbar,
+  .codex-session-manager__header,
+  .ag-token-usage__toolbar,
+  .codex-api-service-usage-toolbar
+) {
+  padding: 12px;
+  border: 1px solid var(--platform-rule);
+  border-radius: 13px;
+  background: var(--platform-surface);
+  box-shadow: none;
+}
+
+.platform-workspace-page .platform-workspace-account-toolbar {
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+
+.platform-workspace-account-toolbar .toolbar-left {
+  flex: 1 1 500px;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.platform-workspace-account-toolbar .toolbar-right {
+  flex: 0 1 auto;
+  min-width: 0;
+  margin-inline-start: auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.platform-workspace-account-toolbar .search-box { flex: 0 1 clamp(140px, 18vw, 218px); min-width: 0; }
+.platform-workspace-account-toolbar .search-box input {
+  min-width: 0;
+  width: 100%;
+  background: var(--platform-inset);
+}
+
+.platform-workspace-page .btn.platform-workspace-add {
+  min-height: 36px;
+  padding-inline: 12px;
+  border: 1px solid color-mix(in srgb, var(--platform-action) 76%, white);
+  border-radius: 8px;
+  background: var(--platform-action);
+  box-shadow: none;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.platform-workspace-page .btn.platform-workspace-add:hover { background: var(--platform-action-hover); }
+
+.platform-workspace-state {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 13px;
+  min-height: 118px;
+  padding: clamp(14px, 2vw, 22px);
+  border: 1px solid var(--platform-rule);
+  border-radius: 15px;
+  background: var(--platform-surface);
+}
+
+.platform-workspace-state-mark {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--platform-tint);
+  color: var(--platform-accent);
+}
+
+.platform-workspace-state-copy { min-width: 0; flex: 1 1 160px; }
+.platform-workspace-state-copy h2 { margin: 0; color: var(--text-primary); font-size: 15px; font-weight: 720; }
+.platform-workspace-state-copy p { margin: 5px 0 0; color: var(--text-secondary); line-height: 1.5; font-size: 13px; }
+.platform-workspace-state-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-inline-start: auto; }
+
+.platform-workspace-page :is(.ag-token-summary, .ag-token-usage__hero, .codex-api-service-hero) {
+  border-color: color-mix(in srgb, var(--platform-accent) 25%, var(--platform-rule));
+  border-radius: 14px;
+  background:
+    radial-gradient(ellipse at 2% 0%, var(--platform-tint), transparent 66%),
+    var(--platform-surface);
+  box-shadow: none;
+}
+
+.platform-workspace-page .ag-token-summary__range-btn.is-active {
+  background: var(--platform-tint);
+  color: var(--platform-accent);
+}
+
+.platform-workspace-page :is(
+  .account-table-container,
+  .account-selection-toolbar,
+  .wakeup-task-card,
+  .instance-card,
+  .verification-results-panel,
+  .codex-api-service-summary-card
+) {
+  border-radius: 13px;
+  background: var(--platform-surface);
+  box-shadow: none;
+}
+
+.platform-workspace-page :is(.account-card, .codex-account-card)
+  :is(.card-header, .account-card-header) { border-color: var(--platform-rule); }
+
+.platform-workspace-page > .empty-state,
+.platform-workspace-page .codex-session-manager__empty {
+  min-height: 118px;
+  padding: 23px 16px;
+  border: 1px solid var(--platform-rule);
+  border-radius: 14px;
+  background: var(--platform-surface);
+}
+
+@media (max-width: 780px) {
+  .platform-workspace-state-actions { margin-inline-start: 0; }
+  .platform-workspace-tab { padding-inline: 8px; }
+  .platform-workspace-account-toolbar .toolbar-right { margin-inline-start: 0; justify-content: flex-start; }
+}

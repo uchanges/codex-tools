@@ -196,7 +196,7 @@ async fn dispatch_monthly_token_alerts(app: &AppHandle) -> Result<(), String> {
             // The Tauri plugin returns before the native send and discards its error.
             let mut notification = notify_rust::Notification::new();
             notification.summary(&title).body(&message).auto_icon().appname(
-                app.config().product_name.as_deref().unwrap_or("Cockpit Tools"),
+                app.config().product_name.as_deref().unwrap_or("codex tools"),
             );
             #[cfg(target_os = "windows")]
             if !tauri::is_dev() {

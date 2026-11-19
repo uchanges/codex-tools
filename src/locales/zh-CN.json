@@ -222,7 +222,7 @@
     "historyRestoring": "正在恢复历史记录…",
     "apiBudget": {
       "keyScope": "当前 Key",
-      "upgradeRequired": "请升级网关所在电脑的 Cockpit Tools，以查看统计和请求记录。",
+      "upgradeRequired": "请升级网关所在电脑的 codex tools，以查看统计和请求记录。",
       "gatewayName": "Cockpit 网关",
       "accountingNote": "已记录扣额不随价格重算变化；估算价值可能不同。预算按 UTC 重置。",
       "preparing": "正在后台整理历史统计，请稍后重试。",
@@ -283,7 +283,7 @@
       "waiting": "等待会话用量记录",
       "refreshFailed": "额度刷新失败，已保留上次结果。请重试。",
       "refreshPartial": "部分账号额度刷新失败，已保留可用结果。",
-      "hostUnavailable": "Cockpit Tools 未连接，已暂停刷新。",
+      "hostUnavailable": "codex tools 未连接，已暂停刷新。",
       "refreshing": "刷新中…",
       "recent": "最近记录",
       "recentAccount": "最近使用账号",
@@ -711,7 +711,7 @@
         "batchJson": "批量示例（JSON）"
       }
     },
-    "appName": "Cockpit Tools",
+    "appName": "codex tools",
     "collapse": "收起",
     "confirmDelete": "确认删除",
     "confirmDeleteTag": "确认删除标签",
@@ -792,7 +792,7 @@
       "backToCurrent": "返回",
       "switchToThisAccount": "切换",
       "openDetails": "打开详情页",
-      "openCockpitTools": "打开 Cockpit Tools"
+      "openCockpitTools": "打开 codex tools"
     },
     "empty": {
       "title": "暂无账号",
@@ -861,17 +861,17 @@
   },
   "sponsors": {
     "pageTitle": "赞助商",
-    "pageDesc": "感谢以下赞助商支持 Cockpit Tools。",
+    "pageDesc": "感谢以下赞助商支持 codex tools。",
     "loading": "正在加载赞助商...",
     "emptyTitle": "暂无赞助商",
     "emptyDesc": "当前远端未开启赞助商模块。",
     "listAriaLabel": "赞助商列表",
-    "defaultDescription": "感谢支持 Cockpit Tools。",
+    "defaultDescription": "感谢支持 codex tools。",
     "openSponsor": "查看"
   },
   "relay": {
     "pageTitle": "专属中转站",
-    "pageDesc": "为 Cockpit Tools 用户提供的合作 API 服务，可用于 Codex API Key 账号。",
+    "pageDesc": "为 codex tools 用户提供的合作 API 服务，可用于 Codex API Key 账号。",
     "loading": "正在加载中转站...",
     "emptyTitle": "中转站未开启",
     "emptyDesc": "当前远端配置未开启专属中转站。",
@@ -1050,7 +1050,7 @@
       "title": "使用 API 密钥",
       "family": "分组",
       "platform": "当前系统",
-      "unsupportedGroup": "Cockpit Tools 暂无适用于 APIKEY.FUN {{family}} 接口的客户端配置模板。可以在支持该接口的客户端里手动配置。"
+      "unsupportedGroup": "codex tools 暂无适用于 APIKEY.FUN {{family}} 接口的客户端配置模板。可以在支持该接口的客户端里手动配置。"
     },
     "campaign": {
       "badge": "双11",
@@ -1314,12 +1314,12 @@
         "summary": "普通模型使用当前订阅；带前缀模型（如 cpa/gpt-5.6-sol）转发到第三方 API。两者都依赖本地分流服务。",
         "rowSummary": "普通模型使用当前订阅；带前缀模型（如 cpa/gpt-5.6-sol）转发到第三方 API。两者都依赖本地分流服务。",
         "confirmEnableTitle": "开启第三方 API 路由？",
-        "confirmEnableMessage": "开启后，Codex 的模型请求将通过 Cockpit Tools 本地服务分流。服务未运行时，官方订阅和第三方模型都可能无法使用。\n\n确认开启吗？",
+        "confirmEnableMessage": "开启后，Codex 的模型请求将通过 codex tools 本地服务分流。服务未运行时，官方订阅和第三方模型都可能无法使用。\n\n确认开启吗？",
         "confirmEnableAction": "确认开启",
         "confirmDisableTitle": "关闭第三方 API 路由？",
         "confirmDisableMessage": "关闭并生效后将停止本地网关、恢复官方原生直连，所有第三方模型将不可用。\n\n确认关闭吗？",
         "confirmDisableAction": "确认关闭",
-        "modalTip": "开启后，官方订阅和第三方模型都会经过本地分流服务。请保持 Cockpit Tools 后台运行；服务异常时会自动恢复，连续失败则回退官方配置。",
+        "modalTip": "开启后，官方订阅和第三方模型都会经过本地分流服务。请保持 codex tools 后台运行；服务异常时会自动恢复，连续失败则回退官方配置。",
         "modelRequired": "每个已启用的 API 路由至少需要选择一个模型。",
         "runningSaveTitle": "路由配置何时生效？",
         "runningSaveMessage": "此 Codex 实例正在运行。立即替换本地服务会中断当前对话。\n\n选择“保存并重启 Codex”立即生效；选择“仅保存，稍后生效”不会影响当前会话。",
@@ -1482,7 +1482,7 @@
       "platform": "平台"
     },
     "title": "应用设置",
-    "subtitle": "个性化您的 Cockpit Tools 体验。",
+    "subtitle": "个性化您的 codex tools 体验。",
     "general": {
       "accountLevelRefreshSummary": "展开配置",
       "accountLevelRefreshSummaryActive": "已配置 {{count}} 个账号",
@@ -1556,7 +1556,7 @@
       "floatingCardStartupDesc": "应用启动后默认展示悬浮账号卡片",
       "floatingCardAlwaysOnTop": "悬浮卡片默认置顶",
       "floatingCardAlwaysOnTopDesc": "新打开的悬浮卡片窗口默认保持置顶",
-      "appAutoLaunch": "开机自启动 Cockpit Tools",
+      "appAutoLaunch": "开机自启动 codex tools",
       "appAutoLaunchDesc": "系统登录后自动启动应用。若 Windows 开机时出现 PowerShell 报错，请先关闭此选项。",
       "startupWakeupDisabled": "关闭",
       "startupWakeupImmediate": "立即唤醒",
@@ -1566,7 +1566,7 @@
       "floatingCardShowNowAction": "显示悬浮卡片",
       "dataDir": "数据目录",
       "dataDirDesc": "账号与配置文件的存储位置。",
-      "dataDirPending": "重启后，Cockpit Tools 将读取 {{path}} 中的数据。",
+      "dataDirPending": "重启后，codex tools 将读取 {{path}} 中的数据。",
       "dataDirPendingDefault": "重启后将使用默认目录。",
       "dataDirEnvironment": "当前启动使用 COCKPIT_TOOLS_DATA_DIR 指定的目录。",
       "topRightAdVisible": "显示顶部推广",
@@ -1591,7 +1591,7 @@
       "codexSyncWsl": "同步 Codex 到 WSL",
       "codexSyncWslDesc": "切换默认 Codex 账号后，同时把 auth.json 和 config.toml 写入 WSL 的 Codex 配置目录。",
       "codexAppUiInjection": "显示 API 服务额度",
-      "codexAppUiInjectionDesc": "绑定 API 服务的 Codex 底栏显示所选模型的额度（GPT 5h／周配额、DeepSeek 余额或 Grok 额度）及当前会话的输出速度、缓存命中率。点击可查看额度、会话指标和 API 服务统计，切换当前会话／全部服务的请求记录，查看更多或刷新。会话关联不明或有效计时不足时，对应指标显示 —。需保持 Cockpit Tools 在后台运行；额度更新需要网络。",
+      "codexAppUiInjectionDesc": "绑定 API 服务的 Codex 底栏显示所选模型的额度（GPT 5h／周配额、DeepSeek 余额或 Grok 额度）及当前会话的输出速度、缓存命中率。点击可查看额度、会话指标和 API 服务统计，切换当前会话／全部服务的请求记录，查看更多或刷新。会话关联不明或有效计时不足时，对应指标显示 —。需保持 codex tools 在后台运行；额度更新需要网络。",
       "codexAppUiInjectionPoolLabel": "账号",
       "codexAppUiInjectionWeeklyLabel": "周",
       "codexAppUiInjectionFiveHourLabel": "5h",
@@ -1839,7 +1839,7 @@
         "quotaCompatDesc": "API 服务实例使用可用额度视图，仅调整客户端显示和本地判断；真实上游用量及图像额度不变。此开关仅用于其他 OAuth＋外部 API 混合模式。",
         "configFailed": "设置读取或保存失败：{{error}}",
         "nativePredictions": "原生下一步预测（Tab）",
-        "nativePredictionsDesc": "默认开启。使用当前对话的 API 供应商和模型生成下一条消息建议，会产生额外的 API 用量。修改后请重启相关 Codex 实例，并保持 Cockpit Tools 运行。"
+        "nativePredictionsDesc": "默认开启。使用当前对话的 API 供应商和模型生成下一条消息建议，会产生额外的 API 用量。修改后请重启相关 Codex 实例，并保持 codex tools 运行。"
       },
       "menuBarLeftClick": "菜单栏左键操作",
       "menuBarLeftClickDesc": "右键始终打开额度菜单。",
@@ -2112,7 +2112,7 @@
       "proxyUrlRequired": "启用全局代理时，代理地址不能为空。"
     },
     "about": {
-      "appName": "Cockpit Tools",
+      "appName": "codex tools",
       "slogan": "专业账号管理解决方案",
       "author": "主作者",
       "wechat": "微信公众号",
@@ -3465,11 +3465,11 @@
     },
     "exportFormat": {
       "label": "导出格式",
-      "cockpitTools": "Cockpit Tools",
+      "cockpitTools": "codex tools",
       "authJson": "官方 auth.json",
       "sub2api": "sub2api 格式",
       "cpa": "cpa 格式",
-      "agentIdentityCpaUnsupported": "Agent Identity 账号不支持 cpa 格式，请使用 Cockpit Tools 或 sub2api 格式导出。",
+      "agentIdentityCpaUnsupported": "Agent Identity 账号不支持 cpa 格式，请使用 codex tools 或 sub2api 格式导出。",
       "agentIdentityPrivateKeyNotice": "导出内容包含 Agent Identity 私钥，可用于在其他设备恢复账号。请像密码一样妥善保管。",
       "buildFailed": "无法生成导出内容：所选账号包含不支持的类型或认证信息不完整。",
       "downloadAll": "一键下载全部",
@@ -3646,8 +3646,8 @@
       "testAuthFailed": "服务可达，但鉴权失败：{{detail}}。请检查 API 服务密钥或账号登录状态。",
       "testServiceUnavailable": "服务可达，但当前不可用：{{detail}}。请检查服务是否启用、账号集合是否为空或账号是否可用。",
       "gatewayErrors": {
-        "authUnavailable": "账号池当前没有可调度账号；账号可能正在冷却、授权失效或额度受限，请在 Cockpit Tools 的 API 服务页查看账号状态。",
-        "authNotFound": "账号池当前没有已配置的可用账号，请在 Cockpit Tools 的 API 服务页添加或启用账号。",
+        "authUnavailable": "账号池当前没有可调度账号；账号可能正在冷却、授权失效或额度受限，请在 codex tools 的 API 服务页查看账号状态。",
+        "authNotFound": "账号池当前没有已配置的可用账号，请在 codex tools 的 API 服务页添加或启用账号。",
         "accountConcurrencyExceeded": "账号并发已达上限，请稍后重试。",
         "providerRetryAfter": "供应商要求暂停请求，请在 {{seconds}} 秒后重试。",
         "audioInvalidRequest": "音频请求无效：{{detail}}",
@@ -7080,6 +7080,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "工作区",
+      "subtitle": "一眼查看 Codex 和 Antigravity 的账号、配额与使用状态。",
+      "allAccountsSubtitle": "浏览两个平台的账号及配额详情。",
+      "summary": "账号总览",
+      "platforms": "平台管理",
+      "platformCount": "{{count}} 个平台",
+      "accountCount": "{{count}} 个账号",
+      "loadingAccounts": "正在读取账号",
+      "noAccounts": "还没有账号",
+      "noAccountsHint": "添加或导入账号后，即可在这里查看配额。",
+      "noCurrentAccount": "暂无当前账号，可前往账号页选择。",
+      "manageAccounts": "管理账号",
+      "noPlatforms": "仪表盘暂无可见平台",
+      "noPlatformsHint": "可在平台布局中选择要显示的平台。",
+      "shortcuts": "快捷入口",
+      "codexApi": "Codex API 服务",
+      "codexApiHint": "本地网关、API 密钥和请求日志",
+      "agUsage": "反重力会话用量",
+      "agUsageHint": "查看本地会话的 Token 用量和趋势"
+    },
     "title": "账号仪表盘",
     "apiRelay": {
       "localConfig": "本地配置",
@@ -9132,8 +9153,8 @@
     "desc": "管理 OpenCode Go / Zen 档 API Key，并按档位筛选列表。密钥保存在本机应用数据目录。"
   },
   "chatgptPlan": {
-    "callbackReceived": "授权回调已接收，请返回 Cockpit Tools 查看结果。",
-    "callbackFailed": "回调无效或授权未完成，请返回 Cockpit Tools 重试。",
+    "callbackReceived": "授权回调已接收，请返回 codex tools 查看结果。",
+    "callbackFailed": "回调无效或授权未完成，请返回 codex tools 重试。",
     "title": "ChatGPT 套餐",
     "description": "独立授权 ChatGPT 套餐，为 API 服务提供模型调用。",
     "localStatsHint": "请求数和 Token 用量仅统计本 API 服务的调用；套餐余额请到 ChatGPT 查看。",
@@ -9142,7 +9163,7 @@
     "manage": "管理",
     "manageTitle": "管理套餐授权",
     "connectTitle": "OpenAI 官方授权",
-    "consent": "允许 Cockpit Tools 使用你的 ChatGPT 套餐完成模型请求。用量和限额可在 ChatGPT 设置中管理。",
+    "consent": "允许 codex tools 使用你的 ChatGPT 套餐完成模型请求。用量和限额可在 ChatGPT 设置中管理。",
     "credentialsHint": "套餐凭据独立保存在本机，由 API 服务自动续期。原有 Codex 授权和切号流程保持不变。",
     "waiting": "等待浏览器完成授权…",
     "reopen": "重新打开",
@@ -9515,7 +9536,7 @@
     },
     "rebuildConfirm": {
       "title": "重新扫描",
-      "message": "将清空 Cockpit Tools 的本地扫描缓存，并以只读方式重新读取全部 Antigravity 会话数据。确认继续？"
+      "message": "将清空 codex tools 的本地扫描缓存，并以只读方式重新读取全部 Antigravity 会话数据。确认继续？"
     },
     "status": {
       "scanning": "正在扫描 Antigravity 会话数据库…",

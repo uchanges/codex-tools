@@ -62,7 +62,7 @@ export function ManualPage({ onNavigate, onOpenPlatformLayout }: ManualPageProps
         ],
         steps: [
           t('manual.quickStart.steps.0', '打开“仪表盘”，确认你需要管理的平台已经可见。'),
-          t('manual.quickStart.steps.1', '进入目标平台页（如 Codex / GitHub Copilot），先添加 1 个账号。'),
+          t('manual.quickStart.steps.1', '进入目标平台页（如 Codex / GitHub Copilot），先添加 1 个账号。').replace(/GitHub Copilot/gi, 'Antigravity'),
           t('manual.quickStart.steps.2', '使用“切换/注入”按钮验证切号生效。'),
           t('manual.quickStart.steps.3', '再进入“应用多开”创建 1 个实例，验证隔离和并行运行。'),
         ],
@@ -146,14 +146,10 @@ export function ManualPage({ onNavigate, onOpenPlatformLayout }: ManualPageProps
       {
         id: 'providers',
         icon: <BookOpen size={18} />,
-        title: t('manual.providers.title', 'Codex / GitHub Copilot / Windsurf / Kiro'),
-        summary: t(
-          'manual.providers.summary',
-          '四个平台页结构一致：账号总览 + 应用多开，支持 OAuth、Token/JSON 导入与切换。',
-        ),
+        title: t('nav.codex', 'Codex'),
+        summary: t('manual.providers.outcomes.0', 'Codex account switching and quota refresh.'),
         outcomes: [
           t('manual.providers.outcomes.0', 'Codex：账号切换 + 配额刷新。'),
-          t('manual.providers.outcomes.1', 'GitHub Copilot/Windsurf/Kiro：支持注入到 VS Code 链路。'),
           t('manual.providers.outcomes.2', '每个平台都可独立做筛选、分组、导入导出。'),
         ],
         steps: [
@@ -167,17 +163,11 @@ export function ManualPage({ onNavigate, onOpenPlatformLayout }: ManualPageProps
         ],
         keywords: [
           t('manual.providers.keywords.0', 'codex'),
-          t('manual.providers.keywords.1', 'github copilot'),
-          t('manual.providers.keywords.2', 'windsurf'),
-          t('manual.providers.keywords.3', 'kiro'),
           t('manual.providers.keywords.4', '注入'),
           t('manual.providers.keywords.5', '切号'),
         ],
         actions: [
           { id: 'go-codex', kind: 'navigate', page: 'codex', label: t('manual.actions.goCodex', '前往 Codex'), primary: true },
-          { id: 'go-ghcp', kind: 'navigate', page: 'github-copilot', label: t('manual.actions.goGitHubCopilot', '前往 GitHub Copilot') },
-          { id: 'go-windsurf', kind: 'navigate', page: 'windsurf', label: t('manual.actions.goWindsurf', '前往 Windsurf') },
-          { id: 'go-kiro', kind: 'navigate', page: 'kiro', label: t('manual.actions.goKiro', '前往 Kiro') },
         ],
       },
       {

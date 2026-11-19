@@ -1,3 +1,4 @@
+import { PlatformWorkspaceHeader } from './platform/PlatformWorkspaceHeader';
 import { ReactNode, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AlarmClock, BarChart3, Layers, ShieldCheck } from 'lucide-react';
@@ -34,7 +35,6 @@ export function OverviewTabsHeader({
   title,
   onOpenManual,
 }: OverviewTabsHeaderProps) {
-  void subtitle;
   const { t } = useTranslation();
   const { platformGroups } = usePlatformLayoutStore();
   const currentPlatformId: PlatformId = 'antigravity';
@@ -91,41 +91,34 @@ export function OverviewTabsHeader({
     },
   ];
 
+  const activeTab = tabs.find((tab) => tab.key === active);
   return (
-    <>
-      <div className="page-top-strip">
-        <div className="page-top-strip-left">
-          <span className="page-top-strip-label">
-            {t('settings.general.accountManagement', 'Account')}
-          </span>
-          <ManualHelpIconButton className="platform-header-help" onClick={onOpenManual} />
-        </div>
-        <div className="page-top-strip-right">
-          <AntigravityInstalledVersionBadge />
-        </div>
-      </div>
-      <div className="page-tabs-row page-tabs-center page-tabs-row-with-leading">
-        <div className="page-tabs-leading">
-          <PlatformGroupSwitcher
-            currentPlatformId={currentPlatformId}
-            currentLabel={currentDisplayName}
-            options={switchOptions}
-            currentGroupId={currentGroup?.id ?? null}
-          />
-        </div>
-        <div className="page-tabs filter-tabs">
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              className={`filter-tab${active === tab.key ? ' active' : ''}`}
-              onClick={() => onNavigate?.(tab.key)}
-            >
-              {tab.icon}
-              <span>{tab.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-    </>
+    <PlatformWorkspaceHeader
+      identity={(
+        <PlatformGroupSwitcher
+          currentPlatformId={currentPlatformId}
+          currentLabel={currentDisplayName}
+          options={switchOptions}
+          currentGroupId={currentGroup?.id ?? null}
+        />
+      )}
+      title={activeTab?.label ?? currentDisplayName}
+      subtitle={subtitle}
+      help={<ManualHelpIconButton className="platform-workspace-help" onClick={onOpenManual} />}
+      status={<AntigravityInstalledVersionBadge />}
+      tabsLabel={currentDisplayName}
+      tabs={tabs.map((tab) => (
+        <button
+          key={tab.key}
+          type="button"
+          className={'platform-workspace-tab' + (active === tab.key ? ' active' : '')}
+          aria-current={active === tab.key ? 'page' : undefined}
+          onClick={() => onNavigate?.(tab.key)}
+        >
+          {tab.icon}
+          <span>{tab.label}</span>
+        </button>
+      ))}
+    />
   );
 }

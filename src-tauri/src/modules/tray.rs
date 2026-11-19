@@ -546,7 +546,7 @@ pub fn create_tray_skeleton<R: Runtime>(
     let builder = TrayIconBuilder::with_id(TRAY_ID)
         .icon(tray_icon)
         .show_menu_on_left_click(false)
-        .tooltip("Cockpit Tools")
+        .tooltip(app.config().product_name.as_deref().unwrap_or("codex tools"))
         .on_menu_event(handle_menu_event)
         .on_tray_icon_event(handle_tray_event);
 

@@ -7,7 +7,7 @@ const { spawnSync } = require("node:child_process");
 const test = require("node:test");
 
 const workflowPath = path.join(__dirname, "..", "..", ".github", "workflows", "release.yml");
-const workflow = fs.readFileSync(workflowPath, "utf8");
+const workflow = fs.readFileSync(workflowPath, "utf8").replace(/\r\n/g, "\n");
 const repoRoot = path.resolve(__dirname, "../..");
 const bash = process.platform === "win32"
   ? path.join(process.env.ProgramFiles, "Git", "bin", "bash.exe")
@@ -46,6 +46,16 @@ test("public updater verification and Homebrew run only after publication", () =
   assert.match(publish, /Verify complete published updater state/);
   assert.match(publish, /verify_published_updater_manifests\.cjs/);
   assert.match(homebrew, /needs:[\s\S]*publish-release/);
+});
+
+test("main packages previews without invoking the signed release path", () => {
+  const preview = fs.readFileSync(path.join(repoRoot, ".github/workflows/package-main.yml"), "utf8");
+  assert.match(preview, /push:\s+branches: \[main\]/);
+  assert.match(preview, /permissions:\s+contents: read/);
+  assert.match(preview, /--config src-tauri\/tauri\.ci\.conf\.json/);
+  assert.equal(require("../../src-tauri/tauri.ci.conf.json").bundle.createUpdaterArtifacts, false);
+  assert.match(preview, /actions\/upload-artifact@/);
+  assert.doesNotMatch(preview, /TAURI_SIGNING_PRIVATE_KEY|gh release/);
 });
 
 test("every release upload uses the draft-safe retry helper", () => {
@@ -188,7 +198,7 @@ test("finalizes from one download, checksums the freshly generated manifest and 
   const run = () => spawnSync(bash, ["--noprofile", "--norc", "-e", "-o", "pipefail", "-c", [...fakeCommands, ...scripts].join("\n")], {
     cwd: directory,
     encoding: "utf8",
-    env: { ...process.env, NODE_BIN: process.execPath, REPO_ROOT: repoRoot, VERSION: "1.2.3", GITHUB_REPOSITORY: "example/cockpit-tools" },
+    env: { ...process.env, NODE_BIN: process.execPath, REPO_ROOT: repoRoot, VERSION: "1.2.3", GITHUB_REPOSITORY: "example/cockpit-tools", BUILD_MACOS: "true" },
   });
   const good = run();
   assert.ifError(good.error);
@@ -232,6 +242,7 @@ function runPublishJob(overrides = {}) {
       ...process.env,
       VERSION: "1.2.3",
       GITHUB_REPOSITORY: "example/cockpit-tools",
+      BUILD_MACOS: "true",
       TEST_DRAFT: "true",
       TEST_VIEW_STATUS: "0",
       TEST_EDIT_STATUS: "0",
@@ -261,6 +272,13 @@ test("verification failure still fails a retry of an already public release", ()
   assert.equal(result.status, 1, result.stderr);
   assert.doesNotMatch(result.stdout, /EDIT /);
   assert.match(result.stdout, /VERIFY /);
+});
+
+test("publishes and verifies Windows and Linux manifests without Apple credentials", () => {
+  const result = runPublishJob({ BUILD_MACOS: "false" });
+  assert.equal(result.status, 0, result.stderr);
+  assert.match(result.stdout, /--targets windows-x86_64-msi,.*linux-aarch64-rpm/);
+  assert.doesNotMatch(result.stdout, /darwin/);
 });
 
 test("release lookup and publication failures stop before public verification", () => {

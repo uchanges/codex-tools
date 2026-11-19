@@ -272,7 +272,6 @@ export function SettingsGeneralPanel(props: SettingsPageViewProps) {
     setTheme,
     setThemeColor,
     setTokenKeeperEnabled,
-    setTopRightAdVisible,
     setTraeAppPath,
     setTraeAutoRefresh,
     setTraeAutoRefreshCustomMode,
@@ -330,7 +329,6 @@ export function SettingsGeneralPanel(props: SettingsPageViewProps) {
     themeColor,
     THRESHOLD_PRESET_VALUES,
     tokenKeeperEnabled,
-    topRightAdVisible,
     traeAppPath,
     traeAutoRefresh,
     traeAutoRefreshCustomMode,
@@ -1016,30 +1014,6 @@ export function SettingsGeneralPanel(props: SettingsPageViewProps) {
               <FloatingCardShowSetting />
 
               <DataDirectorySetting />
-
-              <div className="settings-row">
-                <div className="row-label">
-                  <div className="row-title">
-                    {t('settings.general.topRightAdVisible', '显示顶部推广')}
-                  </div>
-                  <div className="row-desc">
-                    {t(
-                      'settings.general.topRightAdVisibleDesc',
-                      '关闭后隐藏应用顶部推广位。'
-                    )}
-                  </div>
-                </div>
-                <div className="row-control">
-                  <label className="switch">
-                    <input
-                      type="checkbox"
-                      checked={topRightAdVisible}
-                      onChange={(e) => setTopRightAdVisible(e.target.checked)}
-                    />
-                    <span className="slider"></span>
-                  </label>
-                </div>
-              </div>
 
               <StartupPageSetting value={startupPage} onChange={setStartupPage} />
 

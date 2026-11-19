@@ -10,6 +10,9 @@
 
 ## [Unreleased]
 
+- **codex tools**：仅保留 Codex 和 Antigravity 工作区，移除推广，重新设计仪表盘和账号界面。
+- **分发**：推送到 `main` 自动生成预览安装包；内置更新只接受 `uchanges/codex-tools` 发布的签名版本。
+
 ## [1.4.2] - 2026-11-18
 
 ### 新增

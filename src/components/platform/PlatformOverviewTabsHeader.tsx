@@ -1,3 +1,4 @@
+import { PlatformWorkspaceHeader } from './PlatformWorkspaceHeader';
 import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Clock3, FolderOpen, Github, Globe2, Layers, MoreHorizontal, PanelTop, Server } from 'lucide-react';
@@ -281,6 +282,88 @@ export function PlatformOverviewTabsHeader<T extends string = PlatformOverviewTa
     };
   }, [moreOpen]);
 
+  const identity = (
+    <PlatformGroupSwitcher
+      currentPlatformId={currentPlatformId}
+      currentLabel={currentDisplayName}
+      options={switchOptions}
+      currentGroupId={currentGroup?.id ?? null}
+    />
+  );
+  const renderTabs = (workspace: boolean) => visibleTabSpecs.map((tab) => {
+    const isCurrent = active === tab.key;
+    return (
+      <button
+        key={tab.key}
+        type="button"
+        className={(workspace ? 'platform-workspace-tab' : 'filter-tab') + (isCurrent ? ' active' : '') +
+          (tab.key.startsWith('plugin:') ? ' plugin-nav-tab' : '')}
+        aria-current={isCurrent ? 'page' : undefined}
+        title={tab.label}
+        onClick={() => onTabChange?.(tab.key as T)}
+      >
+        {tab.icon}
+        <span>{tab.label}</span>
+      </button>
+    );
+  });
+  const moreMenu = hasMoreMenu ? (
+    <div className="page-tabs-trailing" ref={moreRef}>
+      <button
+        type="button"
+        className={'page-more-trigger' + (moreOpen ? ' is-open' : '') + (moreTabSpecs.some((tab) => tab.key === active) ? ' is-active' : '')}
+        aria-haspopup="menu"
+        aria-expanded={moreOpen}
+        disabled={moreTabSpecs.length === 0}
+        onClick={() => setMoreOpen((previous) => !previous)}
+      >
+        <MoreHorizontal size={18} />
+        <span>{t('codex.more.title', 'More')}</span>
+      </button>
+      {moreOpen && (
+        <div className="page-more-menu" role="menu">
+          {moreTabSpecs.map((tab) => (
+            <button
+              type="button"
+              role="menuitem"
+              key={tab.key}
+              className={'page-more-menu-item' + (active === tab.key ? ' active' : '') + (tab.key.startsWith('plugin:') ? ' plugin-nav-tab' : '')}
+              aria-current={active === tab.key ? 'page' : undefined}
+              title={tab.label}
+              onClick={() => {
+                onTabChange?.(tab.key as T);
+                setMoreOpen(false);
+              }}
+            >
+              {tab.icon}
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  ) : null;
+
+  if (platform === 'codex') {
+    const title = registry[active]?.label ?? currentDisplayName;
+    const subtitle = active === 'overview' ? t('codex.subtitle')
+      : active === 'instances' ? t('codex.instances.subtitle')
+      : active === 'wakeup' ? t('codex.wakeup.subtitle')
+      : undefined;
+
+    return (
+      <PlatformWorkspaceHeader
+        identity={identity}
+        title={title}
+        subtitle={subtitle}
+        help={<ManualHelpIconButton className="platform-workspace-help" />}
+        tabs={renderTabs(true)}
+        tabsLabel={currentDisplayName}
+        more={moreMenu}
+      />
+    );
+  }
+
   return (
     <>
       <div className="page-top-strip">
@@ -292,67 +375,12 @@ export function PlatformOverviewTabsHeader<T extends string = PlatformOverviewTa
         </div>
         <div className="page-top-strip-right-placeholder" aria-hidden="true" />
       </div>
-      <div className={`page-tabs-row page-tabs-center page-tabs-row-with-leading${platform === 'codex' ? ' codex-page-navigation' : ''}`}>
-        <div className="page-tabs-leading">
-          <PlatformGroupSwitcher
-            currentPlatformId={currentPlatformId}
-            currentLabel={currentDisplayName}
-            options={switchOptions}
-            currentGroupId={currentGroup?.id ?? null}
-          />
-        </div>
+      <div className="page-tabs-row page-tabs-center page-tabs-row-with-leading">
+        <div className="page-tabs-leading">{identity}</div>
         {visibleTabSpecs.length > 0 ? (
-          <div className="page-tabs filter-tabs">
-            {visibleTabSpecs.map((tab) => (
-              <button
-                key={tab.key}
-                className={`filter-tab${active === tab.key ? ' active' : ''}${tab.key.startsWith('plugin:') ? ' plugin-nav-tab' : ''}`}
-                title={tab.label}
-                onClick={() => onTabChange?.(tab.key as T)}
-              >
-                {tab.icon}
-                <span>{tab.label}</span>
-              </button>
-            ))}
-          </div>
+          <div className="page-tabs filter-tabs">{renderTabs(false)}</div>
         ) : null}
-        {hasMoreMenu ? (
-          <div className="page-tabs-trailing" ref={moreRef}>
-            <button
-              type="button"
-              className={`page-more-trigger${moreOpen ? ' is-open' : ''}${moreTabSpecs.some((tab) => tab.key === active) ? ' is-active' : ''}`}
-              aria-haspopup="menu"
-              aria-expanded={moreOpen}
-              disabled={moreTabSpecs.length === 0}
-              onClick={() => setMoreOpen((previous) => !previous)}
-            >
-              <MoreHorizontal size={18} />
-              <span>{t('codex.more.title', '更多')}</span>
-            </button>
-            {moreOpen ? (
-              <div className="page-more-menu" role="menu">
-                {moreTabSpecs.map((tab) => (
-                  <button
-                    type="button"
-                    role="menuitem"
-                    key={tab.key}
-                    className={`page-more-menu-item${active === tab.key ? ' active' : ''}${tab.key.startsWith('plugin:') ? ' plugin-nav-tab' : ''}`}
-                    title={tab.label}
-                    onClick={() => {
-                      onTabChange?.(tab.key as T);
-                      setMoreOpen(false);
-                    }}
-                  >
-                    {tab.icon}
-                    <span>{tab.label}</span>
-                  </button>
-                ))}
-              </div>
-            ) : null}
-          </div>
-        ) : (
-          <div className="page-tabs-trailing-placeholder" aria-hidden="true" />
-        )}
+        {moreMenu ?? <div className="page-tabs-trailing-placeholder" aria-hidden="true" />}
       </div>
     </>
   );

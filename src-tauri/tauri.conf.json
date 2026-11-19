@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Cockpit Tools",
+  "productName": "codex tools",
   "version": "1.4.2",
   "identifier": "com.jlcodes.cockpit-tools",
   "build": {
@@ -14,7 +14,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "Cockpit Tools",
+        "title": "codex tools",
         "width": 1280,
         "height": 800,
         "minWidth": 900,
@@ -27,7 +27,7 @@
       },
       {
         "label": "floating-card",
-        "title": "Cockpit Tools",
+        "title": "codex tools",
         "create": false,
         "width": 250,
         "height": 290,
@@ -96,7 +96,7 @@
       "../resources/licenses/dnd-kit.txt": "licenses/dnd-kit.txt"
     },
     "macOS": {
-      "bundleName": "Cockpit Tools",
+      "bundleName": "codex tools",
       "hardenedRuntime": true,
       "infoPlist": "Info.plist"
     }
@@ -106,16 +106,15 @@
       "desktop": {
         "schemes": [
           "cockpit-tools",
-          "cockpittools",
-          "zcode"
+          "cockpittools"
         ]
       }
     },
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMxRkU1RTdBRDdCRUUzM0QKUldROTQ3N1hlbDcrd1ZVQ2E3b1ZoVUdXL3BWQmpjdzNnWllNUW1LNHVwcE9wdGI1Q1UxQmdnQ0oK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMzMUNGNzFBNjU1MTBCOUQKUldTZEMxRmxHdmNjdzhBK0dMUXlERVdjQXRhV3RHOWZkb0tVS3RWY2NOa3JmYjd3L3NlZDhhNHAK",
       "endpoints": [
-        "https://github.com/jlcodes99/cockpit-tools/releases/latest/download/latest-{{target}}.json",
-        "https://github.com/jlcodes99/cockpit-tools/releases/latest/download/latest.json"
+        "https://github.com/uchanges/codex-tools/releases/latest/download/latest-{{target}}.json",
+        "https://github.com/uchanges/codex-tools/releases/latest/download/latest.json"
       ]
     }
   }

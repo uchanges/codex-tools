@@ -1136,7 +1136,7 @@ export function useCodexAccountsBaseController() {
       () => [
         {
           value: "cockpit_tools",
-          label: t("codex.exportFormat.cockpitTools", "Cockpit Tools"),
+          label: t("codex.exportFormat.cockpitTools", "codex tools"),
         },
         {
           value: "auth_json",

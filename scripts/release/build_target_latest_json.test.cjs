@@ -5,7 +5,7 @@ const path = require('node:path');
 const test = require('node:test');
 
 const { buildTargetManifests } = require('./build_target_latest_json.cjs');
-const { execFileSync } = require('node:child_process');
+const { execFileSync, spawnSync } = require('node:child_process');
 const { stageReleaseAssets } = require('./stage_release_assets.cjs');
 
 test('builds manifests from the same normalized assets uploaded to GitHub', () => {
@@ -200,4 +200,46 @@ test('supports every staged release target', () => {
   assert.deepEqual(platforms['windows-aarch64'], platforms['windows-aarch64-nsis']);
   assert.match(platforms['windows-x86_64'].url, /_x64_en-US\.msi$/);
   assert.match(platforms['windows-x86_64-nsis'].url, /_x64-setup\.exe$/);
+});
+
+test('generates a fork manifest for Windows and Linux without macOS signing', (context) => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'codex-tools-fork-manifest-'));
+  context.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const notes = path.join(root, 'notes.md');
+  const output = path.join(root, 'latest.json');
+  fs.writeFileSync(notes, 'Release notes');
+  const assets = [
+    'codex.tools_1.2.3_x64_en-US.msi',
+    'codex.tools_1.2.3_x64-setup.exe',
+    'codex.tools_1.2.3_arm64-setup.exe',
+    'codex.tools_1.2.3_amd64.AppImage',
+    'codex.tools_1.2.3_aarch64.AppImage',
+    'codex.tools_1.2.3_amd64.deb',
+    'codex.tools_1.2.3_arm64.deb',
+    'codex.tools-1.2.3-1.x86_64.rpm',
+    'codex.tools-1.2.3-1.aarch64.rpm',
+  ];
+  for (const asset of assets) {
+    fs.writeFileSync(path.join(root, asset), 'installer');
+    fs.writeFileSync(path.join(root, asset + '.sig'), 'signed-' + asset);
+  }
+  const command = [
+    path.join(__dirname, 'build_merged_latest_json.cjs'),
+    '--version', '1.2.3', '--repo', 'uchanges/codex-tools', '--assets-dir', root,
+    '--notes-file', notes, '--published-at', '2026-11-19T12:00:00Z', '--output', output,
+  ];
+  const build = (...args) => spawnSync(
+    process.execPath, [...command, ...args], { encoding: 'utf8' },
+  );
+  assert.match(build().stderr, /Missing required updater asset for darwin/);
+  const good = build('--without-macos');
+  assert.equal(good.status, 0, good.stderr);
+  const { platforms } = JSON.parse(fs.readFileSync(output, 'utf8'));
+  assert.ok(Object.keys(platforms).every((target) => /^(windows|linux)-/.test(target)));
+  assert.equal(platforms['windows-x86_64-msi'].signature, 'signed-' + assets[0]);
+  assert.equal(platforms['linux-aarch64-rpm'].url,
+    'https://github.com/uchanges/codex-tools/releases/download/v1.2.3/' + assets.at(-1));
+
+  fs.unlinkSync(path.join(root, assets[0] + '.sig'));
+  assert.match(build('--without-macos').stderr, /Missing signature file/);
 });

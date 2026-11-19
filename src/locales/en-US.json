@@ -222,7 +222,7 @@
     "historyRestoring": "Restoring history…",
     "apiBudget": {
       "keyScope": "This key",
-      "upgradeRequired": "Update Cockpit Tools on the gateway computer to view statistics and request history.",
+      "upgradeRequired": "Update codex tools on the gateway computer to view statistics and request history.",
       "gatewayName": "Cockpit Gateway",
       "accountingNote": "Recorded charges stay fixed when prices are recalculated; estimates may differ. Budgets reset in UTC.",
       "preparing": "Preparing historical statistics in the background. Please retry shortly.",
@@ -283,7 +283,7 @@
       "waiting": "Waiting for chat usage records",
       "refreshFailed": "Quota refresh failed. Previous results are retained. Try again.",
       "refreshPartial": "Some account quotas could not be refreshed. Available results are retained.",
-      "hostUnavailable": "Cockpit Tools is disconnected. Refresh is paused.",
+      "hostUnavailable": "codex tools is disconnected. Refresh is paused.",
       "refreshing": "Refreshing…",
       "recent": "Recent records",
       "recentAccount": "Last used account",
@@ -711,7 +711,7 @@
         "batchJson": "Batch example (JSON)"
       }
     },
-    "appName": "Cockpit Tools",
+    "appName": "codex tools",
     "collapse": "Collapse",
     "confirmDelete": "Confirm Delete",
     "confirmDeleteTag": "Confirm Tag Deletion",
@@ -792,7 +792,7 @@
       "backToCurrent": "Back",
       "switchToThisAccount": "Switch",
       "openDetails": "Open details",
-      "openCockpitTools": "Open Cockpit Tools"
+      "openCockpitTools": "Open codex tools"
     },
     "empty": {
       "title": "No accounts",
@@ -861,17 +861,17 @@
   },
   "sponsors": {
     "pageTitle": "Sponsors",
-    "pageDesc": "Thanks to these sponsors for supporting Cockpit Tools.",
+    "pageDesc": "Thanks to these sponsors for supporting codex tools.",
     "loading": "Loading sponsors...",
     "emptyTitle": "No sponsors yet",
     "emptyDesc": "The remote sponsor module is currently disabled.",
     "listAriaLabel": "Sponsor list",
-    "defaultDescription": "Thanks for supporting Cockpit Tools.",
+    "defaultDescription": "Thanks for supporting codex tools.",
     "openSponsor": "Open"
   },
   "relay": {
     "pageTitle": "Exclusive Relay",
-    "pageDesc": "A partnered API service for Cockpit Tools users that can be used with Codex API Key accounts.",
+    "pageDesc": "A partnered API service for codex tools users that can be used with Codex API Key accounts.",
     "loading": "Loading relay...",
     "emptyTitle": "Relay disabled",
     "emptyDesc": "The remote configuration has not enabled the exclusive relay.",
@@ -1050,7 +1050,7 @@
       "title": "Use API key",
       "family": "Group",
       "platform": "Current system",
-      "unsupportedGroup": "Cockpit Tools does not yet have a client configuration template for APIKEY.FUN’s {{family}} endpoint. You can configure it manually in a client that supports this endpoint."
+      "unsupportedGroup": "codex tools does not yet have a client configuration template for APIKEY.FUN’s {{family}} endpoint. You can configure it manually in a client that supports this endpoint."
     },
     "campaign": {
       "badge": "11.11",
@@ -1314,12 +1314,12 @@
         "summary": "Unprefixed models use the current subscription; prefixed models such as cpa/gpt-5.6-sol are forwarded to a third-party API. Both depend on the local routing service.",
         "rowSummary": "Unprefixed models use the current subscription; prefixed models such as cpa/gpt-5.6-sol are forwarded to a third-party API. Both depend on the local routing service.",
         "confirmEnableTitle": "Enable third-party API routing?",
-        "confirmEnableMessage": "Codex model requests will be routed through the local Cockpit Tools service. If the service is not running, both subscription and third-party models may be unavailable.\n\nEnable routing?",
+        "confirmEnableMessage": "Codex model requests will be routed through the local codex tools service. If the service is not running, both subscription and third-party models may be unavailable.\n\nEnable routing?",
         "confirmEnableAction": "Enable",
         "confirmDisableTitle": "Disable third-party API routing?",
         "confirmDisableMessage": "After this change takes effect, the local gateway will stop, native subscription access will be restored, and third-party models will be unavailable.\n\nDisable routing?",
         "confirmDisableAction": "Disable",
-        "modalTip": "Subscription and third-party models both pass through the local routing service. Keep Cockpit Tools running in the background. The service recovers automatically and falls back to the official configuration after repeated failures.",
+        "modalTip": "Subscription and third-party models both pass through the local routing service. Keep codex tools running in the background. The service recovers automatically and falls back to the official configuration after repeated failures.",
         "modelRequired": "Each enabled API route must include at least one model.",
         "runningSaveTitle": "When should routing take effect?",
         "runningSaveMessage": "This Codex instance is running. Replacing the local service now will interrupt the current conversation.\n\nChoose Save and restart Codex to apply now, or Save for later to keep the current session unchanged.",
@@ -1482,7 +1482,7 @@
       "platform": "Platform"
     },
     "title": "Settings",
-    "subtitle": "Customize your Cockpit Tools experience.",
+    "subtitle": "Customize your codex tools experience.",
     "general": {
       "accountLevelRefreshSummary": "Show settings",
       "accountLevelRefreshSummaryActive": "Accounts configured: {{count}}",
@@ -1554,7 +1554,7 @@
       "floatingCardStartupDesc": "Display the floating account card automatically after app launch",
       "floatingCardAlwaysOnTop": "Keep floating card on top by default",
       "floatingCardAlwaysOnTopDesc": "New floating card windows stay on top when opened",
-      "appAutoLaunch": "Launch Cockpit Tools at login",
+      "appAutoLaunch": "Launch codex tools at login",
       "appAutoLaunchDesc": "Start the app after sign-in. If Windows shows a PowerShell error at boot, turn this off.",
       "startupWakeupDisabled": "Disabled",
       "startupWakeupImmediate": "Wake up immediately",
@@ -1564,8 +1564,8 @@
       "floatingCardShowNowAction": "Show floating card",
       "dataDir": "Data Directory",
       "dataDirDesc": "Storage location for accounts and configuration files.",
-      "dataDirPending": "After restarting, Cockpit Tools will read data from {{path}}.",
-      "dataDirPendingDefault": "After restarting, Cockpit Tools will use the default directory.",
+      "dataDirPending": "After restarting, codex tools will read data from {{path}}.",
+      "dataDirPendingDefault": "After restarting, codex tools will use the default directory.",
       "dataDirEnvironment": "The current launch uses the directory specified by COCKPIT_TOOLS_DATA_DIR.",
       "topRightAdVisible": "Show top promo",
       "topRightAdVisibleDesc": "Hide the top promo slot in the app. The Sponsors page is not affected.",
@@ -1589,7 +1589,7 @@
       "codexSyncWsl": "Sync Codex to WSL",
       "codexSyncWslDesc": "After switching the default Codex account, also write auth.json and config.toml to the WSL Codex directory.",
       "codexAppUiInjection": "Show API Service quota",
-      "codexAppUiInjectionDesc": "Codex instances bound to API Service show the selected model’s quota (GPT 5-hour/weekly quotas, DeepSeek balance or Grok quota), current-chat output speed and cache hit rate in the composer toolbar. The dialog includes quotas, chat metrics and API Service statistics. Switch request records between the current chat and the entire service, load more or refresh. Metrics show — when chat linkage or valid timing is unavailable. Keep Cockpit Tools running in the background; quota updates require a network connection.",
+      "codexAppUiInjectionDesc": "Codex instances bound to API Service show the selected model’s quota (GPT 5-hour/weekly quotas, DeepSeek balance or Grok quota), current-chat output speed and cache hit rate in the composer toolbar. The dialog includes quotas, chat metrics and API Service statistics. Switch request records between the current chat and the entire service, load more or refresh. Metrics show — when chat linkage or valid timing is unavailable. Keep codex tools running in the background; quota updates require a network connection.",
       "codexAppUiInjectionPoolLabel": "Accounts",
       "codexAppUiInjectionWeeklyLabel": "Week",
       "codexAppUiInjectionFiveHourLabel": "5h",
@@ -1779,7 +1779,7 @@
       "autoImportFromLocalScanPartial": "Scan complete: import failed for some platforms; import manually from account pages",
       "autoImportFromLocalScanFailed": "Scan failed: {{error}}",
       "autoImportFromLocal": "Auto-import local accounts",
-      "autoImportFromLocalDesc": "When enabled, Cockpit Tools immediately scans local client logins and imports them, then keeps importing when the official client switches accounts. The system keychain may prompt once; choose Always Allow.",
+      "autoImportFromLocalDesc": "When enabled, codex tools immediately scans local client logins and imports them, then keeps importing when the official client switches accounts. The system keychain may prompt once; choose Always Allow.",
       "autoImportFromLocalScanCancelled": "Turned off; in-progress scan results will be ignored",
       "startupPage": "Startup page",
       "startupPageDesc": "Page opened on cold start. Choose “Remember last” to restore the previous page.",
@@ -1837,7 +1837,7 @@
         "quotaCompatDesc": "API Service instances use an available-quota view for client displays and local checks. Actual upstream usage and image limits stay unchanged. This switch applies only to other OAuth + external API setups.",
         "configFailed": "Could not load or save settings: {{error}}",
         "nativePredictions": "Native next-step predictions (Tab)",
-        "nativePredictionsDesc": "On by default. Suggestions use your current conversation’s API provider and model and incur additional API usage. After changing this setting, restart the affected Codex instances and keep Cockpit Tools running."
+        "nativePredictionsDesc": "On by default. Suggestions use your current conversation’s API provider and model and incur additional API usage. After changing this setting, restart the affected Codex instances and keep codex tools running."
       },
       "timeDisplayMode": "Time display",
       "timeDisplayModeDesc": "What to show in the time area of account cards/lists (default: switch time)",
@@ -2052,7 +2052,7 @@
       "proxyUrlRequired": "Proxy URL cannot be empty when global proxy is enabled."
     },
     "about": {
-      "appName": "Cockpit Tools",
+      "appName": "codex tools",
       "slogan": "Professional Account Solution",
       "author": "Author",
       "wechat": "WeChat",
@@ -3465,11 +3465,11 @@
     },
     "exportFormat": {
       "label": "Export Format",
-      "cockpitTools": "Cockpit Tools",
+      "cockpitTools": "codex tools",
       "authJson": "auth.json",
       "sub2api": "sub2api",
       "cpa": "cpa",
-      "agentIdentityCpaUnsupported": "Agent Identity accounts cannot be exported as cpa. Choose Cockpit Tools or sub2api.",
+      "agentIdentityCpaUnsupported": "Agent Identity accounts cannot be exported as cpa. Choose codex tools or sub2api.",
       "agentIdentityPrivateKeyNotice": "This export contains an Agent Identity private key that can restore the account on another device. Protect it like a password.",
       "buildFailed": "Unable to create the export: the selected accounts include an unsupported type or incomplete credentials.",
       "downloadAll": "Download All",
@@ -3646,8 +3646,8 @@
       "testAuthFailed": "Service is reachable, but authentication failed: {{detail}}. Check the API service key or account sign-in state.",
       "testServiceUnavailable": "Service is reachable, but currently unavailable: {{detail}}. Check whether the service is enabled, the account collection is empty, or accounts are usable.",
       "gatewayErrors": {
-        "authUnavailable": "No account is currently schedulable; the account may be cooling down, unauthorized, or quota-limited. Check account status in the Cockpit Tools API Service page.",
-        "authNotFound": "No usable account is configured in the account pool. Add or enable an account in the Cockpit Tools API Service page.",
+        "authUnavailable": "No account is currently schedulable; the account may be cooling down, unauthorized, or quota-limited. Check account status in the codex tools API Service page.",
+        "authNotFound": "No usable account is configured in the account pool. Add or enable an account in the codex tools API Service page.",
         "accountConcurrencyExceeded": "Account concurrency limit reached. Try again later.",
         "providerRetryAfter": "The provider requested a pause. Try again in {{seconds}} seconds.",
         "audioInvalidRequest": "Invalid audio request: {{detail}}",
@@ -7080,6 +7080,29 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "Workspace",
+      "subtitle": "See your Codex and Antigravity accounts, quotas, and activity at a glance.",
+      "allAccountsSubtitle": "Browse accounts and quota details across both platforms.",
+      "summary": "Account summary",
+      "platforms": "Platforms",
+      "platformCount_one": "{{count}} platform",
+      "platformCount_other": "{{count}} platforms",
+      "accountCount_one": "{{count}} account",
+      "accountCount_other": "{{count}} accounts",
+      "loadingAccounts": "Loading accounts",
+      "noAccounts": "No accounts yet",
+      "noAccountsHint": "Add or import an account to see its quota here.",
+      "noCurrentAccount": "No current account. Select one from the account page.",
+      "manageAccounts": "Manage accounts",
+      "noPlatforms": "No platforms on this dashboard",
+      "noPlatformsHint": "Choose which platforms to show in Platform layout.",
+      "shortcuts": "Quick access",
+      "codexApi": "Codex API service",
+      "codexApiHint": "Local gateway, API keys, and request logs",
+      "agUsage": "Antigravity session usage",
+      "agUsageHint": "Token usage and trends across local sessions"
+    },
     "title": "Account Dashboard",
     "apiRelay": {
       "localConfig": "Local config",
@@ -9132,8 +9155,8 @@
     "desc": "Manage OpenCode Go/Zen API keys and filter by tier. Keys stay in local app data."
   },
   "chatgptPlan": {
-    "callbackReceived": "Authorization callback received. Return to Cockpit Tools to view the result.",
-    "callbackFailed": "The callback is invalid or authorization is incomplete. Return to Cockpit Tools and try again.",
+    "callbackReceived": "Authorization callback received. Return to codex tools to view the result.",
+    "callbackFailed": "The callback is invalid or authorization is incomplete. Return to codex tools and try again.",
     "title": "ChatGPT plan",
     "description": "Authorize your ChatGPT plan separately to power API Service requests.",
     "localStatsHint": "Request and token counts cover only calls through this API Service. Check plan usage in ChatGPT.",
@@ -9142,7 +9165,7 @@
     "manage": "Manage",
     "manageTitle": "Manage plan access",
     "connectTitle": "Official OpenAI authorization",
-    "consent": "Allow Cockpit Tools to use your ChatGPT plan for model requests. Manage usage and limits in ChatGPT settings.",
+    "consent": "Allow codex tools to use your ChatGPT plan for model requests. Manage usage and limits in ChatGPT settings.",
     "credentialsHint": "Plan credentials are saved separately on this device and renewed by API Service. Existing Codex sign-in and account switching stay unchanged.",
     "waiting": "Waiting for authorization in your browser…",
     "reopen": "Reopen",
@@ -9515,7 +9538,7 @@
     },
     "rebuildConfirm": {
       "title": "Full Rescan",
-      "message": "Clear Cockpit Tools local scan cache and re-read all Antigravity session files in read-only mode. Continue?"
+      "message": "Clear codex tools local scan cache and re-read all Antigravity session files in read-only mode. Continue?"
     },
     "status": {
       "scanning": "Scanning Antigravity session databases…",

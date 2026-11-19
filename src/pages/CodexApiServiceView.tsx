@@ -1,3 +1,4 @@
+import { PlatformWorkspaceHeader } from '../components/platform/PlatformWorkspaceHeader';
 import { CodexKeyMonthlyTokenAlert } from '../components/codex/CodexKeyMonthlyTokenAlert';
 import { CodexClaudeCodeSettings } from "../components/codex/CodexClaudeCodeSettings";
 import { CodexApiModelRefreshButton } from "../components/codex/CodexApiModelRefreshButton";
@@ -328,46 +329,36 @@ export function CodexApiServiceView(props: CodexApiServiceViewProps) {
   const localAccessStatus = resolveCodexLocalAccessRuntimeStatus(collection, state);
   const keyRecoveryRequired = isCodexGatewayKeyRecoveryError(state?.lastError);
   return (
-    <div className="codex-api-service-page">
-      <div className="page-top-strip">
-        <div className="page-top-strip-left">
-          <span className="page-top-strip-label">
-            {t("settings.general.accountManagement", "Account")}
-          </span>
-          <ManualHelpIconButton className="platform-header-help" />
-        </div>
-      </div>
-
-      <div className="page-tabs-row page-tabs-center page-tabs-row-with-leading">
-        <div className="page-tabs-leading">
+    <div className="codex-api-service-page platform-workspace-page" data-workspace="codex">
+      <PlatformWorkspaceHeader
+        identity={(
           <PlatformGroupSwitcher
             currentPlatformId={currentPlatformId}
             currentLabel={
               currentGroup
-                ? resolveGroupChildName(
-                    currentGroup,
-                    currentPlatformId,
-                    getPlatformLabel(currentPlatformId, t),
-                  )
+                ? resolveGroupChildName(currentGroup, currentPlatformId, getPlatformLabel(currentPlatformId, t))
                 : getPlatformLabel(currentPlatformId, t)
             }
             options={switchOptions}
             currentGroupId={currentGroup?.id ?? null}
           />
-        </div>
-        <div className="page-tabs filter-tabs">
-          {serviceTabs.map((tab) => (
-            <button
-              key={tab.key}
-              className={`filter-tab${activeTab === tab.key ? " active" : ""}`}
-              onClick={() => setActiveTab(tab.key)}
-            >
-              {tab.icon}
-              <span>{tab.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
+        )}
+        title={serviceTabs.find((tab) => tab.key === activeTab)?.label ?? t("codex.apiService.title")}
+        help={<ManualHelpIconButton className="platform-workspace-help" />}
+        tabsLabel={t("codex.apiService.title")}
+        tabs={serviceTabs.map((tab) => (
+          <button
+            key={tab.key}
+            type="button"
+            className={"platform-workspace-tab" + (activeTab === tab.key ? " active" : "")}
+            aria-current={activeTab === tab.key ? "page" : undefined}
+            onClick={() => setActiveTab(tab.key)}
+          >
+            {tab.icon}
+            <span>{tab.label}</span>
+          </button>
+        ))}
+      />
 
       <main className="codex-api-service-content">
         <section className="codex-api-service-hero">
@@ -378,7 +369,7 @@ export function CodexApiServiceView(props: CodexApiServiceViewProps) {
               </span>
               <div className="codex-api-service-title-copy">
                 <div className="codex-api-service-title-line">
-                  <h1>{t("codex.apiService.title", "Codex API 服务")}</h1>
+                  <h2>{t("codex.apiService.title", "Codex API 服务")}</h2>
                   {apiServiceIsCurrent && (
                     <span className="codex-api-service-current-tag">
                       {t("codex.current", "当前")}

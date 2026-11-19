@@ -11,6 +11,7 @@ export function useMainWindowNavigation(
   const hasNavigated = useRef(false);
   const pendingNavigation = useRef<Promise<string | null> | null>(null);
   const navigate = useCallback((page: Page) => {
+    if (!isMainWindowNavigablePage(page)) return;
     hasNavigated.current = true;
     setPage(page);
   }, [setPage]);

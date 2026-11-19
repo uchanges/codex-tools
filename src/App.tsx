@@ -14,7 +14,6 @@ import {
   lazy,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
   type MouseEvent as ReactMouseEvent,
@@ -35,12 +34,9 @@ import { CodexSwitchProgressModal } from './components/CodexSwitchProgressModal'
 import { CodexCliDaemonNotice } from './components/CodexCliDaemonNotice';
 import { CodexInstanceLaunchProgressModal } from './components/CodexInstanceLaunchProgressModal';
 import { CodexPelicanHost } from './components/codex/pelican/CodexPelicanHost';
-import { AnnouncementHost } from './components/AnnouncementCenter';
-import { TopCenterPromoBanner } from './components/TopCenterPromoBanner';
 import type { QuickSettingsType } from './components/QuickSettingsPopover';
 import { useMainWindowNavigation } from './hooks/useMainWindowNavigation';
-import type { Page } from './types/navigation';
-import type { TopRightAd } from './types/topRightAd';
+import { isMainWindowNavigablePage, type Page } from './types/navigation';
 import { useAutoRefresh } from './hooks/useAutoRefresh';
 import { useCodexQuotaSync } from './hooks/useCodexQuotaSync';
 import { useEasterEggTrigger } from './hooks/useEasterEggTrigger';
@@ -66,8 +62,6 @@ import { useSideNavLayoutStore } from './stores/useSideNavLayoutStore';
 import { usePlatformLayoutStore } from './stores/usePlatformLayoutStore';
 import { initializeClassicSidebar } from './utils/classicSidebarStartup';
 import { antigravityAppPathTarget, getAntigravityRuntimeTarget, normalizeAntigravityRuntimeTarget, resolveAntigravityStartupTarget, setAntigravityRuntimeTarget } from './utils/antigravityRuntimeTarget';
-import { useTopRightAdStore } from './stores/useTopRightAdStore';
-import { useSponsorStore } from './stores/useSponsorStore';
 import { useRemoteConfigStore } from './stores/useRemoteConfigStore';
 import type { UpdateCheckResult, UpdateInfo } from './components/UpdateNotification';
 import type {
@@ -105,12 +99,6 @@ import {
   hydrateUserMemory,
   USER_MEMORY_FLAGS,
 } from './utils/userMemory';
-import {
-  getWorkbuddyAutoCheckinConfigAsync,
-  stageWorkbuddyAutoCheckinLegacyLogs,
-} from './services/workbuddyAutoCheckinService';
-import { getMinimaxCodeAutoCheckinConfigAsync } from './services/minimaxCodeAutoCheckinService';
-import { getTraeAutoCheckinConfigAsync } from './services/traeAutoCheckinService';
 import { prepareCodexLocalAccessForRestart } from './services/codexLocalAccessService';
 import { applyReducedMotion } from './utils/reducedMotion';
 import { initLocalTimeZone } from './utils/localTimeZone';
@@ -148,51 +136,6 @@ const CodexAccountsPage = lazy(() =>
 const CodexApiServicePage = lazy(() =>
   import('./pages/CodexApiServicePage').then((module) => ({ default: module.CodexApiServicePage })),
 );
-const ClaudeAccountsPage = lazy(() =>
-  import('./pages/ClaudeAccountsPage').then((module) => ({ default: module.ClaudeAccountsPage })),
-);
-const GitHubCopilotAccountsPage = lazy(() =>
-  import('./pages/GitHubCopilotAccountsPage').then((module) => ({
-    default: module.GitHubCopilotAccountsPage,
-  })),
-);
-const WindsurfAccountsPage = lazy(() =>
-  import('./pages/WindsurfAccountsPage').then((module) => ({ default: module.WindsurfAccountsPage })),
-);
-const KiroAccountsPage = lazy(() =>
-  import('./pages/KiroAccountsPage').then((module) => ({ default: module.KiroAccountsPage })),
-);
-const CursorAccountsPage = lazy(() =>
-  import('./pages/CursorAccountsPage').then((module) => ({ default: module.CursorAccountsPage })),
-);
-const GrokAccountsPage = lazy(() =>
-  import('./pages/GrokAccountsPage').then((module) => ({ default: module.GrokAccountsPage })),
-);
-const CodebuddyAccountsPage = lazy(() =>
-  import('./pages/CodebuddyAccountsPage').then((module) => ({ default: module.CodebuddyAccountsPage })),
-);
-const CodebuddyCnAccountsPage = lazy(() =>
-  import('./pages/CodebuddyCnAccountsPage').then((module) => ({ default: module.CodebuddyCnAccountsPage })),
-);
-const QoderAccountsPage = lazy(() =>
-  import('./pages/QoderAccountsPage').then((module) => ({ default: module.QoderAccountsPage })),
-);
-const ZcodeAccountsPage = lazy(() =>
-  import('./pages/ZcodeAccountsPage').then((module) => ({ default: module.ZcodeAccountsPage })),
-);
-const TraeAccountsPage = lazy(() =>
-  import('./pages/TraeAccountsPage').then((module) => ({ default: module.TraeAccountsPage })),
-);
-const WorkbuddyAiAccountsPage = lazy(() => import('./pages/WorkbuddyAiAccountsPage').then(({ WorkbuddyAiAccountsPage }) => ({ default: WorkbuddyAiAccountsPage })));
-const WorkbuddyAccountsPage = lazy(() =>
-  import('./pages/WorkbuddyAccountsPage').then((module) => ({ default: module.WorkbuddyAccountsPage })),
-);
-const MinimaxCodeAccountsPage = lazy(() =>
-  import('./pages/MinimaxCodeAccountsPage').then((module) => ({ default: module.MinimaxCodeAccountsPage })),
-);
-const ZedAccountsPage = lazy(() =>
-  import('./pages/ZedAccountsPage').then((module) => ({ default: module.ZedAccountsPage })),
-);
 const WakeupTasksPage = lazy(() =>
   import('./pages/WakeupTasksPage').then((module) => ({ default: module.WakeupTasksPage })),
 );
@@ -209,9 +152,6 @@ const TwoFactorAuthPage = lazy(() =>
 );
 const ManualPage = lazy(() =>
   import('./pages/ManualPage').then((module) => ({ default: module.ManualPage })),
-);
-const ApiKeyFunPage = lazy(() =>
-  import('./pages/ApiKeyFunPage').then((module) => ({ default: module.ApiKeyFunPage })),
 );
 const InstancesPage = lazy(() =>
   import('./pages/InstancesPage').then((module) => ({ default: module.InstancesPage })),
@@ -238,146 +178,12 @@ const LogViewerModal = lazy(() =>
 );
 
 const ACTIVE_PAGE_STORAGE_KEY = 'agtools.active_page';
-const RENDERABLE_PAGE_VALUES: readonly Page[] = [
-  'dashboard',
-  'api-relay',
-  'overview',
-  'antigravity-usage',
-  'codex',
-  'claude',
-  'claude-cli',
-  'codex-api-service',
-  'github-copilot',
-  'windsurf',
-  'kiro',
-  'cursor',
-  'grok',
-  'codebuddy',
-  'codebuddy-cn',
-  'qoder',
-  'zcode',
-  'trae',
-  'trae-solo',
-  'trae-cn',
-  'trae-solo-cn',
-  'workbuddy',
-  'workbuddy_ai',
-  'minimaxcode',
-  'zed',
-  'instances',
-  'wakeup',
-  'verification',
-  '2fa',
-  'manual',
-  'settings',
-];
-const RENDERABLE_PAGE_SET = new Set<string>(RENDERABLE_PAGE_VALUES);
-
-const TOP_PROMO_DEFAULT_EXCLUDED_PAGES: readonly Page[] = ['api-relay', 'settings'];
-const TOP_PROMO_PAGE_PLATFORM_TARGETS: Partial<Record<Page, readonly string[]>> = {
-  overview: ['antigravity', 'antigravity-ide'],
-  'antigravity-usage': ['antigravity', 'antigravity-ide'],
-  instances: ['antigravity', 'antigravity-ide'],
-  wakeup: ['antigravity', 'antigravity-ide'],
-  verification: ['antigravity', 'antigravity-ide'],
-  codex: ['codex'],
-  'codex-api-service': ['codex_api_service', 'codex'],
-  'codex-instances': ['codex'],
-  claude: ['claude', 'claude-manager'],
-  'claude-cli': ['claude', 'claude-manager'],
-  zed: ['zed'],
-  'github-copilot': ['github-copilot'],
-  windsurf: ['windsurf'],
-  kiro: ['kiro'],
-  cursor: ['cursor'],
-  grok: ['grok'],
-  codebuddy: ['codebuddy'],
-  'codebuddy-cn': ['codebuddy-cn'],
-  qoder: ['qoder'],
-  zcode: ['zcode'],
-  trae: ['trae', 'trae-suite'],
-  'trae-solo': ['trae-solo', 'trae-suite'],
-  'trae-cn': ['trae-cn', 'trae-suite'],
-  'trae-solo-cn': ['trae-solo-cn', 'trae-suite'],
-  workbuddy: ['workbuddy'],
-  minimaxcode: ['minimaxcode'],
-};
-
-function normalizePromoTarget(value: string): string {
-  return value.trim().toLowerCase().replace(/_/g, '-');
-}
-
-function normalizePromoTargets(values?: string[] | null): string[] {
-  if (!Array.isArray(values)) {
-    return [];
-  }
-  return values
-    .map((value) => normalizePromoTarget(value))
-    .filter(Boolean);
-}
-
-function promoTargetsMatch(configuredTargets: string[], activeTargets: Set<string>): boolean {
-  return configuredTargets.some((target) => target === '*' || activeTargets.has(target));
-}
-
-function resolveTopPromoDisplayMode(ad: TopRightAd): string {
-  const mode = ad.displayMode ? normalizePromoTarget(ad.displayMode).replace(/[^a-z0-9]/g, '') : '';
-  if (!mode) {
-    return ad.displayPages?.length || ad.displayPlatforms?.length ? 'targets' : 'all';
-  }
-  return mode;
-}
-
-function isTopPromoAdVisibleOnPage(ad: TopRightAd, page: Page): boolean {
-  const pageTargets = new Set([normalizePromoTarget(page)]);
-  const platformTargets = new Set(
-    (TOP_PROMO_PAGE_PLATFORM_TARGETS[page] ?? []).map((value) => normalizePromoTarget(value)),
-  );
-  const displayPages = normalizePromoTargets(ad.displayPages);
-  const displayPlatforms = normalizePromoTargets(ad.displayPlatforms);
-  const pageMatches = promoTargetsMatch(displayPages, pageTargets);
-  const platformMatches = promoTargetsMatch(displayPlatforms, platformTargets);
-
-  if (
-    TOP_PROMO_DEFAULT_EXCLUDED_PAGES.includes(page)
-    && !pageMatches
-    && !displayPages.includes('*')
-  ) {
-    return false;
-  }
-
-  if (promoTargetsMatch(normalizePromoTargets(ad.excludePages), pageTargets)) {
-    return false;
-  }
-  if (promoTargetsMatch(normalizePromoTargets(ad.excludePlatforms), platformTargets)) {
-    return false;
-  }
-
-  switch (resolveTopPromoDisplayMode(ad)) {
-    case 'dashboard':
-      return page === 'dashboard';
-    case 'platforms':
-      return platformMatches;
-    case 'dashboardandplatforms':
-      return page === 'dashboard' || platformMatches;
-    case 'pages':
-      return pageMatches;
-    case 'dashboardandpages':
-      return page === 'dashboard' || pageMatches;
-    case 'targets':
-      return pageMatches || platformMatches;
-    case 'all':
-    default:
-      return true;
-  }
-}
-
 function normalizeStoredActivePage(value: string | null): Page | null {
   const normalized = value?.trim();
   if (!normalized) {
     return null;
   }
-  return RENDERABLE_PAGE_SET.has(normalized) ? (normalized as Page) : null;
+  return isMainWindowNavigablePage(normalized) ? normalized : null;
 }
 
 /** 启动页偏好：`last` 表示恢复上次页面，其它为具体 Page id */
@@ -387,7 +193,7 @@ function normalizeStartupPagePreference(value: string | null | undefined): 'last
   if (!normalized || normalized === 'last') {
     return 'last';
   }
-  return RENDERABLE_PAGE_SET.has(normalized) ? (normalized as Page) : 'last';
+  return isMainWindowNavigablePage(normalized) ? normalized : 'last';
 }
 
 interface GeneralConfigTheme {
@@ -407,7 +213,6 @@ interface GeneralConfig extends GeneralConfigTheme, GeneralConfigLanguage {
   antigravity_legacy_app_path: string;
   codex_app_path: string;
   codex_launch_on_switch: boolean;
-  top_right_ad_visible?: boolean;
   vscode_app_path: string;
   windsurf_app_path: string;
   kiro_app_path: string;
@@ -484,7 +289,6 @@ function getTraeAppPath(config: GeneralConfig, app: TraePlatformApp): string {
   }
 }
 
-const TOP_RIGHT_AD_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
 const REMOTE_CONFIG_FALLBACK_REFRESH_INTERVAL_MS = 60 * 60 * 1000;
 const EXTERNAL_IMPORT_DEDUPE_WINDOW_MS = 30 * 1000;
 
@@ -806,8 +610,6 @@ function MainApp() {
   useEffect(() => {
     void import('./services/mfaRecoveryService')
       .then(({ startMfaRecovery }) => startMfaRecovery())
-      .then(() => import('./services/apiKeyFunVault'))
-      .then(({ initializeApiKeyFunVault }) => initializeApiKeyFunVault())
       .catch(() => console.warn('[Storage] Could not initialize saved credentials'));
     void hydrateUserMemory().then((memory) => {
       const store = useSideNavLayoutStore.getState();
@@ -903,20 +705,7 @@ function MainApp() {
   const updatePromptPolicyRef = useRef(new UpdatePromptPolicy());
   const externalImportHandledAtRef = useRef<Map<string, number>>(new Map());
   const { showModal, closeModal } = useGlobalModal();
-  const topRightAdState = useTopRightAdStore((state) => state.state);
-  const fetchTopRightAdState = useTopRightAdStore((state) => state.fetchState);
-  const forceRefreshTopRightAdState = useTopRightAdStore((state) => state.forceRefreshState);
-  const sponsorModuleState = useSponsorStore((state) => state.state);
-  const fetchSponsorModuleState = useSponsorStore((state) => state.fetchState);
-  const sponsorModuleInitialized = useSponsorStore((state) => state.initialized);
   const fetchRemoteConfigState = useRemoteConfigStore((state) => state.fetchState);
-  const sponsorEntryVisible = Boolean(sponsorModuleState.sponsorModule);
-  const [topRightAdVisible, setTopRightAdVisible] = useState(true);
-  const topRightAdVisibleRef = useRef<boolean | null>(null);
-  const visibleTopCenterPromoAds = useMemo(
-    () => topRightAdState.ads.filter((ad) => isTopPromoAdVisibleOnPage(ad, page)),
-    [page, topRightAdState.ads],
-  );
   const trayRefreshInFlightRef = useRef(false);
   const openPlatformLayoutModal = useCallback(() => {
     setPlatformLayoutRequestedGroupId(null);
@@ -1195,48 +984,6 @@ function MainApp() {
   }, []);
 
   useEffect(() => {
-    void fetchTopRightAdState();
-  }, [fetchTopRightAdState]);
-
-  useEffect(() => {
-    let disposed = false;
-
-    const loadTopRightAdVisible = async () => {
-      try {
-        const config = await invoke<GeneralConfig>('get_general_config');
-        if (disposed) {
-          return;
-        }
-        const nextVisible = config.top_right_ad_visible ?? true;
-        const previousVisible = topRightAdVisibleRef.current;
-        topRightAdVisibleRef.current = nextVisible;
-        setTopRightAdVisible(nextVisible);
-        if (previousVisible === false && nextVisible) {
-          void forceRefreshTopRightAdState();
-        }
-      } catch (error) {
-        if (disposed) {
-          return;
-        }
-        console.error('Failed to load top-right ad visibility config:', error);
-        topRightAdVisibleRef.current = true;
-        setTopRightAdVisible(true);
-      }
-    };
-
-    void loadTopRightAdVisible();
-    window.addEventListener('config-updated', loadTopRightAdVisible);
-    return () => {
-      disposed = true;
-      window.removeEventListener('config-updated', loadTopRightAdVisible);
-    };
-  }, [forceRefreshTopRightAdState]);
-
-  useEffect(() => {
-    void fetchSponsorModuleState();
-  }, [fetchSponsorModuleState]);
-
-  useEffect(() => {
     let disposed = false;
     let timer: number | null = null;
 
@@ -1268,44 +1015,6 @@ function MainApp() {
       }
     };
   }, [fetchRemoteConfigState]);
-
-  useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      void fetchTopRightAdState();
-      void fetchSponsorModuleState();
-    }, TOP_RIGHT_AD_REFRESH_INTERVAL_MS);
-    return () => {
-      window.clearInterval(intervalId);
-    };
-  }, [fetchSponsorModuleState, fetchTopRightAdState]);
-
-  useEffect(() => {
-    const handleLanguageChanged = () => {
-      void fetchTopRightAdState();
-      void fetchSponsorModuleState();
-    };
-    window.addEventListener('general-language-updated', handleLanguageChanged);
-    return () => {
-      window.removeEventListener('general-language-updated', handleLanguageChanged);
-    };
-  }, [fetchSponsorModuleState, fetchTopRightAdState]);
-
-  useEffect(() => {
-    const handleSponsorRoutesUpdated = () => {
-      void useCodexAccountStore.getState().fetchAccounts();
-      void useClaudeAccountStore.getState().fetchAccounts();
-    };
-    window.addEventListener('sponsor-routes-updated', handleSponsorRoutesUpdated);
-    return () => {
-      window.removeEventListener('sponsor-routes-updated', handleSponsorRoutesUpdated);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (sponsorModuleInitialized && page === 'api-relay' && !sponsorEntryVisible) {
-      setCurrentPage('dashboard');
-    }
-  }, [page, sponsorEntryVisible, sponsorModuleInitialized]);
 
   useEffect(() => {
     if (sideNavLayoutMode !== 'classic' || sideNavClassicFirstSyncDone) {
@@ -2285,14 +1994,6 @@ function MainApp() {
     };
   }, []);
 
-  // 启动时把可读的旧 WebView 签到配置交给后台调度器。
-  useEffect(() => {
-    void getWorkbuddyAutoCheckinConfigAsync();
-    void stageWorkbuddyAutoCheckinLegacyLogs().catch(() => {});
-    void getMinimaxCodeAutoCheckinConfigAsync();
-    void getTraeAutoCheckinConfigAsync();
-  }, []);
-
   // Check for updates on startup
   useEffect(() => {
     if (!updateRuntimeInfoLoaded) {
@@ -2964,54 +2665,6 @@ function MainApp() {
       {
         command: 'refresh_current_codex_quota',
         errorMessage: 'Failed to refresh Codex quotas:',
-      },
-      {
-        command: 'refresh_all_claude_quotas',
-        errorMessage: 'Failed to refresh Claude quotas:',
-      },
-      {
-        command: 'refresh_all_github_copilot_tokens',
-        errorMessage: 'Failed to refresh GitHub Copilot quotas:',
-      },
-      {
-        command: 'refresh_all_windsurf_tokens',
-        errorMessage: 'Failed to refresh Devin quotas:',
-      },
-      {
-        command: 'refresh_all_kiro_tokens',
-        errorMessage: 'Failed to refresh Kiro quotas:',
-      },
-      {
-        command: 'refresh_all_cursor_tokens',
-        errorMessage: 'Failed to refresh Cursor:',
-      },
-      {
-        command: 'refresh_all_grok_accounts',
-        errorMessage: 'Failed to refresh Grok:',
-      },
-      {
-        command: 'refresh_all_codebuddy_tokens',
-        errorMessage: 'Failed to refresh CodeBuddy:',
-      },
-      {
-        command: 'refresh_all_codebuddy_cn_tokens',
-        errorMessage: 'Failed to refresh CodeBuddy CN:',
-      },
-      {
-        command: 'refresh_all_qoder_tokens',
-        errorMessage: 'Failed to refresh Qoder:',
-      },
-      {
-        command: 'refresh_all_zcode_accounts',
-        errorMessage: 'Failed to refresh ZCode:',
-      },
-      {
-        command: 'refresh_all_trae_tokens',
-        errorMessage: 'Failed to refresh Trae:',
-      },
-      {
-        command: 'refresh_all_zed_tokens',
-        errorMessage: 'Failed to refresh Zed:',
       },
     ] as const;
 
@@ -3706,11 +3359,8 @@ function MainApp() {
         updateProgress={updateAction.progress}
         onUpdateActionClick={handleQuickUpdateActionClick}
         updateRemindersEnabled={updateRemindersEnabled}
-        sponsorEntryVisible={sponsorEntryVisible}
         onOpenLogViewer={() => setShowLogViewer(true)}
       />
-
-      <AnnouncementHost onNavigate={setPage} />
 
       {sideNavLayoutMode !== 'classic' && (
         <button
@@ -3739,9 +3389,6 @@ function MainApp() {
       </Suspense>
 
       <div className="main-wrapper">
-        {topRightAdVisible && visibleTopCenterPromoAds.length > 0 ? (
-          <TopCenterPromoBanner ads={visibleTopCenterPromoAds} />
-        ) : null}
         {/* overview 现在是合并后的账号总览页面 */}
         <Suspense fallback={suspenseFallback}>
           <VisibleBootPage when={page === 'dashboard'}>
@@ -3750,9 +3397,6 @@ function MainApp() {
               onOpenPlatformLayout={openPlatformLayoutModal}
               onEasterEggTriggerClick={handleBreakoutEntryTriggerClick}
             />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'api-relay'}>
-            <ApiKeyFunPage />
           </VisibleBootPage>
           <VisibleBootPage when={page === 'overview'}>
             <AccountsPage onNavigate={setPage} />
@@ -3785,63 +3429,6 @@ function MainApp() {
               </div>
             </Suspense>
           )}
-          <VisibleBootPage when={page === 'claude'}>
-            <ClaudeAccountsPage subPlatform="desktop" />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'claude-cli'}>
-            <ClaudeAccountsPage subPlatform="cli" />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'github-copilot'}>
-            <GitHubCopilotAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'windsurf'}>
-            <WindsurfAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'kiro'}>
-            <KiroAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'cursor'}>
-            <CursorAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'grok'}>
-            <GrokAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'codebuddy'}>
-            <CodebuddyAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'codebuddy-cn'}>
-            <CodebuddyCnAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'qoder'}>
-            <QoderAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'zcode'}>
-            <ZcodeAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'trae'}>
-            <TraeAccountsPage platformId="trae" />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'trae-solo'}>
-            <TraeAccountsPage platformId="trae_solo" />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'trae-cn'}>
-            <TraeAccountsPage platformId="trae_cn" />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'trae-solo-cn'}>
-            <TraeAccountsPage platformId="trae_solo_cn" />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'workbuddy_ai'}>
-            <WorkbuddyAiAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'workbuddy'}>
-            <WorkbuddyAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'minimaxcode'}>
-            <MinimaxCodeAccountsPage />
-          </VisibleBootPage>
-          <VisibleBootPage when={page === 'zed'}>
-            <ZedAccountsPage />
-          </VisibleBootPage>
           <VisibleBootPage when={page === 'instances'}>
             <InstancesPage onNavigate={setPage} />
           </VisibleBootPage>

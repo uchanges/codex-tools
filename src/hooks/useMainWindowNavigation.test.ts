@@ -100,3 +100,17 @@ test('effect reinitialization reuses the consumed target and cleans up listeners
   await settlePromises();
   assert.deepEqual(h.defaults, []);
 });
+
+test('retired platform and promotion routes do not navigate or override startup', async () => {
+  const h = fixture();
+  const navigate = h.mount();
+  navigate('api-relay');
+  navigate('claude');
+  h.tray('cursor');
+  h.pending.resolve('grok');
+  h.config.resolve({ startup_page: 'overview' });
+  await settlePromises();
+  assert.deepEqual(h.targets, []);
+  assert.deepEqual(h.defaults, ['overview']);
+  h.hook.unmount();
+});

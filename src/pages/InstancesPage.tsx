@@ -130,7 +130,7 @@ export function InstancesPage({ onNavigate }: InstancesPageProps) {
   };
 
   return (
-    <div className="instances-page">
+    <div className="instances-page platform-workspace-page" data-workspace="antigravity">
       <OverviewTabsHeader
         active="instances"
         onNavigate={onNavigate}

@@ -36,33 +36,17 @@ export type Page =
 /** Pages that tray / floating-card restore may navigate to after main-window recreate. */
 export const MAIN_WINDOW_NAVIGABLE_PAGES: readonly Page[] = [
   'dashboard',
-  'manual',
-  'api-relay',
   'overview',
   'antigravity-usage',
   'codex',
-  'claude',
-  'claude-cli',
   'codex-api-service',
-  'zed',
-  'github-copilot',
-  'windsurf',
-  'kiro',
-  'cursor',
-  'grok',
-  'codebuddy',
-  'codebuddy-cn',
-  'qoder',
-  'zcode',
-  'trae',
-  'trae-solo',
-  'trae-cn',
-  'trae-solo-cn',
-  'workbuddy',
-  'workbuddy_ai',
-  'minimaxcode',
+  'instances',
+  'wakeup',
+  'verification',
+  '2fa',
+  'manual',
   'settings',
-] as const;
+];
 
 export function isMainWindowNavigablePage(page: string): page is Page {
   return (MAIN_WINDOW_NAVIGABLE_PAGES as readonly string[]).includes(page);

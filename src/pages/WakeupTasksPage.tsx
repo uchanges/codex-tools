@@ -2186,7 +2186,7 @@ export function WakeupTasksPage({ onNavigate }: WakeupPageProps) {
   };
 
   return (
-    <main className="main-content wakeup-page accounts-page">
+    <main className="main-content wakeup-page accounts-page platform-workspace-page" data-workspace="antigravity">
       <OverviewTabsHeader
         active="wakeup"
         onNavigate={onNavigate}

@@ -1,7 +1,6 @@
 const ZH_SECTION_HEADER = '## 更新日志（中文）';
 const EN_SECTION_HEADER = '## Changelog (English)';
-const GITHUB_RELEASE_TAG_BASE_URL =
-  'https://github.com/jlcodes99/cockpit-tools/releases/tag/v';
+const GITHUB_RELEASES_URL = 'https://github.com/uchanges/codex-tools/releases';
 const RELEASE_HIGHLIGHTS: Record<string, { zh: string; en: string }> = {
   '1.3.1': {
     zh: `### 重要更新
@@ -127,14 +126,19 @@ export function resolveUpdaterDownloadUrl(
   const preferredKeys = ['html_url', 'download_url', 'url', 'details_url'];
   for (const key of preferredKeys) {
     const url = getStringFromRawJson(raw, key);
-    if (url) {
-      return url;
+    if (!url) continue;
+    try {
+      const candidate = new URL(url);
+      if (candidate.origin === 'https://github.com' && !candidate.username && !candidate.password
+        && candidate.pathname.startsWith('/uchanges/codex-tools/releases/')) return url;
+    } catch {
+      // Missing or foreign links fall back to this repository's release page.
     }
   }
 
-  const safeVersion = version.trim();
+  const safeVersion = normalizeVersion(version);
   if (!safeVersion) {
-    return 'https://github.com/jlcodes99/cockpit-tools/releases/latest';
+    return GITHUB_RELEASES_URL + '/latest';
   }
-  return `${GITHUB_RELEASE_TAG_BASE_URL}${encodeURIComponent(safeVersion)}`;
+  return `${GITHUB_RELEASES_URL}/tag/v${encodeURIComponent(safeVersion)}`;
 }

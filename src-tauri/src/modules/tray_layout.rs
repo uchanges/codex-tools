@@ -28,27 +28,14 @@ pub const PLATFORM_TRAE_SOLO_CN: &str = "trae_solo_cn";
 pub const PLATFORM_WORKBUDDY: &str = "workbuddy";
 pub const PLATFORM_MINIMAX_CODE: &str = "minimaxcode";
 
-pub const SUPPORTED_PLATFORM_IDS: [&str; 19] = [
-    PLATFORM_CLAUDE_MANAGER,
-    PLATFORM_CODEX,
-    PLATFORM_ANTIGRAVITY,
-    PLATFORM_ZED,
-    PLATFORM_GITHUB_COPILOT,
-    PLATFORM_WINDSURF,
-    PLATFORM_KIRO,
-    PLATFORM_CURSOR,
-    PLATFORM_GROK,
-    PLATFORM_CODEBUDDY,
-    PLATFORM_CODEBUDDY_CN,
-    PLATFORM_QODER,
-    PLATFORM_ZCODE,
-    PLATFORM_TRAE,
-    PLATFORM_TRAE_SOLO,
-    PLATFORM_TRAE_CN,
-    PLATFORM_TRAE_SOLO_CN,
-    PLATFORM_WORKBUDDY,
-    PLATFORM_MINIMAX_CODE,
-];
+pub const SUPPORTED_PLATFORM_IDS: [&str; 2] = [PLATFORM_CODEX, PLATFORM_ANTIGRAVITY];
+
+pub fn is_supported_platform(id: &str) -> bool {
+    matches!(
+        id.trim(),
+        PLATFORM_CODEX | PLATFORM_ANTIGRAVITY | "antigravity_ide" | "codex_api_service"
+    )
+}
 
 pub const SORT_MODE_AUTO: &str = "auto";
 pub const SORT_MODE_MANUAL: &str = "manual";
@@ -126,25 +113,8 @@ fn get_tray_layout_path() -> Result<PathBuf, String> {
 
 fn normalize_platform_id(id: &str) -> Option<&'static str> {
     match id.trim() {
-        PLATFORM_CLAUDE_MANAGER => Some(PLATFORM_CLAUDE_MANAGER),
-        PLATFORM_ANTIGRAVITY => Some(PLATFORM_ANTIGRAVITY),
         PLATFORM_CODEX => Some(PLATFORM_CODEX),
-        PLATFORM_ZED => Some(PLATFORM_ZED),
-        PLATFORM_GITHUB_COPILOT => Some(PLATFORM_GITHUB_COPILOT),
-        PLATFORM_WINDSURF => Some(PLATFORM_WINDSURF),
-        PLATFORM_KIRO => Some(PLATFORM_KIRO),
-        PLATFORM_CURSOR => Some(PLATFORM_CURSOR),
-        PLATFORM_GROK => Some(PLATFORM_GROK),
-        PLATFORM_CODEBUDDY => Some(PLATFORM_CODEBUDDY),
-        PLATFORM_CODEBUDDY_CN => Some(PLATFORM_CODEBUDDY_CN),
-        PLATFORM_QODER => Some(PLATFORM_QODER),
-        PLATFORM_ZCODE => Some(PLATFORM_ZCODE),
-        PLATFORM_TRAE => Some(PLATFORM_TRAE),
-        PLATFORM_TRAE_SOLO | "trae-solo" => Some(PLATFORM_TRAE_SOLO),
-        PLATFORM_TRAE_CN | "trae-cn" => Some(PLATFORM_TRAE_CN),
-        PLATFORM_TRAE_SOLO_CN | "trae-solo-cn" => Some(PLATFORM_TRAE_SOLO_CN),
-        PLATFORM_WORKBUDDY => Some(PLATFORM_WORKBUDDY),
-        PLATFORM_MINIMAX_CODE => Some(PLATFORM_MINIMAX_CODE),
+        PLATFORM_ANTIGRAVITY => Some(PLATFORM_ANTIGRAVITY),
         _ => None,
     }
 }
@@ -171,55 +141,6 @@ fn normalize_order(ids: &[String]) -> Vec<String> {
         }
     }
     ordered
-}
-
-fn contains_platform(ids: &[String], target: &str) -> bool {
-    ids.iter().any(|id| id == target)
-}
-
-fn normalize_tray_platforms(
-    ids: &[String],
-    raw_order_has_new: &[&str],
-    allow_legacy_migration: bool,
-) -> Vec<String> {
-    let mut sanitized = sanitize_platform_ids(ids);
-
-    if !allow_legacy_migration {
-        return sanitized;
-    }
-
-    let has_legacy_all = contains_platform(&sanitized, PLATFORM_ANTIGRAVITY)
-        && contains_platform(&sanitized, PLATFORM_CODEX)
-        && contains_platform(&sanitized, PLATFORM_GITHUB_COPILOT)
-        && contains_platform(&sanitized, PLATFORM_WINDSURF);
-
-    for &new_platform in &[
-        PLATFORM_ZED,
-        PLATFORM_KIRO,
-        PLATFORM_CURSOR,
-        PLATFORM_CODEBUDDY,
-        PLATFORM_CODEBUDDY_CN,
-        PLATFORM_QODER,
-        PLATFORM_ZCODE,
-        PLATFORM_TRAE,
-        PLATFORM_TRAE_SOLO,
-        PLATFORM_TRAE_CN,
-        PLATFORM_TRAE_SOLO_CN,
-        PLATFORM_WORKBUDDY,
-        PLATFORM_MINIMAX_CODE,
-    ] {
-        let already_present = contains_platform(&sanitized, new_platform);
-        let was_in_raw_order = raw_order_has_new.contains(&new_platform);
-        let looks_like_old_default = !already_present
-            && has_legacy_all
-            && sanitized.len() <= SUPPORTED_PLATFORM_IDS.len().saturating_sub(1);
-
-        if !was_in_raw_order && !already_present && looks_like_old_default {
-            sanitized.push(new_platform.to_string());
-        }
-    }
-
-    sanitized
 }
 
 fn normalize_sort_mode(raw: &str) -> String {
@@ -399,29 +320,8 @@ fn normalize_ordered_entries(
     result
 }
 
-fn normalize_config(
-    config: TrayLayoutConfig,
-    allow_legacy_tray_migration: bool,
-) -> TrayLayoutConfig {
+fn normalize_config(config: TrayLayoutConfig) -> TrayLayoutConfig {
     let ordered_platform_ids = normalize_order(&config.ordered_platform_ids);
-
-    let raw_order_new_platforms: Vec<&str> = [
-        PLATFORM_KIRO,
-        PLATFORM_CURSOR,
-        PLATFORM_CODEBUDDY,
-        PLATFORM_CODEBUDDY_CN,
-        PLATFORM_QODER,
-        PLATFORM_TRAE,
-        PLATFORM_TRAE_SOLO,
-        PLATFORM_TRAE_CN,
-        PLATFORM_TRAE_SOLO_CN,
-        PLATFORM_WORKBUDDY,
-        PLATFORM_MINIMAX_CODE,
-    ]
-    .iter()
-    .filter(|&&p| config.ordered_platform_ids.iter().any(|id| id.trim() == p))
-    .copied()
-    .collect();
 
     let platform_groups = normalize_platform_groups(&config.platform_groups);
     let ordered_entry_ids = normalize_ordered_entries(
@@ -433,11 +333,7 @@ fn normalize_config(
     TrayLayoutConfig {
         sort_mode: normalize_sort_mode(&config.sort_mode),
         ordered_platform_ids,
-        tray_platform_ids: normalize_tray_platforms(
-            &config.tray_platform_ids,
-            &raw_order_new_platforms,
-            allow_legacy_tray_migration,
-        ),
+        tray_platform_ids: sanitize_platform_ids(&config.tray_platform_ids),
         ordered_entry_ids,
         platform_groups,
         hidden_platform_ids: config.hidden_platform_ids.clone(),
@@ -450,22 +346,13 @@ fn normalize_config(
 /// 后台自动活动（token 保活、账号扫描等）统一用这个入口判断是否跳过某平台。
 /// 注意「隐藏」只影响显示，这里判断的是「禁用」集合，两者正交。
 pub fn is_platform_enabled(platform_id: &str) -> bool {
-    let disabled = load_tray_layout().disabled_platform_ids;
-    if disabled.is_empty() {
-        return true;
+    if !is_supported_platform(platform_id) {
+        return false;
     }
-    let normalize = |id: &str| match id.trim() {
-        "antigravity_ide" => Some("antigravity_ide"),
-        "codex_api_service" => Some("codex_api_service"),
-        "claude" => Some(PLATFORM_CLAUDE_MANAGER),
-        "github_copilot" => Some(PLATFORM_GITHUB_COPILOT),
-        id => normalize_platform_id(id),
-    };
-    let Some(normalized) = normalize(platform_id) else {
-        // 未知平台 ID 不做禁用判断，避免误停后台任务
-        return true;
-    };
-    !disabled.iter().any(|id| normalize(id) == Some(normalized))
+    !load_tray_layout()
+        .disabled_platform_ids
+        .iter()
+        .any(|id| id.trim() == platform_id.trim())
 }
 
 pub fn load_tray_layout() -> TrayLayoutConfig {
@@ -484,7 +371,7 @@ pub fn load_tray_layout() -> TrayLayoutConfig {
     };
 
     match serde_json::from_str::<TrayLayoutConfig>(&content) {
-        Ok(config) => normalize_config(config, true),
+        Ok(config) => normalize_config(config),
         Err(error) => {
             match crate::modules::atomic_write::quarantine_file(&path, "invalid-json") {
                 Ok(Some(backup_path)) => crate::modules::logger::log_warn(&format!(
@@ -532,18 +419,15 @@ pub fn save_tray_layout(
         .or_else(|| existing.as_ref().map(|config| config.disabled_platform_ids.clone()))
         .unwrap_or_default();
 
-    let normalized = normalize_config(
-        TrayLayoutConfig {
-            sort_mode,
-            ordered_platform_ids,
-            tray_platform_ids,
-            ordered_entry_ids: ordered_entry_ids.unwrap_or_default(),
-            platform_groups: platform_groups.unwrap_or_else(default_platform_groups),
-            hidden_platform_ids,
-            disabled_platform_ids,
-        },
-        false,
-    );
+    let normalized = normalize_config(TrayLayoutConfig {
+        sort_mode,
+        ordered_platform_ids,
+        tray_platform_ids,
+        ordered_entry_ids: ordered_entry_ids.unwrap_or_default(),
+        platform_groups: platform_groups.unwrap_or_else(default_platform_groups),
+        hidden_platform_ids,
+        disabled_platform_ids,
+    });
 
     let path = get_tray_layout_path()?;
     let content = serde_json::to_string_pretty(&normalized)
@@ -577,99 +461,35 @@ mod tests {
     #[test]
     fn missing_groups_deserialize_without_creating_builtin_groups() {
         let config: TrayLayoutConfig = serde_json::from_str("{}").unwrap();
-        assert_independent_platform_entries(&normalize_config(config, true));
+        assert_independent_platform_entries(&normalize_config(config));
     }
 
     #[test]
-    fn normalizing_empty_groups_does_not_create_a_trae_group() {
-        for legacy_migration in [false, true] {
-            let config = normalize_config(TrayLayoutConfig::default(), legacy_migration);
-            assert_independent_platform_entries(&config);
+    fn existing_layouts_keep_only_supported_platforms() {
+        let normalized = normalize_config(TrayLayoutConfig {
+            tray_platform_ids: vec!["cursor".into(), "codex".into(), "antigravity".into()],
+            platform_groups: vec![TrayLayoutGroup {
+                id: "my-tools".into(),
+                name: "My tools".into(),
+                platform_ids: vec!["codex".into(), "trae".into()],
+                default_platform_id: "trae".into(),
+            }],
+            ..TrayLayoutConfig::default()
+        });
+        assert_eq!(normalized.ordered_platform_ids, ["codex", "antigravity"]);
+        assert_eq!(normalized.tray_platform_ids, ["codex", "antigravity"]);
+        assert_eq!(normalized.platform_groups[0].platform_ids, ["codex"]);
+        assert_eq!(normalized.platform_groups[0].default_platform_id, "codex");
+        assert_eq!(normalized.ordered_entry_ids, ["platform:antigravity", "group:my-tools"]);
+    }
+
+    #[test]
+    fn only_codex_and_antigravity_are_supported() {
+        assert_eq!(SUPPORTED_PLATFORM_IDS, ["codex", "antigravity"]);
+        assert!(is_supported_platform("antigravity_ide"));
+        assert!(is_supported_platform("codex_api_service"));
+        for removed in ["claude", "cursor", "github_copilot", "trae_solo", "workbuddy_ai"] {
+            assert!(!is_platform_enabled(removed));
         }
-    }
-
-    #[test]
-    fn custom_group_retains_only_the_explicitly_selected_platforms() {
-        let config = normalize_config(
-            TrayLayoutConfig {
-                platform_groups: vec![TrayLayoutGroup {
-                    id: "my-tools".to_string(),
-                    name: "My tools".to_string(),
-                    platform_ids: vec![PLATFORM_CODEX.to_string(), PLATFORM_TRAE.to_string()],
-                    default_platform_id: PLATFORM_TRAE.to_string(),
-                }],
-                ..TrayLayoutConfig::default()
-            },
-            false,
-        );
-
-        assert_eq!(config.platform_groups.len(), 1);
-        let group = &config.platform_groups[0];
-        assert_eq!(group.id, "my-tools");
-        assert_eq!(group.name, "My tools");
-        assert_eq!(group.platform_ids, [PLATFORM_CODEX, PLATFORM_TRAE]);
-        assert_eq!(group.default_platform_id, PLATFORM_TRAE);
-        assert!(config
-            .ordered_entry_ids
-            .contains(&"group:my-tools".to_string()));
-        assert!(!config
-            .ordered_entry_ids
-            .contains(&"platform:trae".to_string()));
-        for platform in [PLATFORM_TRAE_SOLO, PLATFORM_TRAE_CN, PLATFORM_TRAE_SOLO_CN] {
-            assert!(config
-                .ordered_entry_ids
-                .contains(&format!("platform:{}", platform)));
-        }
-    }
-
-    #[test]
-    fn saved_builtin_named_groups_are_preserved_without_adding_members() {
-        let config: TrayLayoutConfig = serde_json::from_str(
-            r#"{
-                "platformGroups": [{
-                    "id": "trae-suite",
-                    "name": "My Trae",
-                    "platformIds": ["trae", "trae_solo"],
-                    "defaultPlatformId": "trae_solo"
-                }]
-            }"#,
-        )
-        .unwrap();
-        let normalized = normalize_config(config, true);
-
-        assert_eq!(normalized.platform_groups.len(), 1);
-        let group = &normalized.platform_groups[0];
-        assert_eq!(group.id, "trae-suite");
-        assert_eq!(group.name, "My Trae");
-        assert_eq!(group.platform_ids, [PLATFORM_TRAE, PLATFORM_TRAE_SOLO]);
-        assert_eq!(group.default_platform_id, PLATFORM_TRAE_SOLO);
-    }
-
-    #[test]
-    fn minimax_code_platform_id_is_the_frontend_canonical_id() {
-        // The frontend syncs `orderedPlatformIds` verbatim, so the tray-layout id
-        // must match the canonical frontend platform id (`minimaxcode`).
-        assert_eq!(PLATFORM_MINIMAX_CODE, "minimaxcode");
-        assert_eq!(
-            normalize_platform_id("minimaxcode"),
-            Some(PLATFORM_MINIMAX_CODE)
-        );
-
-        let default = default_order();
-        assert!(default.contains(&PLATFORM_MINIMAX_CODE.to_string()));
-        assert!(!default.iter().any(|id| id == "minimax_code"));
-
-        let normalized = normalize_order(&default);
-        assert_eq!(normalized.len(), SUPPORTED_PLATFORM_IDS.len());
-        assert!(normalized.contains(&PLATFORM_MINIMAX_CODE.to_string()));
-        assert!(!normalized.iter().any(|id| id == "minimax_code"));
-
-        // Legacy persisted ids used the "minimax_code" spelling before the
-        // canonical frontend id ("minimaxcode") was adopted. It is intentionally
-        // not recognized as a distinct platform, but normalize_order re-adds the
-        // canonical id so an old persisted list does not drop the platform.
-        assert!(normalize_platform_id("minimax_code").is_none());
-        let legacy = normalize_order(&["minimax_code".to_string()]);
-        assert!(legacy.contains(&PLATFORM_MINIMAX_CODE.to_string()));
     }
 }

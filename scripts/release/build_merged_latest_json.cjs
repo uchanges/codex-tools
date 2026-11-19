@@ -80,6 +80,7 @@ function main() {
   const notesFile = requiredArg(args, 'notes-file');
   const publishedAt = normalizePubDate(requiredArg(args, 'published-at'));
   const output = args.output || 'latest.json';
+  const includeMacos = args['without-macos'] !== 'true';
 
   if (!fs.existsSync(assetsDir) || !fs.statSync(assetsDir).isDirectory()) {
     throw new Error(`Assets directory not found: ${assetsDir}`);
@@ -103,8 +104,6 @@ function main() {
     (name) => !name.endsWith('.sig') && name !== 'latest.json' && name !== 'SHA256SUMS.txt'
   );
 
-  const darwinAarch64Tar = findAsset(assets, /_aarch64\.app\.tar\.gz$/, 'darwin-aarch64');
-  const darwinX64Tar = findAsset(assets, /_x64\.app\.tar\.gz$/, 'darwin-x86_64');
   const windowsMsi = findAsset(assets, /_x64_en-US\.msi$/, 'windows-x86_64-msi');
   const windowsNsis = findAsset(assets, /_x64-setup\.exe$/, 'windows-x86_64-nsis');
   const windowsArmNsis = findAsset(assets, /_arm64-setup\.exe$/, 'windows-aarch64-nsis');
@@ -115,8 +114,17 @@ function main() {
   const linuxX64Rpm = findAsset(assets, /-1\.x86_64\.rpm$/, 'linux-x86_64-rpm');
   const linuxArmRpm = findAsset(assets, /-1\.aarch64\.rpm$/, 'linux-aarch64-rpm');
 
-  const darwinAarch64Entry = buildPlatformEntry(darwinAarch64Tar, signatures, repo, version);
-  const darwinX64Entry = buildPlatformEntry(darwinX64Tar, signatures, repo, version);
+  const macosPlatforms = {};
+  if (includeMacos) {
+    for (const [target, pattern] of [
+      ['darwin-aarch64', /_aarch64\.app\.tar\.gz$/],
+      ['darwin-x86_64', /_x64\.app\.tar\.gz$/],
+    ]) {
+      const entry = buildPlatformEntry(findAsset(assets, pattern, target), signatures, repo, version);
+      macosPlatforms[target] = entry;
+      macosPlatforms[target + '-app'] = cloneEntry(entry);
+    }
+  }
   const windowsMsiEntry = buildPlatformEntry(windowsMsi, signatures, repo, version);
   const windowsNsisEntry = buildPlatformEntry(windowsNsis, signatures, repo, version);
   const windowsArmNsisEntry = buildPlatformEntry(windowsArmNsis, signatures, repo, version);
@@ -132,10 +140,7 @@ function main() {
     notes: readText(notesFile),
     pub_date: publishedAt,
     platforms: {
-      'darwin-aarch64': darwinAarch64Entry,
-      'darwin-aarch64-app': cloneEntry(darwinAarch64Entry),
-      'darwin-x86_64': darwinX64Entry,
-      'darwin-x86_64-app': cloneEntry(darwinX64Entry),
+      ...macosPlatforms,
       // Unknown/generic Windows target prefers MSI (see #1320 / desktop_updater_target fallback).
       'windows-x86_64': windowsMsiEntry,
       'windows-x86_64-msi': cloneEntry(windowsMsiEntry),

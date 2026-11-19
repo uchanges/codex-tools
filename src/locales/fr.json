@@ -222,7 +222,7 @@
     "historyRestoring": "Restauration de l’historique…",
     "apiBudget": {
       "keyScope": "Cette clé",
-      "upgradeRequired": "Mettez à jour Cockpit Tools sur l’ordinateur passerelle pour afficher les statistiques et l’historique des requêtes.",
+      "upgradeRequired": "Mettez à jour codex tools sur l’ordinateur passerelle pour afficher les statistiques et l’historique des requêtes.",
       "gatewayName": "Passerelle Cockpit",
       "accountingNote": "Les débits enregistrés restent fixes après recalcul des prix ; les estimations peuvent différer. Budgets réinitialisés en UTC.",
       "preparing": "Préparation des statistiques historiques en arrière-plan. Réessayez bientôt.",
@@ -283,7 +283,7 @@
       "waiting": "En attente des données d’utilisation",
       "refreshFailed": "Échec de l’actualisation du quota. Les résultats précédents sont conservés. Réessayez.",
       "refreshPartial": "Certains quotas n’ont pas pu être actualisés. Les résultats disponibles sont conservés.",
-      "hostUnavailable": "Cockpit Tools est déconnecté. L’actualisation est suspendue.",
+      "hostUnavailable": "codex tools est déconnecté. L’actualisation est suspendue.",
       "refreshing": "Actualisation…",
       "recent": "Données récentes",
       "recentAccount": "Dernier compte utilisé",
@@ -711,7 +711,7 @@
       "desc": "Cette zone est fixée en haut à droite sur toutes les pages pour les campagnes ou publicités de marque.",
       "action": "Voir les détails"
     },
-    "appName": "Cockpit Tools​",
+    "appName": "codex tools",
     "collapse": "Réduire",
     "confirmDelete": "Confirmer la suppression",
     "confirmDeleteTag": "Confirmer la suppression du tag",
@@ -814,12 +814,12 @@
   },
   "sponsors": {
     "pageTitle": "Sponsors​",
-    "pageDesc": "Merci à ces sponsors de soutenir Cockpit Tools.",
+    "pageDesc": "Merci à ces sponsors de soutenir codex tools.",
     "loading": "Chargement des sponsors...",
     "emptyTitle": "Aucun sponsor pour le moment",
     "emptyDesc": "Le module distant des sponsors est actuellement désactivé.",
     "listAriaLabel": "Liste des sponsors",
-    "defaultDescription": "Merci de soutenir Cockpit Tools.",
+    "defaultDescription": "Merci de soutenir codex tools.",
     "openSponsor": "Ouvrir"
   },
   "platformLayout": {
@@ -1067,12 +1067,12 @@
         "summary": "Les modèles sans préfixe utilisent l'abonnement actuel ; les modèles avec préfixe tels que cpa/gpt-5.6-sol sont transférés vers une API tierce. Les deux dépendent du service de routage local.",
         "rowSummary": "Les modèles sans préfixe utilisent l'abonnement actuel ; les modèles avec préfixe tels que cpa/gpt-5.6-sol sont transférés vers une API tierce. Les deux dépendent du service de routage local.",
         "confirmEnableTitle": "Activer le routage d'API tierce ?",
-        "confirmEnableMessage": "Les requêtes de modèles Codex seront acheminées via le service local Cockpit Tools. Si le service n'est pas en cours d'exécution, les modèles d'abonnement et tiers peuvent être indisponibles.\n\nActiver le routage ?",
+        "confirmEnableMessage": "Les requêtes de modèles Codex seront acheminées via le service local codex tools. Si le service n'est pas en cours d'exécution, les modèles d'abonnement et tiers peuvent être indisponibles.\n\nActiver le routage ?",
         "confirmEnableAction": "Activer",
         "confirmDisableTitle": "Désactiver le routage d'API tierce ?",
         "confirmDisableMessage": "Une fois cette modification appliquée, la passerelle locale s'arrêtera, l'accès direct à l'abonnement officiel sera restauré et les modèles tiers ne seront plus disponibles.\n\nDésactiver le routage ?",
         "confirmDisableAction": "Désactiver",
-        "modalTip": "Les modèles d'abonnement et tiers passent tous deux par le service de routage local. Gardez Cockpit Tools en arrière-plan. Le service récupère automatiquement et bascule sur la configuration officielle en cas d'échecs répétés.",
+        "modalTip": "Les modèles d'abonnement et tiers passent tous deux par le service de routage local. Gardez codex tools en arrière-plan. Le service récupère automatiquement et bascule sur la configuration officielle en cas d'échecs répétés.",
         "modelRequired": "Chaque route API activée doit inclure au moins un modèle.",
         "runningSaveTitle": "Quand le routage doit-il prendre effet ?",
         "runningSaveMessage": "Cette instance Codex est en cours d'exécution. Remplacer le service local maintenant interrompra la conversation en cours.\n\nChoisissez « Enregistrer et redémarrer Codex » pour appliquer maintenant, ou « Enregistrer pour plus tard » pour conserver la session actuelle inchangée.",
@@ -1240,7 +1240,7 @@
       "platform": "Plateforme"
     },
     "title": "Paramètres de l'application",
-    "subtitle": "Personnalisez votre expérience Cockpit Tools.",
+    "subtitle": "Personnalisez votre expérience codex tools.",
     "tabs": {
       "general": "Général",
       "network": "Réseau",
@@ -1312,8 +1312,8 @@
       "floatingCardShowNowAction": "Afficher la carte flottante",
       "dataDir": "Répertoire de données",
       "dataDirDesc": "Emplacement de stockage des comptes et fichiers de configuration.",
-      "dataDirPending": "Après redémarrage, Cockpit Tools lira les données dans {{path}}.",
-      "dataDirPendingDefault": "Après redémarrage, Cockpit Tools utilisera le dossier par défaut.",
+      "dataDirPending": "Après redémarrage, codex tools lira les données dans {{path}}.",
+      "dataDirPendingDefault": "Après redémarrage, codex tools utilisera le dossier par défaut.",
       "dataDirEnvironment": "Le démarrage actuel utilise le dossier défini par COCKPIT_TOOLS_DATA_DIR.",
       "topRightAdVisible": "Afficher la promo haute",
       "topRightAdVisibleDesc": "Masque l’emplacement promotionnel supérieur dans l’application. La page Sponsors n’est pas affectée.",
@@ -1334,7 +1334,7 @@
       "codexSyncWsl": "Synchroniser Codex vers WSL",
       "codexSyncWslDesc": "Après le changement du compte Codex par défaut, auth.json et config.toml sont aussi écrits dans le dossier Codex de WSL.",
       "codexAppUiInjection": "Quota du service API",
-      "codexAppUiInjectionDesc": "La barre de saisie de Codex lié au service API affiche le quota du modèle sélectionné (quotas GPT sur 5 heures et sur la semaine, solde DeepSeek ou quota Grok), ainsi que la vitesse de sortie et le taux de cache de la discussion actuelle. La fenêtre présente les quotas, les indicateurs de la discussion et les statistiques du service API. Les requêtes peuvent être filtrées par discussion ou sur tout le service, chargées davantage ou actualisées. Sans lien fiable avec la discussion ou mesure de temps valide, les indicateurs concernés affichent —. Gardez Cockpit Tools actif en arrière-plan ; la mise à jour des quotas nécessite une connexion réseau.",
+      "codexAppUiInjectionDesc": "La barre de saisie de Codex lié au service API affiche le quota du modèle sélectionné (quotas GPT sur 5 heures et sur la semaine, solde DeepSeek ou quota Grok), ainsi que la vitesse de sortie et le taux de cache de la discussion actuelle. La fenêtre présente les quotas, les indicateurs de la discussion et les statistiques du service API. Les requêtes peuvent être filtrées par discussion ou sur tout le service, chargées davantage ou actualisées. Sans lien fiable avec la discussion ou mesure de temps valide, les indicateurs concernés affichent —. Gardez codex tools actif en arrière-plan ; la mise à jour des quotas nécessite une connexion réseau.",
       "codexAppUiInjectionPoolLabel": "Comptes",
       "codexAppUiInjectionWeeklyLabel": "Semaine",
       "codexAppUiInjectionFiveHourLabel": "5 h",
@@ -1452,7 +1452,7 @@
       "sideNavLayoutClassic": "Disposition classique",
       "antigravityDualSwitchNoRestart": "Bascule double sans redémarrage",
       "antigravityDualSwitchNoRestartDesc": "Lors du changement de compte, les données locales sont écrites et la bascule fluide de l’extension est exécutée dans un seul flux, sans redémarrer Antigravity IDE.",
-      "appAutoLaunch": "Lancer Cockpit Tools à la connexion",
+      "appAutoLaunch": "Lancer codex tools à la connexion",
       "appAutoLaunchDesc": "Démarrer après connexion. Si PowerShell échoue au boot Windows, désactivez.",
       "startupWakeupDisabled": "Désactivé",
       "startupWakeupImmediate": "Réveiller immédiatement",
@@ -1601,7 +1601,7 @@
         "quotaCompatDesc": "Les instances du service API présentent un quota disponible pour l’affichage et les vérifications locales du client. L’utilisation réelle chez le fournisseur et les limites d’images restent inchangées. Ce réglage concerne uniquement les autres configurations OAuth avec API externe.",
         "configFailed": "Échec de lecture ou d’enregistrement des paramètres : {{error}}",
         "nativePredictions": "Prédictions natives de l’étape suivante (Tab)",
-        "nativePredictionsDesc": "Activé par défaut. Les suggestions utilisent le fournisseur d’API et le modèle de la conversation en cours et entraînent une consommation supplémentaire de l’API. Après avoir modifié ce réglage, redémarrez les instances Codex concernées et laissez Cockpit Tools en cours d’exécution."
+        "nativePredictionsDesc": "Activé par défaut. Les suggestions utilisent le fournisseur d’API et le modèle de la conversation en cours et entraînent une consommation supplémentaire de l’API. Après avoir modifié ce réglage, redémarrez les instances Codex concernées et laissez codex tools en cours d’exécution."
       },
       "timeDisplayMode": "Heure affichée",
       "timeDisplayModeDesc": "Heure affichée sur les comptes. Par défaut, heure du changement de compte",
@@ -1651,7 +1651,7 @@
       "proxyUrlRequired": "L'URL du proxy ne peut pas être vide lorsque le proxy global est activé."
     },
     "about": {
-      "appName": "Cockpit Tools​",
+      "appName": "codex tools",
       "slogan": "Solution professionnelle de gestion de comptes",
       "author": "Auteur",
       "wechat": "WeChat​",
@@ -3156,11 +3156,11 @@
     },
     "exportFormat": {
       "label": "Format d’export",
-      "cockpitTools": "Cockpit Tools​",
+      "cockpitTools": "codex tools",
       "authJson": "auth.json officiel",
       "sub2api": "Format sub2api",
       "cpa": "Format cpa",
-      "agentIdentityCpaUnsupported": "Les comptes Agent Identity ne peuvent pas être exportés au format cpa. Utilisez Cockpit Tools ou sub2api.",
+      "agentIdentityCpaUnsupported": "Les comptes Agent Identity ne peuvent pas être exportés au format cpa. Utilisez codex tools ou sub2api.",
       "agentIdentityPrivateKeyNotice": "Cet export contient une clé privée Agent Identity permettant de restaurer le compte sur un autre appareil. Protégez-la comme un mot de passe.",
       "buildFailed": "Impossible de créer l’export : les comptes sélectionnés contiennent un type non pris en charge ou des identifiants incomplets.",
       "downloadAll": "Tout télécharger",
@@ -3244,8 +3244,8 @@
       "testAuthFailed": "Service joignable, mais authentification échouée : {{detail}}. Vérifiez la clé du service API ou l’état de connexion du compte.",
       "testServiceUnavailable": "Service joignable, mais actuellement indisponible : {{detail}}. Vérifiez si le service est activé, si la collection de comptes est vide ou si les comptes sont utilisables.",
       "gatewayErrors": {
-        "authUnavailable": "Aucun compte du pool n’est actuellement utilisable. Le compte peut être en refroidissement, non autorisé ou limité par son quota. Vérifiez son état dans le service API de Cockpit Tools.",
-        "authNotFound": "Aucun compte utilisable n’est configuré dans le pool. Ajoutez ou activez un compte dans le service API de Cockpit Tools.",
+        "authUnavailable": "Aucun compte du pool n’est actuellement utilisable. Le compte peut être en refroidissement, non autorisé ou limité par son quota. Vérifiez son état dans le service API de codex tools.",
+        "authNotFound": "Aucun compte utilisable n’est configuré dans le pool. Ajoutez ou activez un compte dans le service API de codex tools.",
         "accountConcurrencyExceeded": "La limite de requêtes simultanées du compte est atteinte. Réessayez plus tard.",
         "providerRetryAfter": "Le fournisseur demande une pause. Réessayez dans {{seconds}} secondes.",
         "audioInvalidRequest": "Requête audio invalide : {{detail}}",
@@ -8382,7 +8382,7 @@
       "backToCurrent": "Retour",
       "switchToThisAccount": "Passer",
       "openDetails": "Ouvrir les détails",
-      "openCockpitTools": "Ouvrir Cockpit Tools"
+      "openCockpitTools": "Ouvrir codex tools"
     },
     "empty": {
       "title": "Aucun compte",
@@ -8551,7 +8551,7 @@
   },
   "relay": {
     "pageTitle": "Relais exclusif",
-    "pageDesc": "Service API partenaire pour les utilisateurs de Cockpit Tools, utilisable avec les comptes API Key Codex.",
+    "pageDesc": "Service API partenaire pour les utilisateurs de codex tools, utilisable avec les comptes API Key Codex.",
     "loading": "Chargement du relais...",
     "emptyTitle": "Relais désactivé",
     "emptyDesc": "La configuration distante n’a pas activé le relais exclusif.",
@@ -8730,7 +8730,7 @@
       "title": "Utiliser la clé API",
       "family": "Groupe",
       "platform": "Système actuel",
-      "unsupportedGroup": "Cockpit Tools ne propose pas encore de modèle de configuration pour l’interface {{family}} d’APIKEY.FUN. Vous pouvez la configurer manuellement dans un client compatible."
+      "unsupportedGroup": "codex tools ne propose pas encore de modèle de configuration pour l’interface {{family}} d’APIKEY.FUN. Vous pouvez la configurer manuellement dans un client compatible."
     },
     "campaign": {
       "badge": "11.11",
@@ -9132,8 +9132,8 @@
     "desc": "Gérer les clés OpenCode Go/Zen et filtrer par niveau."
   },
   "chatgptPlan": {
-    "callbackReceived": "La réponse d’autorisation a été reçue. Revenez dans Cockpit Tools pour consulter le résultat.",
-    "callbackFailed": "La réponse est invalide ou l’autorisation est incomplète. Revenez dans Cockpit Tools et réessayez.",
+    "callbackReceived": "La réponse d’autorisation a été reçue. Revenez dans codex tools pour consulter le résultat.",
+    "callbackFailed": "La réponse est invalide ou l’autorisation est incomplète. Revenez dans codex tools et réessayez.",
     "title": "Forfait ChatGPT",
     "description": "Autorisez séparément votre forfait ChatGPT pour les requêtes du service API.",
     "localStatsHint": "Les compteurs de requêtes et de jetons couvrent uniquement ce service API. Consultez l’utilisation du forfait dans ChatGPT.",
@@ -9142,7 +9142,7 @@
     "manage": "Gérer",
     "manageTitle": "Gérer l’accès au forfait",
     "connectTitle": "Autorisation officielle OpenAI",
-    "consent": "Autorisez Cockpit Tools à utiliser votre forfait ChatGPT pour les requêtes aux modèles. Gérez l’utilisation et les limites dans les paramètres ChatGPT.",
+    "consent": "Autorisez codex tools à utiliser votre forfait ChatGPT pour les requêtes aux modèles. Gérez l’utilisation et les limites dans les paramètres ChatGPT.",
     "credentialsHint": "Les identifiants du forfait sont enregistrés séparément sur cet appareil et renouvelés par le service API. La connexion Codex et le changement de compte existants restent inchangés.",
     "waiting": "En attente de l’autorisation dans le navigateur…",
     "reopen": "Rouvrir",
@@ -9515,7 +9515,7 @@
     },
     "rebuildConfirm": {
       "title": "Réanalyse complète",
-      "message": "Vider le cache local de Cockpit Tools et relire tous les fichiers de session Antigravity en lecture seule. Continuer ?"
+      "message": "Vider le cache local de codex tools et relire tous les fichiers de session Antigravity en lecture seule. Continuer ?"
     },
     "status": {
       "scanning": "Analyse des bases de sessions Antigravity…",

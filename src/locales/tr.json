@@ -222,7 +222,7 @@
     "historyRestoring": "Geçmiş geri yükleniyor…",
     "apiBudget": {
       "keyScope": "Bu anahtar",
-      "upgradeRequired": "İstatistikleri ve istek geçmişini görmek için ağ geçidi bilgisayarındaki Cockpit Tools uygulamasını güncelleyin.",
+      "upgradeRequired": "İstatistikleri ve istek geçmişini görmek için ağ geçidi bilgisayarındaki codex tools uygulamasını güncelleyin.",
       "gatewayName": "Cockpit Ağ Geçidi",
       "accountingNote": "Kayıtlı kesintiler fiyatlar yeniden hesaplandığında değişmez; tahminler farklı olabilir. Bütçeler UTC’ye göre sıfırlanır.",
       "preparing": "Geçmiş istatistikler arka planda hazırlanıyor. Biraz sonra yeniden deneyin.",
@@ -283,7 +283,7 @@
       "waiting": "Sohbet kullanım kayıtları bekleniyor",
       "refreshFailed": "Kota yenilenemedi. Önceki sonuçlar korundu. Yeniden deneyin.",
       "refreshPartial": "Bazı hesap kotaları yenilenemedi. Kullanılabilir sonuçlar korundu.",
-      "hostUnavailable": "Cockpit Tools bağlı değil. Yenileme duraklatıldı.",
+      "hostUnavailable": "codex tools bağlı değil. Yenileme duraklatıldı.",
       "refreshing": "Yenileniyor…",
       "recent": "Son kayıtlar",
       "recentAccount": "Son kullanılan hesap",
@@ -711,7 +711,7 @@
       "desc": "Bu alan tüm sayfalarda sağ üstte sabitlenir ve kampanya ya da marka reklamları için uygundur.",
       "action": "Ayrıntıları görüntüle"
     },
-    "appName": "Cockpit Tools​",
+    "appName": "codex tools",
     "collapse": "Daralt",
     "confirmDelete": "Silmeyi Onayla",
     "confirmDeleteTag": "Etiket Silmeyi Onayla",
@@ -814,12 +814,12 @@
   },
   "sponsors": {
     "pageTitle": "Sponsorlar",
-    "pageDesc": "Cockpit Tools'u destekleyen sponsorlara teşekkür ederiz.",
+    "pageDesc": "codex tools'u destekleyen sponsorlara teşekkür ederiz.",
     "loading": "Sponsorlar yükleniyor...",
     "emptyTitle": "Henüz sponsor yok",
     "emptyDesc": "Uzak sponsor modülü şu anda devre dışı.",
     "listAriaLabel": "Sponsor listesi",
-    "defaultDescription": "Cockpit Tools'u desteklediğiniz için teşekkürler.",
+    "defaultDescription": "codex tools'u desteklediğiniz için teşekkürler.",
     "openSponsor": "Aç"
   },
   "platformLayout": {
@@ -1067,12 +1067,12 @@
         "summary": "Ön eki olmayan modeller geçerli aboneliği kullanır; cpa/gpt-5.6-sol gibi ön ekli modeller üçüncü taraf bir API'ye iletilir. Her ikisi de yerel yönlendirme hizmetine bağlıdır.",
         "rowSummary": "Ön eki olmayan modeller geçerli aboneliği kullanır; cpa/gpt-5.6-sol gibi ön ekli modeller üçüncü taraf bir API'ye iletilir. Her ikisi de yerel yönlendirme hizmetine bağlıdır.",
         "confirmEnableTitle": "Üçüncü taraf API yönlendirmesi etkinleştirilsin mi?",
-        "confirmEnableMessage": "Codex model istekleri yerel Cockpit Tools hizmeti üzerinden yönlendirilecektir. Hizmet çalışmıyorsa hem abonelik hem de üçüncü taraf modelleri kullanılamayabilir.\n\nYönlendirme etkinleştirilsin mi?",
+        "confirmEnableMessage": "Codex model istekleri yerel codex tools hizmeti üzerinden yönlendirilecektir. Hizmet çalışmıyorsa hem abonelik hem de üçüncü taraf modelleri kullanılamayabilir.\n\nYönlendirme etkinleştirilsin mi?",
         "confirmEnableAction": "Etkinleştir",
         "confirmDisableTitle": "Üçüncü taraf API yönlendirmesi devre dışı bırakılsın mı?",
         "confirmDisableMessage": "Bu değişiklik yürürlüğe girdikten sonra yerel ağ geçidi durdurulacak, yerel abonelik erişimi geri yüklenecek ve üçüncü taraf modelleri kullanılamayacaktır.\n\nDevre dışı bırakılsın mı?",
         "confirmDisableAction": "Devre dışı bırak",
-        "modalTip": "Hem abonelik hem de üçüncü taraf modelleri yerel yönlendirme hizmetinden geçer. Cockpit Tools'u arka planda çalışır durumda tutun. Hizmet otomatik olarak kurtarılır ve yinelenen arızalardan sonra resmi yapılandırmaya geri döner.",
+        "modalTip": "Hem abonelik hem de üçüncü taraf modelleri yerel yönlendirme hizmetinden geçer. codex tools'u arka planda çalışır durumda tutun. Hizmet otomatik olarak kurtarılır ve yinelenen arızalardan sonra resmi yapılandırmaya geri döner.",
         "modelRequired": "Etkinleştirilen her API rotası en az bir model içermelidir.",
         "runningSaveTitle": "Yönlendirme ne zaman geçerli olsun?",
         "runningSaveMessage": "Bu Codex örneği çalışıyor. Yerel hizmeti şimdi değiştirmek mevcut görüşmeyi kesintiye uğratacaktır.\n\nŞimdi uygulamak için «Kaydet ve Codex'i yeniden başlat»ı veya mevcut oturumu değiştirmemek için «Daha sonra kaydet»i seçin.",
@@ -1240,7 +1240,7 @@
       "platform": "Platform türü"
     },
     "title": "Uygulama Ayarları",
-    "subtitle": "Cockpit Tools deneyiminizi özelleştirin.",
+    "subtitle": "codex tools deneyiminizi özelleştirin.",
     "tabs": {
       "general": "Genel",
       "network": "Ağ",
@@ -1316,8 +1316,8 @@
       "floatingCardShowNowAction": "Yüzen kartı göster",
       "dataDir": "Veri dizini",
       "dataDirDesc": "Hesaplar ve yapılandırma dosyaları için depolama konumu.",
-      "dataDirPending": "Yeniden başlatıldıktan sonra Cockpit Tools verileri {{path}} konumundan okuyacak.",
-      "dataDirPendingDefault": "Yeniden başlatıldığında Cockpit Tools varsayılan dizini kullanacak.",
+      "dataDirPending": "Yeniden başlatıldıktan sonra codex tools verileri {{path}} konumundan okuyacak.",
+      "dataDirPendingDefault": "Yeniden başlatıldığında codex tools varsayılan dizini kullanacak.",
       "dataDirEnvironment": "Geçerli oturum COCKPIT_TOOLS_DATA_DIR ile belirtilen dizini kullanıyor.",
       "topRightAdVisible": "Üst tanıtımı göster",
       "topRightAdVisibleDesc": "Uygulamadaki üst tanıtım alanını gizler. Sponsorlar sayfası etkilenmez.",
@@ -1338,7 +1338,7 @@
       "codexSyncWsl": "Codex'i WSL ile eşitle",
       "codexSyncWslDesc": "Varsayılan Codex hesabı değiştirildikten sonra auth.json ve config.toml WSL içindeki Codex dizinine de yazılır.",
       "codexAppUiInjection": "API hizmeti kotası",
-      "codexAppUiInjectionDesc": "API hizmetine bağlı Codex’in giriş çubuğu, seçili modelin kotasını (GPT 5 saatlik ve haftalık kotaları, DeepSeek bakiyesi veya Grok kotası), geçerli sohbetin çıktı hızını ve önbellek isabet oranını gösterir. Pencerede kotalar, sohbet ölçümleri ve API hizmeti istatistikleri yer alır. İstek kayıtlarında geçerli sohbet ile tüm hizmet arasında geçiş yapabilir, daha fazla kayıt yükleyebilir veya verileri yenileyebilirsiniz. Sohbet bağlantısı ya da geçerli zaman ölçümü doğrulanamıyorsa ilgili ölçümler — gösterir. Cockpit Tools arka planda çalışmalıdır; kota güncellemeleri ağ bağlantısı gerektirir.",
+      "codexAppUiInjectionDesc": "API hizmetine bağlı Codex’in giriş çubuğu, seçili modelin kotasını (GPT 5 saatlik ve haftalık kotaları, DeepSeek bakiyesi veya Grok kotası), geçerli sohbetin çıktı hızını ve önbellek isabet oranını gösterir. Pencerede kotalar, sohbet ölçümleri ve API hizmeti istatistikleri yer alır. İstek kayıtlarında geçerli sohbet ile tüm hizmet arasında geçiş yapabilir, daha fazla kayıt yükleyebilir veya verileri yenileyebilirsiniz. Sohbet bağlantısı ya da geçerli zaman ölçümü doğrulanamıyorsa ilgili ölçümler — gösterir. codex tools arka planda çalışmalıdır; kota güncellemeleri ağ bağlantısı gerektirir.",
       "codexAppUiInjectionPoolLabel": "Hesaplar",
       "codexAppUiInjectionWeeklyLabel": "Hafta",
       "codexAppUiInjectionFiveHourLabel": "5 sa",
@@ -1456,7 +1456,7 @@
       "sideNavLayoutClassic": "Klasik Düzen",
       "antigravityDualSwitchNoRestart": "Yeniden başlatmadan çift geçiş",
       "antigravityDualSwitchNoRestartDesc": "Hesap değiştirirken yerel hesap verisi yazımı ve eklentinin kesintisiz geçişi tek akışta yürütülür; Antigravity IDE yeniden başlatılmaz.",
-      "appAutoLaunch": "Oturum açıldığında Cockpit Tools'u başlat",
+      "appAutoLaunch": "Oturum açıldığında codex tools'u başlat",
       "appAutoLaunchDesc": "Oturum açınca başlat. Windows açılışında PowerShell hatası görürseniz kapatın.",
       "startupWakeupDisabled": "Devre dışı",
       "startupWakeupImmediate": "Hemen uyandır",
@@ -1601,7 +1601,7 @@
         "quotaCompatDesc": "API hizmeti örnekleri istemci görünümü ve yerel kontroller için kullanılabilir kota gösterir. Sağlayıcıdaki gerçek kullanım ve görsel sınırları değişmez. Bu anahtar yalnızca diğer OAuth ve harici API birleşimleri için geçerlidir.",
         "configFailed": "Ayarlar okunamadı veya kaydedilemedi: {{error}}",
         "nativePredictions": "Yerel sonraki adım tahminleri (Tab)",
-        "nativePredictionsDesc": "Varsayılan olarak açıktır. Öneriler mevcut konuşmanın API sağlayıcısını ve modelini kullanır ve API kullanımını artırır. Bu ayarı değiştirdikten sonra ilgili Codex örneklerini yeniden başlatın ve Cockpit Tools’u çalışır durumda tutun."
+        "nativePredictionsDesc": "Varsayılan olarak açıktır. Öneriler mevcut konuşmanın API sağlayıcısını ve modelini kullanır ve API kullanımını artırır. Bu ayarı değiştirdikten sonra ilgili Codex örneklerini yeniden başlatın ve codex tools’u çalışır durumda tutun."
       },
       "timeDisplayMode": "Zaman gösterimi",
       "timeDisplayModeDesc": "Hesap kartları ve listelerindeki zaman. Varsayılan, hesap değiştirme zamanıdır",
@@ -1651,7 +1651,7 @@
       "proxyUrlRequired": "Genel proxy etkin olduğunda proxy URL boş olamaz."
     },
     "about": {
-      "appName": "Cockpit Tools​",
+      "appName": "codex tools",
       "slogan": "Profesyonel Hesap Yönetimi Çözümü",
       "author": "Yazar",
       "wechat": "WeChat​",
@@ -3156,11 +3156,11 @@
     },
     "exportFormat": {
       "label": "Dışa aktarma biçimi",
-      "cockpitTools": "Cockpit Tools​",
+      "cockpitTools": "codex tools",
       "authJson": "Resmi auth.json",
       "sub2api": "sub2api biçimi",
       "cpa": "cpa biçimi",
-      "agentIdentityCpaUnsupported": "Agent Identity hesapları cpa biçiminde dışa aktarılamaz. Cockpit Tools veya sub2api kullanın.",
+      "agentIdentityCpaUnsupported": "Agent Identity hesapları cpa biçiminde dışa aktarılamaz. codex tools veya sub2api kullanın.",
       "agentIdentityPrivateKeyNotice": "Bu dışa aktarım, hesabı başka bir cihazda geri yükleyebilen bir Agent Identity özel anahtarı içerir. Parola gibi koruyun.",
       "buildFailed": "Dışa aktarım oluşturulamıyor: seçilen hesaplarda desteklenmeyen bir tür veya eksik kimlik bilgileri var.",
       "downloadAll": "Tümünü indir",
@@ -3244,8 +3244,8 @@
       "testAuthFailed": "Hizmete erişiliyor ancak kimlik doğrulama başarısız: {{detail}}. API hizmeti anahtarını veya hesap oturum durumunu kontrol edin.",
       "testServiceUnavailable": "Hizmete erişiliyor ancak şu anda kullanılamıyor: {{detail}}. Hizmetin etkin olup olmadığını, hesap koleksiyonunun boş olup olmadığını veya hesapların kullanılabilirliğini kontrol edin.",
       "gatewayErrors": {
-        "authUnavailable": "Şu anda yönlendirilebilir hesap yok. Hesap beklemede, yetkisiz veya kota sınırlı olabilir. Cockpit Tools API hizmetinde durumunu kontrol edin.",
-        "authNotFound": "Hesap havuzunda kullanılabilir hesap yapılandırılmamış. Cockpit Tools API hizmetinde hesap ekleyin veya etkinleştirin.",
+        "authUnavailable": "Şu anda yönlendirilebilir hesap yok. Hesap beklemede, yetkisiz veya kota sınırlı olabilir. codex tools API hizmetinde durumunu kontrol edin.",
+        "authNotFound": "Hesap havuzunda kullanılabilir hesap yapılandırılmamış. codex tools API hizmetinde hesap ekleyin veya etkinleştirin.",
         "accountConcurrencyExceeded": "Hesabın eşzamanlı istek sınırına ulaşıldı. Daha sonra tekrar deneyin.",
         "providerRetryAfter": "Sağlayıcı duraklama istedi. {{seconds}} saniye sonra tekrar deneyin.",
         "audioInvalidRequest": "Geçersiz ses isteği: {{detail}}",
@@ -8382,7 +8382,7 @@
       "backToCurrent": "Geri",
       "switchToThisAccount": "Geç",
       "openDetails": "Ayrıntıları aç",
-      "openCockpitTools": "Cockpit Tools'u aç"
+      "openCockpitTools": "codex tools'u aç"
     },
     "empty": {
       "title": "Hesap yok",
@@ -8551,7 +8551,7 @@
   },
   "relay": {
     "pageTitle": "Özel aktarım",
-    "pageDesc": "Cockpit Tools kullanıcıları için Codex API Key hesaplarıyla kullanılabilen iş ortaklığı API servisi.",
+    "pageDesc": "codex tools kullanıcıları için Codex API Key hesaplarıyla kullanılabilen iş ortaklığı API servisi.",
     "loading": "Aktarım yükleniyor...",
     "emptyTitle": "Aktarım kapalı",
     "emptyDesc": "Uzak yapılandırma özel aktarımı etkinleştirmedi.",
@@ -8730,7 +8730,7 @@
       "title": "API anahtarını kullan",
       "family": "Grup",
       "platform": "Geçerli sistem",
-      "unsupportedGroup": "Cockpit Tools’ta APIKEY.FUN {{family}} uç noktası için henüz bir istemci yapılandırma şablonu yok. Bu uç noktayı destekleyen bir istemciyi elle yapılandırabilirsiniz."
+      "unsupportedGroup": "codex tools’ta APIKEY.FUN {{family}} uç noktası için henüz bir istemci yapılandırma şablonu yok. Bu uç noktayı destekleyen bir istemciyi elle yapılandırabilirsiniz."
     },
     "campaign": {
       "badge": "11.11",
@@ -9132,8 +9132,8 @@
     "desc": "OpenCode Go/Zen anahtarlarını yönetin ve kademeye göre süzün."
   },
   "chatgptPlan": {
-    "callbackReceived": "Yetkilendirme yanıtı alındı. Sonucu görmek için Cockpit Tools uygulamasına dönün.",
-    "callbackFailed": "Yanıt geçersiz veya yetkilendirme tamamlanmadı. Cockpit Tools uygulamasına dönüp tekrar deneyin.",
+    "callbackReceived": "Yetkilendirme yanıtı alındı. Sonucu görmek için codex tools uygulamasına dönün.",
+    "callbackFailed": "Yanıt geçersiz veya yetkilendirme tamamlanmadı. codex tools uygulamasına dönüp tekrar deneyin.",
     "title": "ChatGPT planı",
     "description": "API hizmeti istekleri için ChatGPT planınıza ayrı izin verin.",
     "localStatsHint": "İstek ve belirteç sayıları yalnızca bu API hizmeti üzerinden yapılan çağrıları kapsar. Plan kullanımını ChatGPT’den kontrol edin.",
@@ -9142,7 +9142,7 @@
     "manage": "Yönet",
     "manageTitle": "Plan erişimini yönet",
     "connectTitle": "Resmî OpenAI yetkilendirmesi",
-    "consent": "Cockpit Tools’un model istekleri için ChatGPT planınızı kullanmasına izin verin. Kullanım ve sınırları ChatGPT ayarlarından yönetin.",
+    "consent": "codex tools’un model istekleri için ChatGPT planınızı kullanmasına izin verin. Kullanım ve sınırları ChatGPT ayarlarından yönetin.",
     "credentialsHint": "Plan kimlik bilgileri bu cihazda ayrı saklanır ve API hizmeti tarafından yenilenir. Mevcut Codex oturumu ve hesap değiştirme akışı korunur.",
     "waiting": "Tarayıcıda yetkilendirme bekleniyor…",
     "reopen": "Yeniden aç",
@@ -9515,7 +9515,7 @@
     },
     "rebuildConfirm": {
       "title": "Tam Yeniden Tarama",
-      "message": "Cockpit Tools yerel tarama önbelleği temizlenecek ve tüm Antigravity oturum dosyaları salt okunur modda yeniden okunacak. Devam edilsin mi?"
+      "message": "codex tools yerel tarama önbelleği temizlenecek ve tüm Antigravity oturum dosyaları salt okunur modda yeniden okunacak. Devam edilsin mi?"
     },
     "status": {
       "scanning": "Antigravity oturum veritabanları taranıyor…",

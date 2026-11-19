@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { SingleSelectDropdown } from '../../components/SingleSelectDropdown';
 import { MENU_VISIBLE_PLATFORM_IDS, PLATFORM_PAGE_MAP } from '../../types/platform';
+import { isMainWindowNavigablePage } from '../../types/navigation';
 import { getPlatformLabel } from '../../utils/platformMeta';
 
 export function StartupPageSetting({ value, onChange }: {
@@ -16,7 +17,8 @@ export function StartupPageSetting({ value, onChange }: {
       </div>
       <div className="row-control">
         <SingleSelectDropdown
-          value={value === 'antigravity' || value === 'antigravity-ide' ? 'overview' : value}
+          value={value === 'antigravity' || value === 'antigravity-ide'
+            ? 'overview' : isMainWindowNavigablePage(value) ? value : 'last'}
           onChange={onChange}
           ariaLabel={t('settings.general.startupPage')}
           options={[
@@ -30,7 +32,6 @@ export function StartupPageSetting({ value, onChange }: {
             { value: 'instances', label: t('nav.instances') },
             { value: 'wakeup', label: t('nav.wakeup') },
             { value: '2fa', label: t('nav.2faManager') },
-            { value: 'api-relay', label: t('nav.apiRelay') },
             { value: 'manual', label: t('nav.manual') },
             { value: 'settings', label: t('nav.settings') },
           ]}

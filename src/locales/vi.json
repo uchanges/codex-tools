@@ -222,7 +222,7 @@
     "historyRestoring": "Đang khôi phục lịch sử…",
     "apiBudget": {
       "keyScope": "Khóa này",
-      "upgradeRequired": "Cập nhật Cockpit Tools trên máy tính cổng để xem thống kê và lịch sử yêu cầu.",
+      "upgradeRequired": "Cập nhật codex tools trên máy tính cổng để xem thống kê và lịch sử yêu cầu.",
       "gatewayName": "Cổng Cockpit",
       "accountingNote": "Khoản trừ đã ghi không đổi khi tính lại giá; ước tính có thể khác. Ngân sách đặt lại theo UTC.",
       "preparing": "Đang chuẩn bị thống kê lịch sử trong nền. Hãy thử lại sau.",
@@ -283,7 +283,7 @@
       "waiting": "Đang chờ bản ghi sử dụng cuộc trò chuyện",
       "refreshFailed": "Không thể làm mới hạn mức. Đã giữ lại kết quả trước. Vui lòng thử lại.",
       "refreshPartial": "Không thể làm mới hạn mức của một số tài khoản. Đã giữ lại kết quả hiện có.",
-      "hostUnavailable": "Cockpit Tools chưa kết nối. Đã tạm dừng làm mới.",
+      "hostUnavailable": "codex tools chưa kết nối. Đã tạm dừng làm mới.",
       "refreshing": "Đang làm mới…",
       "recent": "Bản ghi gần đây",
       "recentAccount": "Tài khoản dùng gần nhất",
@@ -711,7 +711,7 @@
       "desc": "Khu vực này được cố định ở góc trên bên phải trên mọi trang, phù hợp cho chiến dịch hoặc quảng cáo thương hiệu.",
       "action": "Xem chi tiết"
     },
-    "appName": "Cockpit Tools​",
+    "appName": "codex tools",
     "collapse": "Thu gọn",
     "confirmDelete": "Xác nhận xóa",
     "confirmDeleteTag": "Xác nhận xóa thẻ",
@@ -814,12 +814,12 @@
   },
   "sponsors": {
     "pageTitle": "Nhà tài trợ",
-    "pageDesc": "Cảm ơn các nhà tài trợ đã hỗ trợ Cockpit Tools.",
+    "pageDesc": "Cảm ơn các nhà tài trợ đã hỗ trợ codex tools.",
     "loading": "Đang tải nhà tài trợ...",
     "emptyTitle": "Chưa có nhà tài trợ",
     "emptyDesc": "Mô-đun nhà tài trợ từ xa hiện đang tắt.",
     "listAriaLabel": "Danh sách nhà tài trợ",
-    "defaultDescription": "Cảm ơn bạn đã hỗ trợ Cockpit Tools.",
+    "defaultDescription": "Cảm ơn bạn đã hỗ trợ codex tools.",
     "openSponsor": "Mở"
   },
   "platformLayout": {
@@ -1067,12 +1067,12 @@
         "summary": "Các mô hình không có tiền tố sử dụng gói đăng ký hiện tại; các mô hình có tiền tố như cpa/gpt-5.6-sol được chuyển tiếp đến API của bên thứ ba. Cả hai đều phụ thuộc vào dịch vụ định tuyến cục bộ.",
         "rowSummary": "Các mô hình không có tiền tố sử dụng gói đăng ký hiện tại; các mô hình có tiền tố như cpa/gpt-5.6-sol được chuyển tiếp đến API của bên thứ ba. Cả hai đều phụ thuộc vào dịch vụ định tuyến cục bộ.",
         "confirmEnableTitle": "Bật định tuyến API của bên thứ ba?",
-        "confirmEnableMessage": "Các yêu cầu mô hình Codex sẽ được định tuyến qua dịch vụ Cockpit Tools cục bộ. Nếu dịch vụ không chạy, cả mô hình đăng ký và bên thứ ba có thể không khả dụng.\n\nBật định tuyến?",
+        "confirmEnableMessage": "Các yêu cầu mô hình Codex sẽ được định tuyến qua dịch vụ codex tools cục bộ. Nếu dịch vụ không chạy, cả mô hình đăng ký và bên thứ ba có thể không khả dụng.\n\nBật định tuyến?",
         "confirmEnableAction": "Bật",
         "confirmDisableTitle": "Tắt định tuyến API của bên thứ ba?",
         "confirmDisableMessage": "Sau khi thay đổi này có hiệu lực, cổng cục bộ sẽ dừng, quyền truy cập đăng ký chính thức sẽ được khôi phục và các mô hình của bên thứ ba sẽ không khả dụng.\n\nTắt định tuyến?",
         "confirmDisableAction": "Tắt",
-        "modalTip": "Cả mô hình đăng ký và bên thứ ba đều đi qua dịch vụ định tuyến cục bộ. Vui lòng duy trì Cockpit Tools chạy ngầm. Dịch vụ tự động phục hồi và chuyển về cấu hình chính thức sau nhiều lần thất bại.",
+        "modalTip": "Cả mô hình đăng ký và bên thứ ba đều đi qua dịch vụ định tuyến cục bộ. Vui lòng duy trì codex tools chạy ngầm. Dịch vụ tự động phục hồi và chuyển về cấu hình chính thức sau nhiều lần thất bại.",
         "modelRequired": "Mỗi tuyến API được bật phải bao gồm ít nhất một mô hình.",
         "runningSaveTitle": "Khi nào định tuyến có hiệu lực?",
         "runningSaveMessage": "Phiên bản Codex này đang chạy. Thay thế dịch vụ cục bộ ngay bây giờ sẽ làm gián đoạn cuộc trò chuyện hiện tại.\n\nChọn «Lưu và khởi động lại Codex» để áp dụng ngay, hoặc «Lưu để dùng sau» để giữ nguyên phiên hiện tại.",
@@ -1240,7 +1240,7 @@
       "platform": "Nền tảng"
     },
     "title": "Cài đặt ứng dụng",
-    "subtitle": "Cá nhân hóa trải nghiệm Antigravity Cockpit Tools của bạn.",
+    "subtitle": "Cá nhân hóa trải nghiệm codex tools của bạn.",
     "tabs": {
       "general": "Chung",
       "network": "Dịch vụ mạng",
@@ -1316,8 +1316,8 @@
       "floatingCardShowNowAction": "Hiển thị thẻ nổi",
       "dataDir": "Thư mục dữ liệu",
       "dataDirDesc": "Vị trí lưu trữ tài khoản và cấu hình.",
-      "dataDirPending": "Sau khi khởi động lại, Cockpit Tools sẽ đọc dữ liệu từ {{path}}.",
-      "dataDirPendingDefault": "Sau khi khởi động lại, Cockpit Tools sẽ dùng thư mục mặc định.",
+      "dataDirPending": "Sau khi khởi động lại, codex tools sẽ đọc dữ liệu từ {{path}}.",
+      "dataDirPendingDefault": "Sau khi khởi động lại, codex tools sẽ dùng thư mục mặc định.",
       "dataDirEnvironment": "Lần khởi động hiện tại dùng thư mục do COCKPIT_TOOLS_DATA_DIR chỉ định.",
       "topRightAdVisible": "Hiện quảng bá trên cùng",
       "topRightAdVisibleDesc": "Ẩn vị trí quảng bá trên cùng trong ứng dụng. Trang Nhà tài trợ không bị ảnh hưởng.",
@@ -1338,7 +1338,7 @@
       "codexSyncWsl": "Đồng bộ Codex sang WSL",
       "codexSyncWslDesc": "Sau khi chuyển tài khoản Codex mặc định, auth.json và config.toml cũng được ghi vào thư mục Codex trong WSL.",
       "codexAppUiInjection": "Hạn mức dịch vụ API",
-      "codexAppUiInjectionDesc": "Thanh nhập của Codex liên kết với dịch vụ API hiển thị hạn mức của mô hình đã chọn (hạn mức GPT 5 giờ và theo tuần, số dư DeepSeek hoặc hạn mức Grok), cùng tốc độ đầu ra và tỷ lệ trúng bộ nhớ đệm của hội thoại hiện tại. Hộp thoại có hạn mức, chỉ số hội thoại và thống kê dịch vụ API. Có thể chuyển lịch sử yêu cầu giữa hội thoại hiện tại và toàn dịch vụ, tải thêm hoặc làm mới. Khi không xác định được liên kết hội thoại hoặc thiếu thời gian đo hợp lệ, chỉ số tương ứng hiển thị —. Giữ Cockpit Tools chạy nền; cập nhật hạn mức cần kết nối mạng.",
+      "codexAppUiInjectionDesc": "Thanh nhập của Codex liên kết với dịch vụ API hiển thị hạn mức của mô hình đã chọn (hạn mức GPT 5 giờ và theo tuần, số dư DeepSeek hoặc hạn mức Grok), cùng tốc độ đầu ra và tỷ lệ trúng bộ nhớ đệm của hội thoại hiện tại. Hộp thoại có hạn mức, chỉ số hội thoại và thống kê dịch vụ API. Có thể chuyển lịch sử yêu cầu giữa hội thoại hiện tại và toàn dịch vụ, tải thêm hoặc làm mới. Khi không xác định được liên kết hội thoại hoặc thiếu thời gian đo hợp lệ, chỉ số tương ứng hiển thị —. Giữ codex tools chạy nền; cập nhật hạn mức cần kết nối mạng.",
       "codexAppUiInjectionPoolLabel": "Tài khoản",
       "codexAppUiInjectionWeeklyLabel": "Tuần",
       "codexAppUiInjectionFiveHourLabel": "5 giờ",
@@ -1456,7 +1456,7 @@
       "sideNavLayoutClassic": "Bố cục cổ điển",
       "antigravityDualSwitchNoRestart": "Chuyển đôi không cần khởi động lại",
       "antigravityDualSwitchNoRestartDesc": "Khi chuyển tài khoản, việc ghi dữ liệu cục bộ và chuyển đổi liền mạch qua tiện ích mở rộng được thực hiện trong một luồng, không cần khởi động lại Antigravity IDE.",
-      "appAutoLaunch": "Khởi chạy Cockpit Tools khi đăng nhập",
+      "appAutoLaunch": "Khởi chạy codex tools khi đăng nhập",
       "appAutoLaunchDesc": "Tự khởi động sau đăng nhập. Nếu Windows báo lỗi PowerShell lúc boot, hãy tắt.",
       "startupWakeupDisabled": "Tắt",
       "startupWakeupImmediate": "Đánh thức ngay",
@@ -1601,7 +1601,7 @@
         "quotaCompatDesc": "Các phiên bản dịch vụ API hiển thị hạn mức khả dụng cho giao diện và kiểm tra cục bộ của ứng dụng. Mức sử dụng thực tế tại nhà cung cấp và giới hạn hình ảnh không thay đổi. Tùy chọn này chỉ áp dụng cho các cấu hình OAuth kết hợp API bên ngoài khác.",
         "configFailed": "Không thể đọc hoặc lưu cài đặt: {{error}}",
         "nativePredictions": "Dự đoán bước tiếp theo gốc (Tab)",
-        "nativePredictionsDesc": "Mặc định bật. Gợi ý sử dụng nhà cung cấp API và mô hình của cuộc trò chuyện hiện tại, làm tăng mức sử dụng API. Sau khi thay đổi cài đặt, hãy khởi động lại các phiên bản Codex bị ảnh hưởng và giữ Cockpit Tools chạy."
+        "nativePredictionsDesc": "Mặc định bật. Gợi ý sử dụng nhà cung cấp API và mô hình của cuộc trò chuyện hiện tại, làm tăng mức sử dụng API. Sau khi thay đổi cài đặt, hãy khởi động lại các phiên bản Codex bị ảnh hưởng và giữ codex tools chạy."
       },
       "timeDisplayMode": "Hiển thị thời gian",
       "timeDisplayModeDesc": "Thời gian trên thẻ và danh sách tài khoản. Mặc định là thời gian chuyển tài khoản",
@@ -1651,7 +1651,7 @@
       "proxyUrlRequired": "Không được để trống URL proxy khi bật proxy toàn cục."
     },
     "about": {
-      "appName": "Cockpit Tools​",
+      "appName": "codex tools",
       "slogan": "Giải pháp quản lý tài khoản chuyên nghiệp",
       "author": "Tác giả chính",
       "wechat": "Tài khoản WeChat chính thức",
@@ -3156,11 +3156,11 @@
     },
     "exportFormat": {
       "label": "Định dạng xuất",
-      "cockpitTools": "Cockpit Tools​",
+      "cockpitTools": "codex tools",
       "authJson": "auth.json chính thức",
       "sub2api": "Định dạng sub2api",
       "cpa": "Định dạng cpa",
-      "agentIdentityCpaUnsupported": "Không thể xuất tài khoản Agent Identity ở định dạng cpa. Hãy dùng Cockpit Tools hoặc sub2api.",
+      "agentIdentityCpaUnsupported": "Không thể xuất tài khoản Agent Identity ở định dạng cpa. Hãy dùng codex tools hoặc sub2api.",
       "agentIdentityPrivateKeyNotice": "Bản xuất này chứa khóa riêng Agent Identity có thể khôi phục tài khoản trên thiết bị khác. Hãy bảo vệ khóa như mật khẩu.",
       "buildFailed": "Không thể tạo bản xuất: các tài khoản đã chọn có loại không được hỗ trợ hoặc thông tin xác thực chưa đầy đủ.",
       "downloadAll": "Tải xuống tất cả",
@@ -3244,8 +3244,8 @@
       "testAuthFailed": "Dịch vụ truy cập được nhưng xác thực thất bại: {{detail}}. Hãy kiểm tra khóa dịch vụ API hoặc trạng thái đăng nhập tài khoản.",
       "testServiceUnavailable": "Dịch vụ truy cập được nhưng hiện không khả dụng: {{detail}}. Hãy kiểm tra dịch vụ đã bật chưa, bộ sưu tập tài khoản có trống không hoặc tài khoản có dùng được không.",
       "gatewayErrors": {
-        "authUnavailable": "Hiện không có tài khoản nào có thể định tuyến. Tài khoản có thể đang tạm nghỉ, mất xác thực hoặc bị giới hạn hạn mức. Kiểm tra trạng thái trong dịch vụ API của Cockpit Tools.",
-        "authNotFound": "Chưa cấu hình tài khoản khả dụng trong nhóm tài khoản. Hãy thêm hoặc bật tài khoản trong dịch vụ API của Cockpit Tools.",
+        "authUnavailable": "Hiện không có tài khoản nào có thể định tuyến. Tài khoản có thể đang tạm nghỉ, mất xác thực hoặc bị giới hạn hạn mức. Kiểm tra trạng thái trong dịch vụ API của codex tools.",
+        "authNotFound": "Chưa cấu hình tài khoản khả dụng trong nhóm tài khoản. Hãy thêm hoặc bật tài khoản trong dịch vụ API của codex tools.",
         "accountConcurrencyExceeded": "Đã đạt giới hạn yêu cầu đồng thời của tài khoản. Vui lòng thử lại sau.",
         "providerRetryAfter": "Nhà cung cấp yêu cầu tạm dừng. Hãy thử lại sau {{seconds}} giây.",
         "audioInvalidRequest": "Yêu cầu âm thanh không hợp lệ: {{detail}}",
@@ -8382,7 +8382,7 @@
       "backToCurrent": "Quay lại",
       "switchToThisAccount": "Chuyển",
       "openDetails": "Mở chi tiết",
-      "openCockpitTools": "Mở Cockpit Tools"
+      "openCockpitTools": "Mở codex tools"
     },
     "empty": {
       "title": "Không có tài khoản",
@@ -8551,7 +8551,7 @@
   },
   "relay": {
     "pageTitle": "Trạm chuyển riêng",
-    "pageDesc": "Dịch vụ API đối tác dành cho người dùng Cockpit Tools, dùng được với tài khoản Codex API Key.",
+    "pageDesc": "Dịch vụ API đối tác dành cho người dùng codex tools, dùng được với tài khoản Codex API Key.",
     "loading": "Đang tải trạm chuyển...",
     "emptyTitle": "Trạm chuyển chưa bật",
     "emptyDesc": "Cấu hình từ xa chưa bật trạm chuyển riêng.",
@@ -8730,7 +8730,7 @@
       "title": "Dùng khóa API",
       "family": "Nhóm",
       "platform": "Hệ thống hiện tại",
-      "unsupportedGroup": "Cockpit Tools chưa có mẫu cấu hình ứng dụng khách cho điểm cuối {{family}} của APIKEY.FUN. Bạn có thể cấu hình thủ công trong ứng dụng khách hỗ trợ điểm cuối này."
+      "unsupportedGroup": "codex tools chưa có mẫu cấu hình ứng dụng khách cho điểm cuối {{family}} của APIKEY.FUN. Bạn có thể cấu hình thủ công trong ứng dụng khách hỗ trợ điểm cuối này."
     },
     "campaign": {
       "badge": "11.11",
@@ -9132,8 +9132,8 @@
     "desc": "Quản lý key OpenCode Go/Zen và lọc theo tier."
   },
   "chatgptPlan": {
-    "callbackReceived": "Đã nhận phản hồi ủy quyền. Quay lại Cockpit Tools để xem kết quả.",
-    "callbackFailed": "Phản hồi không hợp lệ hoặc quá trình ủy quyền chưa hoàn tất. Quay lại Cockpit Tools và thử lại.",
+    "callbackReceived": "Đã nhận phản hồi ủy quyền. Quay lại codex tools để xem kết quả.",
+    "callbackFailed": "Phản hồi không hợp lệ hoặc quá trình ủy quyền chưa hoàn tất. Quay lại codex tools và thử lại.",
     "title": "Gói ChatGPT",
     "description": "Cấp quyền riêng cho gói ChatGPT để gửi yêu cầu qua dịch vụ API.",
     "localStatsHint": "Số yêu cầu và token chỉ tính các lần gọi qua dịch vụ API này. Xem mức dùng của gói trong ChatGPT.",
@@ -9142,7 +9142,7 @@
     "manage": "Quản lý",
     "manageTitle": "Quản lý quyền truy cập gói",
     "connectTitle": "Cấp quyền chính thức của OpenAI",
-    "consent": "Cho phép Cockpit Tools dùng gói ChatGPT của bạn để gửi yêu cầu đến mô hình. Quản lý mức dùng và giới hạn trong cài đặt ChatGPT.",
+    "consent": "Cho phép codex tools dùng gói ChatGPT của bạn để gửi yêu cầu đến mô hình. Quản lý mức dùng và giới hạn trong cài đặt ChatGPT.",
     "credentialsHint": "Thông tin xác thực gói được lưu riêng trên thiết bị này và tự gia hạn qua dịch vụ API. Đăng nhập Codex và quy trình chuyển tài khoản hiện tại không thay đổi.",
     "waiting": "Đang chờ cấp quyền trong trình duyệt…",
     "reopen": "Mở lại",
@@ -9515,7 +9515,7 @@
     },
     "rebuildConfirm": {
       "title": "Quét lại toàn bộ",
-      "message": "Xóa bộ nhớ đệm quét cục bộ của Cockpit Tools và đọc lại toàn bộ dữ liệu phiên Antigravity ở chế độ chỉ đọc. Tiếp tục?"
+      "message": "Xóa bộ nhớ đệm quét cục bộ của codex tools và đọc lại toàn bộ dữ liệu phiên Antigravity ở chế độ chỉ đọc. Tiếp tục?"
     },
     "status": {
       "scanning": "Đang quét cơ sở dữ liệu phiên Antigravity…",

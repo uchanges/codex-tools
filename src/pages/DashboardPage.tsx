@@ -20,20 +20,17 @@ import { useTraeAccountStore } from '../stores/useTraeAccountStore';
 import { useWorkbuddyAccountStore } from '../stores/useWorkbuddyAccountStore';
 import { useMinimaxCodeAccountStore } from '../stores/useMinimaxCodeAccountStore';
 import { useZedAccountStore } from '../stores/useZedAccountStore';
-import { useSponsorStore } from '../stores/useSponsorStore';
 import { useRemoteConfigStore } from '../stores/useRemoteConfigStore';
 import {
-  API_RELAY_LAYOUT_ENTRY_ID,
-  ApiRelayLayoutEntryId,
   parseGroupEntryId,
-  PlatformLayoutEntryId,
+  type PlatformLayoutEntryId,
   resolveEntryDefaultPlatformId,
   resolveEntryPlatformIds,
   resolveGroupChildName,
   usePlatformLayoutStore,
 } from '../stores/usePlatformLayoutStore';
 import { Page } from '../types/navigation';
-import { Users, CheckCircle2, Sparkles, RotateCw, Play, Github, Tag, ChevronDown, EyeOff, X } from 'lucide-react';
+import { Users, CheckCircle2, Sparkles, RotateCw, Play, Github, Tag, ChevronDown, EyeOff, X, Activity, ArrowLeft, ArrowUpRight, Layers3, List, Server, SlidersHorizontal } from 'lucide-react';
 import { TagEditModal } from '../components/TagEditModal';
 import { Account } from '../types/account';
 import {
@@ -82,9 +79,8 @@ import { useCodexRelayBalanceDisabled } from '../hooks/useCodexRelayBalanceDisab
 import { canShowCodexProviderBalance, isDeepSeekAccount, isMoonshotBalanceUrl } from '../utils/codexDeepSeekAccess';
 import { ModelProviderUsagePanel } from '../components/model-provider/ModelProviderUsagePanel';
 import './DashboardPage.css';
-import apiKeyFunIcon from '../assets/icons/apikey-fun.png';
-import { RobotIcon } from '../components/icons/RobotIcon';
-import { CodexIcon } from '../components/icons/CodexIcon';
+import './DashboardWorkspace.css';
+import { DashboardPlatformPanel } from './DashboardPlatformPanel';
 import { requestCodexResetCreditDetails } from '../utils/codexResetCreditNavigation';
 import { CodexResetCreditExpiry } from '../components/CodexResetCreditExpiry';
 import { WindsurfIcon } from '../components/icons/WindsurfIcon';
@@ -100,7 +96,6 @@ import { isAccountPlatform, PlatformId, PLATFORM_PAGE_MAP } from '../types/platf
 import { getPlatformLabel, renderPlatformIcon } from '../utils/platformMeta';
 import { useAntigravityRuntimeTarget } from '../hooks/useAntigravityRuntimeTarget';
 import { ManualHelpIconButton } from '../components/ManualHelpIconButton';
-import { AnnouncementCenter } from '../components/AnnouncementCenter';
 import { isPrivacyModeEnabledByDefault, maskSensitiveValue } from '../utils/privacy';
 import { DisplayGroup, getDisplayGroups } from '../services/groupService';
 import {
@@ -284,7 +279,6 @@ interface DashboardCardCollapseState {
   minimaxcode: boolean;
 }
 
-type DashboardEntryId = PlatformLayoutEntryId | ApiRelayLayoutEntryId;
 
 export function DashboardPage({
   onNavigate,
@@ -378,13 +372,9 @@ export function DashboardPage({
     orderedEntryIds,
     hiddenEntryIds,
     platformGroups,
-    apiRelayDashboardVisible,
-    apiRelayEntryOrder,
     setHiddenEntry,
   } = usePlatformLayoutStore();
-  const apiRelayEntryEnabled = useSponsorStore((state) => Boolean(state.state.sponsorModule));
   const remoteHiddenPlatformIds = useRemoteConfigStore((state) => state.hiddenPlatformIds);
-  const apiRelayDashboardEnabled = apiRelayEntryEnabled && apiRelayDashboardVisible;
   const hiddenEntrySet = useMemo(() => new Set(hiddenEntryIds), [hiddenEntryIds]);
   const remoteHiddenPlatformSet = useMemo(
     () => new Set(remoteHiddenPlatformIds),
@@ -407,15 +397,6 @@ export function DashboardPage({
       entryId => resolveEntryPlatformIds(entryId, platformGroups).includes('codex'),
     )),
   );
-  const visibleDashboardEntryOrder = useMemo<DashboardEntryId[]>(() => {
-    const result: DashboardEntryId[] = [...visibleEntryOrder];
-    if (!apiRelayDashboardEnabled) {
-      return result;
-    }
-    const insertIndex = Math.max(0, Math.min(apiRelayEntryOrder, result.length));
-    result.splice(insertIndex, 0, API_RELAY_LAYOUT_ENTRY_ID);
-    return result;
-  }, [apiRelayDashboardEnabled, apiRelayEntryOrder, visibleEntryOrder]);
   const [privacyModeEnabled, setPrivacyModeEnabled] = React.useState<boolean>(() =>
     isPrivacyModeEnabledByDefault()
   );
@@ -474,7 +455,6 @@ export function DashboardPage({
   const {
     accounts: claudeAccounts,
     currentAccountId: claudeCurrentId,
-    fetchAccounts: fetchClaudeAccounts,
     switchAccount: switchClaudeAccount,
   } = useClaudeAccountStore();
 
@@ -482,7 +462,6 @@ export function DashboardPage({
   const {
     accounts: githubCopilotAccounts,
     currentAccountId: githubCopilotCurrentId,
-    fetchAccounts: fetchGitHubCopilotAccounts,
     switchAccount: switchGitHubCopilotAccount,
   } = useGitHubCopilotAccountStore();
 
@@ -490,7 +469,6 @@ export function DashboardPage({
   const {
     accounts: windsurfAccounts,
     currentAccountId: windsurfCurrentId,
-    fetchAccounts: fetchWindsurfAccounts,
     switchAccount: switchWindsurfAccount,
   } = useWindsurfAccountStore();
 
@@ -498,7 +476,6 @@ export function DashboardPage({
   const {
     accounts: kiroAccounts,
     currentAccountId: kiroCurrentId,
-    fetchAccounts: fetchKiroAccounts,
     switchAccount: switchKiroAccount,
   } = useKiroAccountStore();
 
@@ -506,7 +483,6 @@ export function DashboardPage({
   const {
     accounts: cursorAccounts,
     currentAccountId: cursorCurrentId,
-    fetchAccounts: fetchCursorAccounts,
     switchAccount: switchCursorAccount,
   } = useCursorAccountStore();
 
@@ -514,42 +490,36 @@ export function DashboardPage({
   const {
     accounts: grokAccounts,
     currentAccountId: grokCurrentId,
-    fetchAccounts: fetchGrokAccounts,
     switchAccount: switchGrokAccount,
   } = useGrokAccountStore();
 
   const {
     accounts: codebuddyAccounts,
     currentAccountId: codebuddyCurrentId,
-    fetchAccounts: fetchCodebuddyAccounts,
     switchAccount: switchCodebuddyAccount,
   } = useCodebuddyAccountStore();
 
   const {
     accounts: codebuddyCnAccounts,
     currentAccountId: codebuddyCnCurrentId,
-    fetchAccounts: fetchCodebuddyCnAccounts,
     switchAccount: switchCodebuddyCnAccount,
   } = useCodebuddyCnAccountStore();
 
   const {
     accounts: qoderAccounts,
     currentAccountId: qoderCurrentId,
-    fetchAccounts: fetchQoderAccounts,
     switchAccount: switchQoderAccount,
   } = useQoderAccountStore();
 
   const {
     accounts: zcodeAccounts,
     currentAccountId: zcodeCurrentId,
-    fetchAccounts: fetchZcodeAccounts,
     switchAccount: switchZcodeAccount,
   } = useZcodeAccountStore();
 
   const {
     accounts: traeAccounts,
     currentAccountId: traeCurrentId,
-    fetchAccounts: fetchTraeAccounts,
   } = useTraeAccountStore();
   const [traeCurrentIdsByPlatform, setTraeCurrentIdsByPlatform] = React.useState<
     Record<TraePlatformId, string | null>
@@ -574,10 +544,6 @@ export function DashboardPage({
   }, []);
 
   React.useEffect(() => {
-    void refreshTraeCurrentIdsByPlatform();
-  }, [refreshTraeCurrentIdsByPlatform, traeAccounts.length]);
-
-  React.useEffect(() => {
     setTraeCurrentIdsByPlatform((prev) => ({
       ...prev,
       trae: traeCurrentId ?? null,
@@ -587,22 +553,19 @@ export function DashboardPage({
   const {
     accounts: workbuddyAccounts,
     currentAccountId: workbuddyCurrentId,
-    fetchAccounts: fetchWorkbuddyAccounts,
     switchAccount: switchWorkbuddyAccount,
   } = useWorkbuddyAccountStore();
-  const { accounts: workbuddyAiAccounts, currentAccountId: workbuddyAiCurrentId, fetchAccounts: fetchWorkbuddyAiAccounts } = useWorkbuddyAiAccountStore();
+  const { accounts: workbuddyAiAccounts, currentAccountId: workbuddyAiCurrentId } = useWorkbuddyAiAccountStore();
 
   const {
     accounts: minimaxCodeAccounts,
     currentAccountId: minimaxCodeCurrentId,
-    fetchAccounts: fetchMinimaxCodeAccounts,
     switchAccount: switchMinimaxCodeAccount,
   } = useMinimaxCodeAccountStore();
 
   const {
     accounts: zedAccounts,
     currentAccountId: zedCurrentId,
-    fetchAccounts: fetchZedAccounts,
     switchAccount: switchZedAccount,
   } = useZedAccountStore();
 
@@ -644,21 +607,6 @@ export function DashboardPage({
     const deferredTasks: Array<() => Promise<unknown>> = [
       fetchCodexAccounts,
       fetchCodexCurrent,
-      fetchClaudeAccounts,
-      fetchZedAccounts,
-      fetchGitHubCopilotAccounts,
-      fetchWindsurfAccounts,
-      fetchKiroAccounts,
-      fetchCursorAccounts,
-      fetchGrokAccounts,
-      fetchCodebuddyAccounts,
-      fetchCodebuddyCnAccounts,
-      fetchQoderAccounts,
-      fetchZcodeAccounts,
-      fetchTraeAccounts,
-      fetchWorkbuddyAccounts,
-      fetchWorkbuddyAiAccounts,
-      fetchMinimaxCodeAccounts,
     ];
 
     void prefetchDashboardAccounts(deferredTasks).then(() => {
@@ -733,20 +681,6 @@ export function DashboardPage({
     const allAccounts = [
       ...agAccounts,
       ...codexAccounts,
-      ...claudeAccounts,
-      ...zedAccounts,
-      ...githubCopilotAccounts,
-      ...windsurfAccounts,
-      ...kiroAccounts,
-      ...cursorAccounts,      ...grokAccounts,
-      ...codebuddyAccounts,
-      ...codebuddyCnAccounts,
-      ...qoderAccounts,
-      ...zcodeAccounts,
-      ...traeAccounts,
-      ...workbuddyAccounts,
-      ...workbuddyAiAccounts,
-      ...minimaxCodeAccounts,
     ];
     for (const acc of allAccounts) {
       if (acc.tags) {
@@ -2834,10 +2768,7 @@ export function DashboardPage({
   const visibleDashboardCardIds = useMemo(() => {
     const seen = new Set<PlatformId>();
     const result: PlatformId[] = [];
-    for (const entryId of visibleDashboardEntryOrder) {
-      if (entryId === API_RELAY_LAYOUT_ENTRY_ID) {
-        continue;
-      }
+    for (const entryId of visibleEntryOrder) {
       const entryPlatformIds = resolveEntryPlatformIds(entryId, platformGroups).filter(
         (candidate) => !remoteHiddenPlatformSet.has(candidate),
       );
@@ -2865,15 +2796,7 @@ export function DashboardPage({
       result.push(normalizedPlatformId);
     }
     return result;
-  }, [platformGroups, remoteHiddenPlatformSet, visibleDashboardEntryOrder]);
-  const isSinglePlatformMode = visibleDashboardCardIds.length === 1;
-  const cardRows = useMemo(() => {
-    const rows: PlatformId[][] = [];
-    for (let i = 0; i < visibleDashboardCardIds.length; i += 2) {
-      rows.push(visibleDashboardCardIds.slice(i, i + 2));
-    }
-    return rows;
-  }, [visibleDashboardCardIds]);
+  }, [platformGroups, remoteHiddenPlatformSet, visibleEntryOrder]);
 
   const handleHidePlatformCard = useCallback((platformId: PlatformId) => {
     const entryId = orderedEntryIds.find(
@@ -2902,95 +2825,41 @@ export function DashboardPage({
     }
     if (platformId === 'antigravity') {
       return (
-        <div className="main-card antigravity-card" key={platformId}>
-          <div className="main-card-header">
-            <div className="header-title">
-              <RobotIcon className="" style={{ width: 18, height: 18 }} />
-              <h3>{getPlatformLabel(platformId, t)}</h3>
-            </div>
-            <div className="header-action-group">
-              <button
-                className="header-action-btn"
-                onClick={handleRefreshAgCard}
-                disabled={cardRefreshing.ag}
-                title={t('common.refresh', '刷新')}
-              >
-                <RotateCw size={14} className={cardRefreshing.ag ? 'loading-spinner' : ''} />
-                <span>{t('common.refresh', '刷新')}</span>
-              </button>
-              {renderHideCardButton(platformId)}
-            </div>
-          </div>
-
-          <div className="split-content">
-            <div className="split-half current-half">
-              <span className="half-label"><CheckCircle2 size={12} /> {t('dashboard.current', '当前账户')}</span>
-              {renderAgAccountContent(agCurrentAccount)}
-            </div>
-
-            <div className="split-divider"></div>
-
-            <div className="split-half recommend-half">
-              <span className="half-label"><Sparkles size={12} /> {t('dashboard.recommended', '推荐账号')}</span>
-              {agRecommended ? (
-                renderAgAccountContent(agRecommended)
-              ) : (
-                <div className="empty-slot-text">{t('dashboard.noRecommendation', '暂无更好推荐')}</div>
-              )}
-            </div>
-          </div>
-
-          <button className="card-footer-action" onClick={() => onNavigate('overview')}>
-            {t('dashboard.viewAllAccounts', '查看所有账号')}
-          </button>
-        </div>
+        <DashboardPlatformPanel
+          key={platformId}
+          platform={platformId}
+          title={getPlatformLabel(platformId, t)}
+          icon={renderPlatformIcon(platformId, 22)}
+          accountCount={stats.antigravity}
+          loading={agAccountsLoading}
+          refreshing={cardRefreshing.ag}
+          canRefresh={stats.antigravity > 0}
+          currentAccount={agCurrentAccount ? renderAgAccountContent(agCurrentAccount) : null}
+          recommendedAccount={agRecommended ? renderAgAccountContent(agRecommended) : null}
+          onRefresh={handleRefreshAgCard}
+          onHide={() => handleHidePlatformCard(platformId)}
+          onManage={() => onNavigate('overview')}
+        />
       );
     }
 
     if (platformId === 'codex') {
       return (
-        <div className="main-card codex-card" key={platformId}>
-          <div className="main-card-header">
-            <div className="header-title">
-              <CodexIcon size={18} />
-              <h3>{getPlatformLabel(platformId, t)}</h3>
-            </div>
-            <div className="header-action-group">
-              <button
-                className="header-action-btn"
-                onClick={handleRefreshCodexCard}
-                disabled={cardRefreshing.codex || !canRefreshCodexCard}
-                title={t('common.refresh', '刷新')}
-              >
-                <RotateCw size={14} className={cardRefreshing.codex ? 'loading-spinner' : ''} />
-                <span>{t('common.refresh', '刷新')}</span>
-              </button>
-              {renderHideCardButton(platformId)}
-            </div>
-          </div>
-
-          <div className="split-content">
-            <div className="split-half current-half">
-              <span className="half-label"><CheckCircle2 size={12} /> {t('dashboard.current', '当前账户')}</span>
-              {renderCodexAccountContent(codexCurrentAccount)}
-            </div>
-
-            <div className="split-divider"></div>
-
-            <div className="split-half recommend-half">
-              <span className="half-label"><Sparkles size={12} /> {t('dashboard.recommended', '推荐账号')}</span>
-              {codexRecommended ? (
-                renderCodexAccountContent(codexRecommended)
-              ) : (
-                <div className="empty-slot-text">{t('dashboard.noRecommendation', '暂无更好推荐')}</div>
-              )}
-            </div>
-          </div>
-
-          <button className="card-footer-action" onClick={() => onNavigate('codex')}>
-            {t('dashboard.viewAllAccounts', '查看所有账号')}
-          </button>
-        </div>
+        <DashboardPlatformPanel
+          key={platformId}
+          platform={platformId}
+          title={getPlatformLabel(platformId, t)}
+          icon={renderPlatformIcon(platformId, 22)}
+          accountCount={stats.codex}
+          loading={prefetchLoading}
+          refreshing={cardRefreshing.codex}
+          canRefresh={canRefreshCodexCard}
+          currentAccount={codexCurrentAccount ? renderCodexAccountContent(codexCurrentAccount) : null}
+          recommendedAccount={codexRecommended ? renderCodexAccountContent(codexRecommended) : null}
+          onRefresh={handleRefreshCodexCard}
+          onHide={() => handleHidePlatformCard(platformId)}
+          onManage={() => onNavigate('codex')}
+        />
       );
     }
 
@@ -3718,41 +3587,40 @@ export function DashboardPage({
   const allAccountCards = showAllAccounts ? [
     ...dashboardAccountCards(antigravityPlatform, agAccounts, renderAgAccountContent),
     ...dashboardAccountCards('codex', codexAccounts, renderCodexAccountContent),
-    ...dashboardAccountCards('claude_manager', claudeAccounts, renderClaudeAccountContent),
-    ...dashboardAccountCards('zed', zedAccounts, renderZedAccountContent),
-    ...dashboardAccountCards('github-copilot', githubCopilotAccounts, renderGitHubCopilotAccountContent),
-    ...dashboardAccountCards('windsurf', windsurfAccounts, renderWindsurfAccountContent),
-    ...dashboardAccountCards('kiro', kiroAccounts, renderKiroAccountContent),
-    ...dashboardAccountCards('cursor', cursorAccounts, renderCursorAccountContent),
-    ...dashboardAccountCards('grok', grokAccounts, renderGrokAccountContent),
-    ...dashboardAccountCards('codebuddy', codebuddyAccounts, renderCodebuddyAccountContent),
-    ...dashboardAccountCards('codebuddy_cn', codebuddyCnAccounts, renderCodebuddyCnAccountContent),
-    ...dashboardAccountCards('qoder', qoderAccounts, renderQoderAccountContent),
-    ...dashboardAccountCards('zcode', zcodeAccounts, renderZcodeAccountContent),
-    ...TRAE_SUITE_DASHBOARD_PLATFORM_IDS.flatMap((platformId) =>
-      dashboardAccountCards(platformId, traeAccountsByPlatform[platformId], (account) => renderTraeAccountContent(account, platformId)),
-    ),
-    ...dashboardAccountCards('workbuddy', workbuddyAccounts, renderWorkbuddyAccountContent),
-    ...dashboardAccountCards('minimaxcode', minimaxCodeAccounts, renderMinimaxCodeAccountContent),
   ].filter((account) => !remoteHiddenPlatformSet.has(account.platformId)) : [];
 
   return (
-    <main className="main-content dashboard-page fade-in">
-      <div className="page-tabs-row" style={{ minHeight: '60px' }}>
-        <div className="page-tabs-label dashboard-title-label">
-          <span>{t('nav.dashboard', '仪表盘')}</span>
-          <ManualHelpIconButton className="header-action-btn dashboard-manual-btn dashboard-title-manual-btn" />
+    <main className="main-content dashboard-page workspace-dashboard fade-in">
+      <header className="workspace-page-header">
+        <div>
+          <p className="workspace-kicker">{t('dashboard.workspace.kicker', 'Workspace')}</p>
+          <div className="workspace-title-row">
+            <h1>
+              {showAllAccounts ? t('dashboard.viewAllAccounts', 'All accounts') : t('nav.dashboard', 'Dashboard')}
+            </h1>
+            <ManualHelpIconButton className="workspace-icon-button workspace-help-button" />
+          </div>
+          <p className="workspace-subtitle">
+            {showAllAccounts
+              ? t('dashboard.workspace.allAccountsSubtitle', 'Browse accounts and quota details across both platforms.')
+              : t('dashboard.workspace.subtitle', 'See your Codex and Antigravity accounts, quotas, and activity at a glance.')}
+          </p>
         </div>
-        <div className="dashboard-top-actions">
-          <button type="button" className="header-action-btn" onClick={() => setShowAllAccounts((current) => !current)}>
+        <div className="workspace-page-actions">
+          <button type="button" className="workspace-button" onClick={onOpenPlatformLayout}>
+            <SlidersHorizontal size={16} aria-hidden="true" />
+            <span>{t('platformLayout.title', 'Platform layout')}</span>
+          </button>
+          <button
+            type="button"
+            className="workspace-button workspace-button-primary"
+            onClick={() => setShowAllAccounts((current) => !current)}
+          >
+            {showAllAccounts ? <ArrowLeft size={16} aria-hidden="true" /> : <List size={16} aria-hidden="true" />}
             <span>{t(showAllAccounts ? 'common.back' : 'dashboard.viewAllAccounts')}</span>
           </button>
-          <button className="header-action-btn" onClick={onOpenPlatformLayout}>
-            <span>{t('platformLayout.title', '平台布局')}</span>
-          </button>
-          <AnnouncementCenter onNavigate={onNavigate} variant="inline" trigger="button" />
         </div>
-      </div>
+      </header>
 
       {grokActionMessage && (
         <div className={`action-message ${grokActionMessage.tone}`} role="alert">
@@ -3768,129 +3636,113 @@ export function DashboardPage({
         </div>
       )}
 
-      {!showAllAccounts && <div className="stats-row">
-        <div className="stat-card">
-          <div className="stat-icon-bg primary"><Users size={24} /></div>
-          <div className="stat-info">
-            <span className="stat-label">{t('dashboard.totalAccounts', '账号总数')}</span>
-            <span className="stat-value">{stats.total}</span>
-          </div>
-        </div>
-
-        {visibleDashboardEntryOrder.map((entryId) => {
-          if (entryId === API_RELAY_LAYOUT_ENTRY_ID) {
-            return (
-              <button
-                className="stat-card stat-card-button"
-                key="api-relay"
-                onClick={() => onNavigate('api-relay')}
-                title={t('dashboard.apiRelay.openLocalConfig', '打开本地配置页')}
-              >
-                <div className="stat-icon-bg info">
-                  <img src={apiKeyFunIcon} alt="" className="dashboard-api-relay-stat-icon" />
-                </div>
-                <div className="stat-info">
-                  <span className="stat-label">{t('nav.apiRelay', '中转站')}</span>
-                  <span className="stat-value">1</span>
-                </div>
-              </button>
-            );
-          }
-
-          const entryPlatformIds = resolveEntryPlatformIds(entryId, platformGroups).filter(
-            (candidate) => !remoteHiddenPlatformSet.has(candidate),
-          );
-          if (entryPlatformIds.length === 0) {
-            return null;
-          }
-          const defaultPlatformId = resolveEntryDefaultPlatformId(entryId, platformGroups);
-          const platformId =
-            defaultPlatformId && entryPlatformIds.includes(defaultPlatformId)
-              ? defaultPlatformId
-              : entryPlatformIds[0];
-          if (!platformId) {
-            return null;
-          }
-          const groupId = parseGroupEntryId(entryId);
-          const group = groupId ? platformGroups.find((item) => item.id === groupId) : null;
-          const groupChildLabels = group
-            ? group.platformIds.filter((childPlatformId) => !remoteHiddenPlatformSet.has(childPlatformId)).map((childPlatformId) =>
-              resolveGroupChildName(group, childPlatformId, getPlatformLabel(childPlatformId, t)),
-            )
-            : [];
-          const groupExtraCount = Math.max(groupChildLabels.length - 1, 0);
-          const groupTooltip = groupChildLabels.join(', ');
-          const label = group
-            ? group.name
-            : getPlatformLabel(platformId, t);
-          const iconClass =
-            platformId === 'antigravity'
-              ? 'success'
-              : platformId === 'codex'
-                ? 'info'
-                : platformId === 'zed'
-                  ? 'info'
-                  : platformId === 'github-copilot'
-                    ? 'github'
-                    : platformId === 'kiro'
-                      ? 'github'
-                      : platformId === 'cursor'
-                        ? 'info'
-                        : 'windsurf';
-          return (
-            <button
-              className="stat-card stat-card-button"
-              key={entryId}
-              onClick={() => navigateToPlatform(platformId)}
-              title={
-                groupExtraCount > 0
-                  ? `${t('dashboard.switchTo', '切换到此账号')} · ${groupTooltip}`
-                  : t('dashboard.switchTo', '切换到此账号')
-              }
-            >
-              {groupExtraCount > 0 && (
-                <span className="stat-group-more-badge stat-group-more-badge-corner" title={groupTooltip} aria-label={groupTooltip}>
-                  +{groupExtraCount}
-                </span>
-              )}
-              <div className={`stat-icon-bg ${iconClass}`}>
-                {group?.iconKind === 'custom' && group.iconCustomDataUrl ? (
-                  <img
-                    src={group.iconCustomDataUrl}
-                    alt={label}
-                    className="dashboard-group-icon"
-                    style={{ width: 24, height: 24 }}
-                  />
-                ) : (
-                  renderPlatformIcon(group?.iconPlatformId ?? platformId, 24)
-                )}
-              </div>
-              <div className="stat-info">
-                <span className="stat-label">{label}</span>
-                <span className="stat-value">{entryCounts.get(entryId) ?? 0}</span>
-              </div>
-            </button>
-          );
-        })}
-
-      </div>}
-
       {showAllAccounts ? (
         <DashboardAllAccounts accounts={allAccountCards} loading={prefetchLoading || agAccountsLoading} />
       ) : (
-        <div className="cards-section">
-          {cardRows.map((row, rowIndex) => (
-            <div
-              className={`cards-split-row${isSinglePlatformMode ? ' single-platform-row' : ''}`}
-              key={`row-${rowIndex}`}
-            >
-              {row.map((cardId) => (
-                renderPlatformCard(cardId)
-              ))}
-              {!isSinglePlatformMode && row.length < 2 && <div className="main-card main-card-placeholder" />}
+        <>
+          <section className="workspace-summary" aria-label={t('dashboard.workspace.summary', 'Account summary')}>
+            <div className="workspace-summary-total">
+              <span className="workspace-summary-mark"><Users size={22} aria-hidden="true" /></span>
+              <dl>
+                <dt>{t('dashboard.totalAccounts', 'Total accounts')}</dt>
+                <dd>{stats.total.toLocaleString()}</dd>
+              </dl>
             </div>
-          ))}
-        </div>
+            <div className="workspace-summary-platforms">
+              {visibleEntryOrder.map((entryId) => {
+                const platformIds = resolveEntryPlatformIds(entryId, platformGroups).filter(
+                  (candidate) => !remoteHiddenPlatformSet.has(candidate),
+                );
+                const defaultPlatform = resolveEntryDefaultPlatformId(entryId, platformGroups);
+                const platformId = defaultPlatform && platformIds.includes(defaultPlatform)
+                  ? defaultPlatform : platformIds[0];
+                if (!platformId) return null;
+                const groupId = parseGroupEntryId(entryId);
+                const group = groupId ? platformGroups.find((item) => item.id === groupId) : null;
+                const label = group?.name ?? getPlatformLabel(platformId, t);
+                const groupTooltip = group && platformIds.map((id) =>
+                  resolveGroupChildName(group, id, getPlatformLabel(id, t)),
+                ).join(' · ');
+                return (
+                  <button
+                    type="button"
+                    className="workspace-summary-item"
+                    data-platform={platformId}
+                    key={entryId}
+                    onClick={() => navigateToPlatform(platformId)}
+                    title={groupTooltip || label}
+                  >
+                    <span className="workspace-summary-item-icon" aria-hidden="true">
+                      {group?.iconKind === 'custom' && group.iconCustomDataUrl ? (
+                        <img src={group.iconCustomDataUrl} alt="" width="18" height="18" />
+                      ) : renderPlatformIcon(group?.iconPlatformId ?? platformId, 18)}
+                    </span>
+                    <span className="workspace-summary-item-name">{label}</span>
+                    <strong>{(entryCounts.get(entryId) ?? 0).toLocaleString()}</strong>
+                    <ArrowUpRight size={14} aria-hidden="true" />
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="workspace-section" aria-labelledby="workspace-platforms-title">
+            <div className="workspace-section-heading">
+              <h2 id="workspace-platforms-title">{t('dashboard.workspace.platforms', 'Platforms')}</h2>
+              <span>{t('dashboard.workspace.platformCount', {
+                count: visibleDashboardCardIds.length,
+                defaultValue: '{{count}} platforms',
+              })}</span>
+            </div>
+            {visibleDashboardCardIds.length ? (
+              <div className="workspace-platform-grid">
+                {visibleDashboardCardIds.map(renderPlatformCard)}
+              </div>
+            ) : (
+              <div className="workspace-collection-state">
+                <span className="workspace-state-mark"><Layers3 size={20} aria-hidden="true" /></span>
+                <div>
+                  <strong>{t('dashboard.workspace.noPlatforms', 'No platforms on this dashboard')}</strong>
+                  <p>{t('dashboard.workspace.noPlatformsHint', 'Choose which platforms to show in Platform layout.')}</p>
+                </div>
+                <button type="button" className="workspace-button" onClick={onOpenPlatformLayout}>
+                  {t('platformLayout.title', 'Platform layout')}
+                </button>
+              </div>
+            )}
+          </section>
+
+          {(visibleDashboardCardIds.includes('antigravity') ||
+            (visibleDashboardCardIds.includes('codex') && !remoteHiddenPlatformSet.has('codex_api_service'))) && (
+            <section className="workspace-section" aria-labelledby="workspace-shortcuts-title">
+              <div className="workspace-section-heading">
+                <h2 id="workspace-shortcuts-title">{t('dashboard.workspace.shortcuts', 'Quick access')}</h2>
+              </div>
+              <div className="workspace-shortcut-grid">
+                {visibleDashboardCardIds.includes('codex') && !remoteHiddenPlatformSet.has('codex_api_service') && (
+                  <button type="button" className="workspace-shortcut" data-platform="codex" onClick={() => onNavigate('codex-api-service')}>
+                    <span className="workspace-shortcut-mark"><Server size={18} aria-hidden="true" /></span>
+                    <span>
+                      <strong>{t('dashboard.workspace.codexApi', 'Codex API service')}</strong>
+                      <small>{t('dashboard.workspace.codexApiHint', 'Local gateway, API keys, and request logs')}</small>
+                    </span>
+                    <ArrowUpRight size={16} aria-hidden="true" />
+                  </button>
+                )}
+                {visibleDashboardCardIds.includes('antigravity') && (
+                  <button type="button" className="workspace-shortcut" data-platform="antigravity" onClick={() => onNavigate('antigravity-usage')}>
+                    <span className="workspace-shortcut-mark"><Activity size={18} aria-hidden="true" /></span>
+                    <span>
+                      <strong>{t('dashboard.workspace.agUsage', 'Antigravity session usage')}</strong>
+                      <small>{t('dashboard.workspace.agUsageHint', 'Token usage and trends across local sessions')}</small>
+                    </span>
+                    <ArrowUpRight size={16} aria-hidden="true" />
+                  </button>
+                )}
+              </div>
+            </section>
+          )}
+        </>
       )}
 
       {tagModalState && (

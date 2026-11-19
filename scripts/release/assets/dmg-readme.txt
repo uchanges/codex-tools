@@ -20,7 +20,7 @@ Cockpit Tools 安装与常见问题
 不要直接把安全警告视为误报。正常安装无需关闭 Gatekeeper 或
 删除 com.apple.quarantine 隔离属性。
 
-官方发布页：https://github.com/jlcodes99/cockpit-tools/releases
+官方发布页：https://github.com/uchanges/codex-tools/releases
 
 
 Cockpit Tools - install and troubleshooting
@@ -46,4 +46,4 @@ If macOS reports damage or an unverified developer:
 Do not assume security warnings are false alarms. Normal installation does
 not require disabling Gatekeeper or removing com.apple.quarantine.
 
-Official releases: https://github.com/jlcodes99/cockpit-tools/releases
+Official releases: https://github.com/uchanges/codex-tools/releases

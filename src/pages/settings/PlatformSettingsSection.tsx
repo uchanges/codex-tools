@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { usePlatformLayoutStore } from '../../stores/usePlatformLayoutStore';
-import type { PlatformId } from '../../types/platform';
+import { isSupportedPlatform, type PlatformId } from '../../types/platform';
 
 /**
  * 平台设置分区容器。
@@ -23,7 +23,7 @@ export function PlatformSettingsSection({
     state.disabledPlatformIds.includes(platformId),
   );
 
-  if (disabled) {
+  if (!isSupportedPlatform(platformId) || disabled) {
     return null;
   }
 
