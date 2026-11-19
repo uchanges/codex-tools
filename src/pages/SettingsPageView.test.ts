@@ -11,6 +11,7 @@ import { loadHookModule } from '../../tests/helpers/reactHookHarness.ts';
 test('the network page opens report links only when a listener address is available', () => {
   const Section = () => null;
   const h = loadHookModule(new URL('./SettingsPageView.tsx', import.meta.url), {
+    '../assets/brand/codex-tools.svg': { default: '/codex-tools.svg' },
     '../components/UnlockFireworksOverlay': { UnlockFireworksOverlay: Section },
     '../components/SettingsAccountTransferSection': { SettingsAccountTransferSection: Section },
     '../components/SettingsWebdavSyncSection': { SettingsWebdavSyncSection: Section },
@@ -76,6 +77,7 @@ test('menu bar left-click setting exposes the same choices and disabled state in
 test('data settings mount only on first visit and retain their component tree across tabs', () => {
   const Section = () => null;
   const h = loadHookModule(new URL('./SettingsPageView.tsx', import.meta.url), {
+    '../assets/brand/codex-tools.svg': { default: '/codex-tools.svg' },
     '../components/UnlockFireworksOverlay': { UnlockFireworksOverlay: Section },
     '../components/SettingsAccountTransferSection': { SettingsAccountTransferSection: Section },
     '../components/SettingsWebdavSyncSection': { SettingsWebdavSyncSection: Section },

@@ -36,6 +36,7 @@ test("release remains draft until all assets, manifests, and checksums are ready
   assert.doesNotMatch(prepare, /--draft=false/);
   assert.doesNotMatch(finalize, /--draft=false/);
   assert.match(publish, /needs:[\s\S]*finalize-legacy-latest/);
+  assert.match(publish, /!cancelled\(\)[\s\S]*needs\.finalize-legacy-latest\.result == 'success'/);
   assert.match(publish, /gh release edit "\$\{TAG\}" --draft=false --prerelease=false --latest/);
 });
 

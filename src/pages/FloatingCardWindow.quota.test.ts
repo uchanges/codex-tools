@@ -84,7 +84,7 @@ for (const platform of ['antigravity', 'antigravity_ide']) {
   });
 }
 
-test('Cursor shows its three included quotas and the separate On-Demand quota', async () => {
+test('legacy Cursor preferences do not expose retired quota widgets', async () => {
   const store = (await server.ssrLoadModule('/src/stores/useCursorAccountStore.ts')).useCursorAccountStore;
   const account = { id: 'cursor-test', email: 'cursor@example.com', access_token: '', created_at: 0, last_used: 0,
     cursor_usage_raw: { individualUsage: { plan: { totalPercentUsed: 20, autoPercentUsed: 30, apiPercentUsed: 40 }, onDemand: { used: 100, limit: 1000, enabled: true } } } };
@@ -94,11 +94,7 @@ test('Cursor shows its three included quotas and the separate On-Demand quota', 
   const i18n = createInstance();
   await i18n.init({ lng: 'en', resources: { en: { translation: enResources } } });
   const html = renderToStaticMarkup(createElement(I18nextProvider, { i18n }, createElement(FloatingCardWindow)));
-  assert.equal((html.match(/class="floating-card-quota-row"/g) ?? []).length, 4);
-  assert.match(html, /Usage[^]*?20%/);
-  assert.match(html, /Cursor Models[^]*?30%/);
-  assert.match(html, /Other Models[^]*?40%/);
-  assert.match(html, /On-Demand[^]*?10%/);
+  assert.doesNotMatch(html, /class="floating-card-quota-row"|Cursor Models|Other Models|On-Demand/);
 });
 
 test('Codex retains its existing two-window cap', async () => {
@@ -120,7 +116,7 @@ for (const [platform, storeName] of [
   ['workbuddy', 'useWorkbuddyAccountStore'],
   ['codebuddy_cn', 'useCodebuddyCnAccountStore'],
 ]) {
-  test(`${platform} shows the total of active grants rather than the first package`, async () => {
+  test(`legacy ${platform} preferences do not expose retired quota widgets`, async () => {
     const store = (await server.ssrLoadModule(`/src/stores/${storeName}.ts`))[storeName];
     const pack = (PackageCode: string, total: number, remaining: number, status: number = RESOURCE_STATUS.valid) => ({
       PackageCode, Status: status,
@@ -143,10 +139,7 @@ for (const [platform, storeName] of [
     const i18n = createInstance();
     await i18n.init({ lng: 'en', resources: { en: { translation: enResources } } });
     const html = renderToStaticMarkup(createElement(I18nextProvider, { i18n, children: createElement(FloatingCardWindow) }));
-    assert.equal((html.match(/class="floating-card-quota-row"/g) ?? []).length, 3);
-    assert.match(html, /1,560\.09 \/ 8,505/);
-    assert.match(html, /100 \/ 200/);
-    assert.doesNotMatch(html, /145\.74 \/ 5,000/);
+    assert.doesNotMatch(html, /class="floating-card-quota-row"|1,560\.09 \/ 8,505|100 \/ 200/);
   });
 }
 

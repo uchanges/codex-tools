@@ -13,22 +13,6 @@ import {
 // 应用设置中拥有独立配置分区的平台（与 PlatformSettingsSection 的调用点一致）
 const SETTINGS_PLATFORM_IDS: PlatformId[] = [
   "antigravity",
-  "claude_manager",
-  "github-copilot",
-  "windsurf",
-  "kiro",
-  "codebuddy",
-  "codebuddy_cn",
-  "qoder",
-  "zcode",
-  "trae",
-  "trae_solo",
-  "trae_cn",
-  "trae_solo_cn",
-  "workbuddy",
-  "zed",
-  "cursor",
-  "grok",
   "codex",
 ];
 
@@ -54,12 +38,12 @@ test("hidden and disabled are independent", () => {
 test("disabling does not hide the platform entry", () => {
   resetState();
 
-  usePlatformLayoutStore.getState().setDisabledPlatform("cursor", true);
+  usePlatformLayoutStore.getState().setDisabledPlatform("antigravity", true);
 
   const state = usePlatformLayoutStore.getState();
-  assert.equal(isPlatformDisabled("cursor"), true);
+  assert.equal(isPlatformDisabled("antigravity"), true);
   assert.equal(
-    state.hiddenPlatformIds.includes("cursor"),
+    state.hiddenPlatformIds.includes("antigravity"),
     false,
     "禁用不应把平台从布局中隐藏",
   );
@@ -69,11 +53,11 @@ test("toggling disabled twice restores the enabled state", () => {
   resetState();
 
   const store = usePlatformLayoutStore.getState();
-  store.toggleDisabledPlatform("grok");
-  assert.equal(isPlatformDisabled("grok"), true);
+  store.toggleDisabledPlatform("antigravity");
+  assert.equal(isPlatformDisabled("antigravity"), true);
 
-  usePlatformLayoutStore.getState().toggleDisabledPlatform("grok");
-  assert.equal(isPlatformDisabled("grok"), false);
+  usePlatformLayoutStore.getState().toggleDisabledPlatform("antigravity");
+  assert.equal(isPlatformDisabled("antigravity"), false);
 });
 
 test("re-enabling a disabled platform only clears that platform", () => {
@@ -81,11 +65,11 @@ test("re-enabling a disabled platform only clears that platform", () => {
 
   const store = usePlatformLayoutStore.getState();
   store.setDisabledPlatform("codex", true);
-  usePlatformLayoutStore.getState().setDisabledPlatform("cursor", true);
+  usePlatformLayoutStore.getState().setDisabledPlatform("antigravity", true);
   usePlatformLayoutStore.getState().setDisabledPlatform("codex", false);
 
   assert.equal(isPlatformDisabled("codex"), false);
-  assert.equal(isPlatformDisabled("cursor"), true);
+  assert.equal(isPlatformDisabled("antigravity"), true);
 });
 
 // 应用设置中的平台分区需在禁用时隐藏：这里验证驱动该行为的订阅谓词，
@@ -102,7 +86,16 @@ test("disabled set reflects every platform having an App Settings section", () =
   for (const id of SETTINGS_PLATFORM_IDS) {
     assert.equal(disabled.has(id), true, `${id} 应被标记为禁用`);
   }
-  assert.equal(isPlatformDisabled("grok"), true);
+});
+
+test("legacy platform preferences cannot re-enable retired providers", () => {
+  resetState();
+
+  for (const id of ["grok", "cursor", "claude_manager"] as const) {
+    usePlatformLayoutStore.getState().setDisabledPlatform(id, false);
+    assert.equal(isPlatformDisabled(id), true);
+    assert.equal(parsePlatformEntryId(makePlatformEntryId(id)), null);
+  }
 });
 
 // 回归：平台可能以「独立条目」或「分组子级」两种形态出现。
@@ -126,15 +119,15 @@ test("every platform resolves to a reachable layout entry", () => {
 test("disabling via a prefixed entry id takes effect", () => {
   resetState();
 
-  const entryId = makePlatformEntryId("cursor");
-  assert.equal(entryId, "platform:cursor");
+  const entryId = makePlatformEntryId("antigravity");
+  assert.equal(entryId, "platform:antigravity");
 
   const platformId = parsePlatformEntryId(entryId);
-  assert.equal(platformId, "cursor");
+  assert.equal(platformId, "antigravity");
   usePlatformLayoutStore.getState().setDisabledPlatform(platformId!, true);
 
-  assert.deepEqual(usePlatformLayoutStore.getState().disabledPlatformIds, ["cursor"]);
-  assert.equal(isPlatformDisabled("cursor"), true);
+  assert.deepEqual(usePlatformLayoutStore.getState().disabledPlatformIds, ["antigravity"]);
+  assert.equal(isPlatformDisabled("antigravity"), true);
 
   // UI 用 entry id 形态回显勾选状态，必须能对上
   const rendered = new Set(
@@ -147,7 +140,7 @@ test("a raw entry id is rejected instead of silently dropped", () => {
   resetState();
 
   const before = [...usePlatformLayoutStore.getState().disabledPlatformIds];
-  usePlatformLayoutStore.getState().setDisabledPlatform("platform:cursor" as PlatformId, true);
+  usePlatformLayoutStore.getState().setDisabledPlatform("platform:antigravity" as PlatformId, true);
 
   // 这是曾经导致开关失效的写法：断言它确实无效，提醒调用方必须先 parse
   const after = usePlatformLayoutStore.getState().disabledPlatformIds;
@@ -160,20 +153,19 @@ test("a raw entry id is rejected instead of silently dropped", () => {
 test("group-level enable reflects every member platform", () => {
   resetState();
 
-  const codebuddyGroup = { id: "custom-codebuddy", name: "CodeBuddy", platformIds: ["codebuddy", "codebuddy_cn"] as PlatformId[] };
-  usePlatformLayoutStore.setState({ platformGroups: [codebuddyGroup] });
-  assert.ok(codebuddyGroup, "应存在 codebuddy-suite 分组");
+  const codexGroup = usePlatformLayoutStore.getState().platformGroups.find(({ id }) => id === "codex-suite");
+  assert.ok(codexGroup, "应存在 codex-suite 分组");
 
   // 全部启用 → 分组勾选
   assert.equal(
-    codebuddyGroup!.platformIds.every((id) => !isPlatformDisabled(id)),
+    codexGroup.platformIds.every((id) => !isPlatformDisabled(id)),
     true,
   );
 
   // 禁用其中一个成员 → 分组取消勾选
-  usePlatformLayoutStore.getState().setDisabledPlatform(codebuddyGroup!.platformIds[0], true);
+  usePlatformLayoutStore.getState().setDisabledPlatform(codexGroup.platformIds[0], true);
   assert.equal(
-    codebuddyGroup!.platformIds.every((id) => !isPlatformDisabled(id)),
+    codexGroup.platformIds.every((id) => !isPlatformDisabled(id)),
     false,
   );
 });
