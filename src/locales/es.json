@@ -6713,6 +6713,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "Espacio de trabajo",
+      "subtitle": "Consulta de un vistazo las cuentas, cuotas y actividad de Codex y Antigravity.",
+      "allAccountsSubtitle": "Explora las cuentas y los detalles de las cuotas de ambas plataformas.",
+      "summary": "Resumen de cuentas",
+      "platforms": "Plataformas",
+      "platformCount": "Plataformas: {{count}}",
+      "accountCount": "Cuentas: {{count}}",
+      "loadingAccounts": "Cargando cuentas",
+      "noAccounts": "Aún no hay cuentas",
+      "noAccountsHint": "Añade o importa una cuenta para ver su cuota aquí.",
+      "noCurrentAccount": "No hay cuenta activa. Selecciona una en la página de cuentas.",
+      "manageAccounts": "Gestionar cuentas",
+      "noPlatforms": "No hay plataformas en este panel",
+      "noPlatformsHint": "Elige las plataformas que se mostrarán en la configuración del diseño.",
+      "shortcuts": "Acceso rápido",
+      "codexApi": "Servicio de API de Codex",
+      "codexApiHint": "Pasarela local, claves de API y registros de solicitudes",
+      "agUsage": "Uso de las sesiones de Antigravity",
+      "agUsageHint": "Consumo de tokens y tendencias en las sesiones locales"
+    },
     "title": "Panel de cuentas",
     "apiRelay": {
       "localConfig": "Configuración local",

@@ -6713,6 +6713,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "Không gian làm việc",
+      "subtitle": "Xem nhanh tài khoản, hạn mức và hoạt động của Codex và Antigravity.",
+      "allAccountsSubtitle": "Xem tài khoản và chi tiết hạn mức trên cả hai nền tảng.",
+      "summary": "Tổng quan tài khoản",
+      "platforms": "Nền tảng",
+      "platformCount": "Nền tảng: {{count}}",
+      "accountCount": "Tài khoản: {{count}}",
+      "loadingAccounts": "Đang tải tài khoản",
+      "noAccounts": "Chưa có tài khoản",
+      "noAccountsHint": "Thêm hoặc nhập tài khoản để xem hạn mức tại đây.",
+      "noCurrentAccount": "Chưa có tài khoản đang dùng. Hãy chọn một tài khoản trong trang tài khoản.",
+      "manageAccounts": "Quản lý tài khoản",
+      "noPlatforms": "Không có nền tảng nào trên bảng điều khiển này",
+      "noPlatformsHint": "Chọn nền tảng muốn hiển thị trong cài đặt bố cục.",
+      "shortcuts": "Truy cập nhanh",
+      "codexApi": "Dịch vụ API Codex",
+      "codexApiHint": "Cổng cục bộ, khóa API và nhật ký yêu cầu",
+      "agUsage": "Mức sử dụng phiên Antigravity",
+      "agUsageHint": "Mức dùng token và xu hướng trong các phiên cục bộ"
+    },
     "title": "Bảng điều khiển tài khoản",
     "apiRelay": {
       "localConfig": "Cấu hình cục bộ",

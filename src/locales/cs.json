@@ -6713,6 +6713,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "Pracovní plocha",
+      "subtitle": "Získejte přehled o účtech, kvótách a aktivitě v Codexu a Antigravity.",
+      "allAccountsSubtitle": "Prohlédněte si účty a podrobnosti o kvótách na obou platformách.",
+      "summary": "Souhrn účtů",
+      "platforms": "Platformy",
+      "platformCount": "Platformy: {{count}}",
+      "accountCount": "Účty: {{count}}",
+      "loadingAccounts": "Načítání účtů",
+      "noAccounts": "Zatím žádné účty",
+      "noAccountsHint": "Přidejte nebo importujte účet a jeho kvóta se zobrazí zde.",
+      "noCurrentAccount": "Žádný aktivní účet. Vyberte ho na stránce účtů.",
+      "manageAccounts": "Spravovat účty",
+      "noPlatforms": "Na tomto panelu nejsou žádné platformy",
+      "noPlatformsHint": "V nastavení rozložení vyberte platformy k zobrazení.",
+      "shortcuts": "Rychlý přístup",
+      "codexApi": "Služba Codex API",
+      "codexApiHint": "Místní brána, klíče API a protokoly požadavků",
+      "agUsage": "Využití relací Antigravity",
+      "agUsageHint": "Využití tokenů a trendy v místních relacích"
+    },
     "title": "Přehled účtů",
     "apiRelay": {
       "localConfig": "Místní konfigurace",

@@ -6760,6 +6760,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "مساحة العمل",
+      "subtitle": "اطّلع سريعًا على الحسابات والحصص والنشاط في Codex وAntigravity.",
+      "allAccountsSubtitle": "تصفّح الحسابات وتفاصيل الحصص في المنصتين.",
+      "summary": "ملخص الحسابات",
+      "platforms": "المنصات",
+      "platformCount": "المنصات: {{count}}",
+      "accountCount": "الحسابات: {{count}}",
+      "loadingAccounts": "جارٍ تحميل الحسابات",
+      "noAccounts": "لا توجد حسابات بعد",
+      "noAccountsHint": "أضف حسابًا أو استورده للاطّلاع على حصته هنا.",
+      "noCurrentAccount": "لا يوجد حساب حالي. اختر حسابًا من صفحة الحسابات.",
+      "manageAccounts": "إدارة الحسابات",
+      "noPlatforms": "لا توجد منصات في لوحة المعلومات",
+      "noPlatformsHint": "حدّد المنصات التي تريد عرضها في إعدادات تخطيط المنصات.",
+      "shortcuts": "وصول سريع",
+      "codexApi": "خدمة Codex API",
+      "codexApiHint": "البوابة المحلية ومفاتيح API وسجلات الطلبات",
+      "agUsage": "استخدام جلسات Antigravity",
+      "agUsageHint": "استهلاك الرموز واتجاهاته عبر الجلسات المحلية"
+    },
     "title": "لوحة حسابات",
     "apiRelay": {
       "localConfig": "إعداد محلي",

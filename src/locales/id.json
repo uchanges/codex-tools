@@ -6885,6 +6885,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "Ruang kerja",
+      "subtitle": "Lihat akun, kuota, dan aktivitas Codex serta Antigravity secara ringkas.",
+      "allAccountsSubtitle": "Jelajahi akun dan rincian kuota di kedua platform.",
+      "summary": "Ringkasan akun",
+      "platforms": "Kelola platform",
+      "platformCount": "Platform tersedia: {{count}}",
+      "accountCount": "Akun: {{count}}",
+      "loadingAccounts": "Memuat akun",
+      "noAccounts": "Belum ada akun",
+      "noAccountsHint": "Tambah atau impor akun untuk melihat kuotanya di sini.",
+      "noCurrentAccount": "Tidak ada akun aktif. Pilih akun di halaman akun.",
+      "manageAccounts": "Kelola akun",
+      "noPlatforms": "Tidak ada platform di dasbor ini",
+      "noPlatformsHint": "Pilih platform yang ingin ditampilkan di pengaturan tata letak.",
+      "shortcuts": "Akses cepat",
+      "codexApi": "Layanan API Codex",
+      "codexApiHint": "Gateway lokal, kunci API, dan log permintaan",
+      "agUsage": "Penggunaan sesi Antigravity",
+      "agUsageHint": "Penggunaan token dan tren dalam sesi lokal"
+    },
     "title": "Dasbor Akun",
     "apiRelay": {
       "localConfig": "Konfigurasi lokal",

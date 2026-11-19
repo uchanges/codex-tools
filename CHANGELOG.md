@@ -2,7 +2,7 @@
 
 English · [简体中文](CHANGELOG.zh-CN.md)
 
-All notable changes to Cockpit Tools will be documented in this file.
+This file records notable changes to codex tools and its upstream history.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
@@ -10,8 +10,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [1.4.3] - 2026-11-19
+
 - **codex tools**: Keep the Codex and Antigravity workspaces, remove promotions, and refresh the dashboard and account screens.
 - **Distribution**: Build preview installers on pushes to `main`; the in-app updater now trusts signed releases from `uchanges/codex-tools` only.
+- **First install**: Install this version manually when moving from the upstream app. Formal installers are available for Windows and Linux; macOS preview builds are available separately in Actions.
 
 ## [1.4.2] - 2026-11-18
 

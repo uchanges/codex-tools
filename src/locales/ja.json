@@ -6713,6 +6713,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "ワークスペース",
+      "subtitle": "Codex と Antigravity のアカウント、クォータ、利用状況をひと目で確認できます。",
+      "allAccountsSubtitle": "両プラットフォームのアカウントとクォータの詳細を確認できます。",
+      "summary": "アカウントの概要",
+      "platforms": "プラットフォーム",
+      "platformCount": "プラットフォーム：{{count}} 件",
+      "accountCount": "アカウント：{{count}} 件",
+      "loadingAccounts": "アカウントを読み込み中",
+      "noAccounts": "アカウントがまだありません",
+      "noAccountsHint": "アカウントを追加またはインポートすると、クォータがここに表示されます。",
+      "noCurrentAccount": "使用中のアカウントがありません。アカウント画面から選択してください。",
+      "manageAccounts": "アカウントを管理",
+      "noPlatforms": "このダッシュボードにプラットフォームが表示されていません",
+      "noPlatformsHint": "プラットフォームのレイアウト設定で表示項目を選択してください。",
+      "shortcuts": "クイックアクセス",
+      "codexApi": "Codex API サービス",
+      "codexApiHint": "ローカルゲートウェイ、API キー、リクエストログ",
+      "agUsage": "Antigravity セッションの使用状況",
+      "agUsageHint": "ローカルセッションのトークン使用量と推移"
+    },
     "title": "アカウントダッシュボード",
     "apiRelay": {
       "localConfig": "ローカル設定",

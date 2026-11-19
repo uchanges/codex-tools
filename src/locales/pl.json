@@ -6713,6 +6713,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "Obszar roboczy",
+      "subtitle": "Zobacz zestawienie kont, limitów i aktywności w Codex i Antigravity.",
+      "allAccountsSubtitle": "Przeglądaj konta i szczegóły limitów na obu platformach.",
+      "summary": "Podsumowanie kont",
+      "platforms": "Platformy",
+      "platformCount": "Platformy: {{count}}",
+      "accountCount": "Konta: {{count}}",
+      "loadingAccounts": "Wczytywanie kont",
+      "noAccounts": "Nie ma jeszcze kont",
+      "noAccountsHint": "Dodaj lub zaimportuj konto, aby zobaczyć tutaj jego limit.",
+      "noCurrentAccount": "Brak aktywnego konta. Wybierz je na stronie kont.",
+      "manageAccounts": "Zarządzaj kontami",
+      "noPlatforms": "W tym panelu nie ma platform",
+      "noPlatformsHint": "Wybierz platformy do wyświetlenia w ustawieniach układu.",
+      "shortcuts": "Szybki dostęp",
+      "codexApi": "Usługa API Codex",
+      "codexApiHint": "Lokalna brama, klucze API i dzienniki żądań",
+      "agUsage": "Użycie sesji Antigravity",
+      "agUsageHint": "Zużycie tokenów i trendy w sesjach lokalnych"
+    },
     "title": "Panel kont",
     "apiRelay": {
       "localConfig": "Konfiguracja lokalna",

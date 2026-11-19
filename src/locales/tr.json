@@ -6713,6 +6713,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "Çalışma alanı",
+      "subtitle": "Codex ve Antigravity hesaplarını, kotalarını ve etkinliklerini bir bakışta görün.",
+      "allAccountsSubtitle": "Her iki platformdaki hesaplara ve kota ayrıntılarına göz atın.",
+      "summary": "Hesap özeti",
+      "platforms": "Platformlar",
+      "platformCount": "Platformlar: {{count}}",
+      "accountCount": "Hesaplar: {{count}}",
+      "loadingAccounts": "Hesaplar yükleniyor",
+      "noAccounts": "Henüz hesap yok",
+      "noAccountsHint": "Kotasını burada görmek için bir hesap ekleyin veya içe aktarın.",
+      "noCurrentAccount": "Etkin hesap yok. Hesaplar sayfasından bir hesap seçin.",
+      "manageAccounts": "Hesapları yönet",
+      "noPlatforms": "Bu panoda platform yok",
+      "noPlatformsHint": "Düzen ayarlarından gösterilecek platformları seçin.",
+      "shortcuts": "Hızlı erişim",
+      "codexApi": "Codex API hizmeti",
+      "codexApiHint": "Yerel ağ geçidi, API anahtarları ve istek günlükleri",
+      "agUsage": "Antigravity oturum kullanımı",
+      "agUsageHint": "Yerel oturumlarda belirteç kullanımı ve eğilimler"
+    },
     "title": "Hesap Gösterge Paneli",
     "apiRelay": {
       "localConfig": "Yerel yapılandırma",

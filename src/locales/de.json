@@ -6713,6 +6713,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "Arbeitsbereich",
+      "subtitle": "Konten, Kontingente und Aktivitäten in Codex und Antigravity auf einen Blick.",
+      "allAccountsSubtitle": "Konten und Kontingentdetails auf beiden Plattformen ansehen.",
+      "summary": "Kontenübersicht",
+      "platforms": "Plattformen",
+      "platformCount": "Plattformen: {{count}}",
+      "accountCount": "Konten: {{count}}",
+      "loadingAccounts": "Konten werden geladen",
+      "noAccounts": "Noch keine Konten",
+      "noAccountsHint": "Fügen Sie ein Konto hinzu oder importieren Sie es, um das Kontingent hier zu sehen.",
+      "noCurrentAccount": "Kein aktives Konto. Wählen Sie eines auf der Kontoseite aus.",
+      "manageAccounts": "Konten verwalten",
+      "noPlatforms": "Keine Plattformen in dieser Übersicht",
+      "noPlatformsHint": "Wählen Sie im Plattformlayout aus, welche Plattformen angezeigt werden sollen.",
+      "shortcuts": "Schnellzugriff",
+      "codexApi": "Codex-API-Dienst",
+      "codexApiHint": "Lokales Gateway, API-Schlüssel und Anfrageprotokolle",
+      "agUsage": "Nutzung der Antigravity-Sitzungen",
+      "agUsageHint": "Tokenverbrauch und Trends in lokalen Sitzungen"
+    },
     "title": "Account-Dashboard",
     "apiRelay": {
       "localConfig": "Lokale Konfiguration",

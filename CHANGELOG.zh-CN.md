@@ -2,7 +2,7 @@
 
 简体中文 · [English](CHANGELOG.md)
 
-本文件记录 Cockpit Tools 的所有重要变更。
+本文件记录 codex tools 的重要变更及上游历史。
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.0.0/)。
 
@@ -10,8 +10,11 @@
 
 ## [Unreleased]
 
+## [1.4.3] - 2026-11-19
+
 - **codex tools**：仅保留 Codex 和 Antigravity 工作区，移除推广，重新设计仪表盘和账号界面。
 - **分发**：推送到 `main` 自动生成预览安装包；内置更新只接受 `uchanges/codex-tools` 发布的签名版本。
+- **首次安装**：从源版迁移时需手动安装一次。正式版提供 Windows 和 Linux 安装包，macOS 预览包通过 Actions 单独提供。
 
 ## [1.4.2] - 2026-11-18
 

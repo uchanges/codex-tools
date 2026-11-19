@@ -6713,6 +6713,27 @@
     }
   },
   "dashboard": {
+    "workspace": {
+      "kicker": "Espace de travail",
+      "subtitle": "Consultez en un coup d’œil les comptes, les quotas et l’activité de Codex et Antigravity.",
+      "allAccountsSubtitle": "Parcourez les comptes et le détail des quotas sur les deux plateformes.",
+      "summary": "Récapitulatif des comptes",
+      "platforms": "Plateformes",
+      "platformCount": "Plateformes : {{count}}",
+      "accountCount": "Comptes : {{count}}",
+      "loadingAccounts": "Chargement des comptes",
+      "noAccounts": "Aucun compte pour le moment",
+      "noAccountsHint": "Ajoutez ou importez un compte pour afficher son quota ici.",
+      "noCurrentAccount": "Aucun compte actif. Sélectionnez-en un sur la page des comptes.",
+      "manageAccounts": "Gérer les comptes",
+      "noPlatforms": "Aucune plateforme dans ce tableau de bord",
+      "noPlatformsHint": "Choisissez les plateformes à afficher dans les paramètres de disposition.",
+      "shortcuts": "Accès rapide",
+      "codexApi": "Service API Codex",
+      "codexApiHint": "Passerelle locale, clés API et journaux de requêtes",
+      "agUsage": "Utilisation des sessions Antigravity",
+      "agUsageHint": "Consommation de jetons et tendances des sessions locales"
+    },
     "title": "Tableau de bord des comptes",
     "apiRelay": {
       "localConfig": "Configuration locale",
